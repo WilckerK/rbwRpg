@@ -4,6 +4,7 @@ class Comando {
         this.name = options.nome
         this.description = options.desc
         this.options = options.options
+        this.requireDatabase = options.requireDatabase
     }
 }
 

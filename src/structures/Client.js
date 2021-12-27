@@ -1,9 +1,10 @@
-const { Client } = require('discord.js')
+const { Client } = require('discord.js');
 
-const { readdirSync } = require('fs')
-const { join } = require('path')
+const { readdirSync } = require('fs');
+const { join } = require('path');
 
-const { connect } = require('mongoose')
+const { connect } = require('mongoose');
+const Models = require('../database/models/Models')
 
 module.exports = class extends Client {
     constructor (options) {
@@ -55,6 +56,6 @@ module.exports = class extends Client {
 
         console.log('Database conectada. (⌐■_■) ')
 
-        this.db = { connection }
+        this.db = { connection, ...Models }
     }
 }
