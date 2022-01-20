@@ -1,4 +1,4 @@
-const Evento = require('../../structures/Evento')
+const Evento = require('../../structures/Evento');
 
 module.exports = class extends Evento {
     constructor(client) {

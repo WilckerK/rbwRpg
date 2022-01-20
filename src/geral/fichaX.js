@@ -18,7 +18,7 @@ module.exports = [
                 description: 'Violência',
                 emoji: '⚔️'
             },{
-                label: 'Musica',
+                label: 'Música',
                 value: 'Musica',
                 description: 'Harmonia',
                 emoji: '🎵'
@@ -58,6 +58,39 @@ module.exports = [
                 value: 'MF',
                 description: 'Você prefere não ter um gênero declarado.',
                 emoji: '🚻'
+            }
+        ]
+    },
+    {   customId: 'Cor',
+        pergunta: 'Qual cor dessas você prefere?',
+        placeholder: 'Escolha uma cor.',
+        
+        options: [
+            {
+                label: 'Vermelho',
+                value: '#FF0000',
+                description: '',
+                emoji: '🟥'
+            },{
+                label: 'Amarelo',
+                value: '#FFFF00',
+                description: '',
+                emoji: '🟨'
+            },{
+                label: 'Verde',
+                value: '#00FF00',
+                description: '',
+                emoji: '🟩'
+            },{
+                label: 'Azul',
+                value: '#0000FF',
+                description: '',
+                emoji: '🟦'
+            },{
+                label: 'Preto',
+                value: '#010101',
+                description: '',
+                emoji: '⬛'
             }
         ]
     }

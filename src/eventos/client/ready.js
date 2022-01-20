@@ -8,7 +8,7 @@ module.exports = class extends Evento {
     }
 
     run = async () => {
-        console.log(`O bot ${this.client.user.username} foi logado.`)
+        console.log(`O bot ${this.client.user.username} foi logado. \\(0-0)/`)
         this.client.registroComandos()
         this.client.connectToDatabase()
     }

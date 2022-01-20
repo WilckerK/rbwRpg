@@ -20,7 +20,7 @@ module.exports = class extends Client {
     
     loadComands(path = 'src/comandos'){
         const categorias = readdirSync(path)
-
+        let cmds = '';
         for (const category of categorias){
             const comandos = readdirSync(`${path}/${category}`)
 
@@ -30,14 +30,15 @@ module.exports = class extends Client {
 
                 this.comandos.push(cmd)
 
-                console.log(`Comando ${cmd.name} carregado. :)`)
+                cmds = `${cmds}${cmd.name}, ` 
             }
         }
+        console.log(`Comandos ${cmds} carregados. (+_+)`)
     }
     
     loadEvents(path = 'src/eventos'){
         const categorias = readdirSync(path)
-
+        let evts = '';
         for (const category of categorias){
             const eventos = readdirSync(`${path}/${category}`)
 
@@ -46,9 +47,11 @@ module.exports = class extends Client {
                 const evt = new (eventoClass)(this)
 
                 this.on(evt.name, evt.run)
-                console.log(`Evento ${evt.name} carregado. :)`)
+
+                evts = `${evts}${evt.name}, `
             }
         }
+        console.log(`Eventos ${evts} carregados. (+_+)`)
     }
 
     async connectToDatabase(){
