@@ -94,19 +94,19 @@ module.exports = class extends comando{
                 //definir valores e itens pelo emblema
 
                 switch(resps[pos.indexOf('Emblema')].value){
-                    case 'Rei': ATKF = 20; HPF = 40; SPEF = 20; ACF = 1.01;
+                    case 'Rei': ATKF = 20; HPF = 40; SPEF = 20; ACF = 1;
                         Itemf1 = 'Cálice'; Itemf2 = 'Capa';
                         break;
-                    case 'Espada': ATKF = 30; HPF = 30; SPEF = 30; ACF = 0.01;
+                    case 'Espada': ATKF = 30; HPF = 30; SPEF = 30; ACF = 0;
                         Itemf1 = 'Faca'; Itemf2 = 'Escudo';
                         break;
-                    case 'Musica': ATKF = 10; HPF = 50; SPEF = 10; ACF = 2.01;
+                    case 'Musica': ATKF = 10; HPF = 50; SPEF = 10; ACF = 2;
                         Itemf1 = 'Flauta'; Itemf2 = 'Sino';
                         break;
-                    case 'Engrenagem':  ATKF = 30; HPF = 30; SPEF = 10; ACF = 2.01;
+                    case 'Engrenagem':  ATKF = 30; HPF = 30; SPEF = 10; ACF = 2;
                         Itemf1 = 'Estilingue'; Itemf2 = 'Flash Bang';
                         break;
-                    case 'Sorriso':  ATKF = 10; HPF = 50; SPEF = 30; ACF = 0.01;
+                    case 'Sorriso':  ATKF = 10; HPF = 50; SPEF = 30; ACF = 0;
                         Itemf1 = 'Balão'; Itemf2 = 'Flores';
                         break;
                     default: throw ('Algo deu errado com o emblema')
@@ -125,7 +125,7 @@ module.exports = class extends comando{
                         SPE_S: SPEF,
                         SPE: SPEF,
                         AC_S: ACF,
-                        AC: ACF
+                        AC: (85 + ACF)
                     },{reg: 'Item1', value: Itemf1},{reg: 'Item2', value: Itemf2})
 
                 //console.log(resps)                                           <------------------ checar resps
