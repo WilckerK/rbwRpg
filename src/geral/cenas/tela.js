@@ -3,29 +3,43 @@ const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageAttachment } =
 const backgroundX = require('../../geral/cenas/backgroundX');
 
     const tela = async(interaction) => {
-        const bg = backgroundX.map(function(e) { return e.reg; });      // <------ bg é o mapeamento 
-        const img = backgroundX[bg.indexOf('E1')].img;                   // <------ a variavel img do reg procurado
-        const nomeDoLugar = backgroundX[bg.indexOf('E1')].nome;
+        let bg = backgroundX.map(function(e) { return e.reg; });      // <------ bg é o mapeamento
+        let index = bg.indexOf('E1');
+        let fundo = backgroundX[index].img;                   // <------ a variavel img do reg procurado
+        const nomeDoLugar = backgroundX[index].nome;
 
-        const fonte = await jimp.loadFont(jimp.FONT_SANS_64_BLACK);
+        let fonte = await jimp.loadFont(jimp.FONT_SANS_64_WHITE);
         
-        let fundo = await jimp.read(img);
+        let img = await jimp.read(fundo);
+        let texto = 'Eu preciso escrever um texto com 160 letras pra testar qual é o limite da caixa de diálogo que eu coloquei nas imagens, pois eu não consigo diminuir a fonte no jimp triste dms slk.'
+        let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
 
-        //console.log('aaaa')                                                // <---- teste se o o endereço está pegando a imagem
-
-        fundo.print(fonte, 300, 300, 'sÓ TESTANDO BRO');
+        img.print(fonte, 50, 730, texto, 1200);
+        img.composite(person, 640, 720);
         let nomeDaImagem =  interaction.user.id.toString() + '.jpg';
-        fundo.write(nomeDaImagem)
-        
-        const file = new MessageAttachment(('./' + nomeDaImagem))
+
+        //#region limpar
+        index = null;                                        // <---- liberando memória para uma melhor performace
+        fonte = null;
+        fundo = null;
+        bg = null;
+        texto = null;
+        person = null;
+        //#endregion
+
+        img.write(nomeDaImagem)
+        img = null;
+
+
+        const file = new MessageAttachment(('./' + nomeDaImagem))              // <--- colocando a imagem no Attachment do embed
 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setImage('attachment://' + nomeDaImagem);
         console.log(nomeDaImagem)
 
-        interaction.channel.send({ embeds: [msg] , files: [file] })
+        interaction.channel.send({ embeds: [msg] , files: [file] })                    // <--- enviando a mensagem
 
 
-}
+    }
 module.exports = tela;

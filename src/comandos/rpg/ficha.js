@@ -217,11 +217,12 @@ module.exports = class extends comando{
 **ATK:** \` ${St.ATK_S} \`           |       **SPE:** \` ${St.SPE_S} \``)
 
                 
-                            interaction.channel.send({ embeds: [ficha] })
-                    }else throw('Erro na database')     //UserDB Denovo
+                        interaction.channel.send({ embeds: [ficha] })
                         
-                } //statusFunção
+                }else throw('Erro na database')     //UserDB Denovo
+                        
+            } //statusFunção
             
-            } //else userDB.ficha
+        } //else userDB.ficha
     } //run
 } //module.exports

@@ -1,5 +1,3 @@
-const { interaction } = require('discord.js');
-const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.js');
 const comando = require('../../structures/Comando');
 const tela  = require('../../geral/cenas/tela.js');
 
@@ -13,7 +11,9 @@ module.exports = class extends comando{
 
     run = (interaction) => {
         
-        interaction.reply(`Ativou`);
+        interaction.reply(`Bem vindo de volta!!! 
+O bot está preparando a cena,
+assim que pronta começaremos... ~(°~°)~`);
         async function criar(){
 
             let foto = await tela(interaction);
