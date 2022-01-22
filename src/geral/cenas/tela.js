@@ -1,42 +1,68 @@
 const jimp = require('jimp');
 const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageAttachment } = require('discord.js');
-const backgroundX = require('../../geral/cenas/backgroundX');
+const backgroundX = require('./backgroundX');
+let inimigosX = require('./inimigosX');
+let personagensX = require('./personagensX')
 
     const tela = async(interaction) => {
-        let bg = backgroundX.map(function(e) { return e.reg; });      // <------ bg é o mapeamento
-        let index = bg.indexOf('E1');
-        let fundo = backgroundX[index].img;                   // <------ a variavel img do reg procurado
-        const nomeDoLugar = backgroundX[index].nome;
 
-        let fonte = await jimp.loadFont(jimp.FONT_SANS_64_WHITE);
+        //mapeando index   
+        let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf('E1');
+        const nomeDaImagem =  interaction.user.id.toString() + '.jpg';
+        const nomeDoLugar = backgroundX[indexDoFundo].nome;
+
+        //checando aparição/battle/npc
+
+        let chance = backgroundX[indexDoFundo].chance;
+        let npc = 114 //(Math.floor(Math.random() * 100) + 1 >= chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 ;
         
-        let img = await jimp.read(fundo);
-        let texto = 'Eu preciso escrever um texto com 160 letras pra testar qual é o limite da caixa de diálogo que eu coloquei nas imagens, pois eu não consigo diminuir a fonte no jimp triste dms slk.'
-        let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
+        if (npc != 0){
+            if(npc < 100){
 
-        img.print(fonte, 50, 730, texto, 1200);
-        img.composite(person, 640, 720);
-        let nomeDaImagem =  interaction.user.id.toString() + '.jpg';
+                let inimigosX = null;
+                //lendo infos
+                
+                let fundo = backgroundX[indexDoFundo].img;                  
+                let fonte = await jimp.loadFont(jimp.FONT_SANS_64_WHITE);
+                let img = await jimp.read(fundo);
+                let texto = 'Eu preciso escrever um texto com 160 letras pra testar qual é o limite da caixa de diálogo que eu coloquei nas imagens, pois eu não consigo diminuir a fonte no jimp triste dms slk.'
+                let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
 
-        //#region limpar
-        index = null;                                        // <---- liberando memória para uma melhor performace
-        fonte = null;
-        fundo = null;
-        bg = null;
-        texto = null;
-        person = null;
-        //#endregion
+                //montando a imagem
+                img.print(fonte, 50, 730, texto, 1200);
+                img.composite(person, 640, 720);
 
-        img.write(nomeDaImagem)
-        img = null;
+                //#region limpar
+                indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
+                fonte = null;
+                fundo = null;
+                texto = null;
+                person = null;
+                npc = null;
+                //#endregion
 
+                //criando a imagem
+                img.write(nomeDaImagem)
+                img = null;
 
+            }else{                                                         // <--- se for uma batalha
+                
+                personagensX = null;
+                indexDoFundo = null;
+
+                let inimigo = inimigosX[(npc - 101)];
+                let img = await jimp.read(inimigo.sprite);
+                img.write(nomeDaImagem);
+            }
+        } else {                                                           // <--- se não tiver rolado encontro
+            null
+        }
+    
         const file = new MessageAttachment(('./' + nomeDaImagem))              // <--- colocando a imagem no Attachment do embed
 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setImage('attachment://' + nomeDaImagem);
-        console.log(nomeDaImagem)
 
         interaction.channel.send({ embeds: [msg] , files: [file] })                    // <--- enviando a mensagem
 

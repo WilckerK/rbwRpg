@@ -2,7 +2,7 @@ module.exports = [
     {
         reg: 101,
         nome: 'Vijam',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Vijam.jpg',
         HP: 35,
         ATK: 20,
         SPE: 20,
@@ -11,7 +11,7 @@ module.exports = [
     },{
         reg: 102,
         nome: 'Crim',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Crim.jpg',
         HP: 45,
         ATK: 30,
         SPE: 20,
@@ -20,7 +20,7 @@ module.exports = [
     },{
         reg: 103,
         nome: 'Aum',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Aum.jpg',
         HP: 45, 
         ATK: 30,
         SPE: 25,
@@ -29,7 +29,7 @@ module.exports = [
     },{
         reg: 104,
         nome: 'Gueira',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Gueira.jpg',
         HP: 80,
         ATK: 85,
         SPE: 40,
@@ -38,7 +38,7 @@ module.exports = [
     },{
         reg: 105,
         nome: 'Garnex',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Garnex.jpg',
         HP: 95,
         ATK: 70,
         SPE: 35,
@@ -47,7 +47,7 @@ module.exports = [
     },{
         reg: 106,
         nome: 'Kubura',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Kubura.jpg',
         HP: 70,
         ATK: 100,
         SPE: 30,
@@ -56,7 +56,7 @@ module.exports = [
     },{
         reg: 107,
         nome: 'Vulcan',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Vulcan.jpg',
         HP: 120,
         ATK: 90,
         SPE: 60,
@@ -65,7 +65,7 @@ module.exports = [
     },{
         reg: 108,
         nome: 'Garoodia',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Garoodia.jpg',
         HP: 80,
         ATK: 150,
         SPE: 70,
@@ -74,7 +74,7 @@ module.exports = [
     },{
         reg: 109,
         nome: 'Duza',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Duza.jpg',
         HP: 150,
         ATK: 110,
         SPE: 50,
@@ -83,7 +83,7 @@ module.exports = [
     },{
         reg: 110,
         nome: 'Indiora',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Indiora.jpg',
         HP: 300,
         ATK: 240,
         SPE: 80,
@@ -92,7 +92,7 @@ module.exports = [
     },{
         reg: 111,
         nome: 'Gundil',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Gundil.jpg',
         HP: 230,
         ATK: 300,
         SPE: 90,
@@ -101,7 +101,7 @@ module.exports = [
     },{
         reg: 112,
         nome: 'Rasha',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Rasha.jpg',
         HP: 260,
         ATK: 260,
         SPE: 70,
@@ -110,7 +110,7 @@ module.exports = [
     },{
         reg: 113,
         nome: 'Crimson Nova',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/CrimsonNova.jpg',
         HP: 300,
         ATK: 300,
         SPE: 90,
@@ -119,20 +119,11 @@ module.exports = [
     },{
         reg: 114,
         nome: 'Trinity',
-        sprite: '',
+        sprite: 'src/imagens/cubicos/Trinity.jpg',
         HP: 500,
         ATK: 450,
         SPE: 100,
         ACC: 100,
         SKILL: null
-    }/*,{
-        reg:,
-        nome:,
-        sprite: '',
-        HP:,
-        ATK:,
-        SPE:,
-        ACC:,
-        SKILL: null
-    } */
+    }
 ]

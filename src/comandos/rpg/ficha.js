@@ -151,7 +151,7 @@ module.exports = class extends comando{
 
                 async function status() {
                 if(!reply){                                               // <-------------------- reply
-                    interaction.reply({ content: `**Ficha de ${interaction.user.toString()}**`})
+                    await interaction.reply({ content: `**Ficha de ${interaction.user.toString()}**`})
                 }
 
                     const member = interaction.member; const channel = interaction.channel;

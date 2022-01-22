@@ -21,7 +21,7 @@ O bot está preparando a cena,
 assim que pronta começaremos... ~(°~°)~`);
             async function criar(){
 
-                let foto = await tela(interaction);
+                await tela(interaction);
 
             }
 
