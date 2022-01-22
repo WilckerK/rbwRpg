@@ -1,46 +1,46 @@
 module.exports = [
     {
-        reg: 01,
+        reg: 1,
         nome: 'Wilcker',
         sprite: ''
     },
     {
-        reg: 02,
+        reg: 2,
         nome: 'Lulli',
         sprite: ''
     },
     {
-        reg: 03,
+        reg: 3,
         nome: 'C0r0nga',
         sprite: ''
     },
     {
-        reg: 04,
+        reg: 4,
         nome: 'LofiMe',
         sprite: ''
     },
     {
-        reg: 05,
+        reg: 5,
         nome: 'Luizftitan',
         sprite: ''
     },
     {
-        reg: 06,
+        reg: 6,
         nome: 'Raposinha',
         sprite: ''
     },
     {
-        reg: 07,
+        reg: 7,
         nome: 'Perdeu',
         sprite: ''
     },
     {
-        reg: 08, 
+        reg: 8, 
         nome: 'Pema',
         sprite: ''
     },
     {
-        reg: 09,
+        reg: 9,
         nome: 'Cookie Monster',
         sprite: ''
     },

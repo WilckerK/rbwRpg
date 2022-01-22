@@ -126,7 +126,10 @@ module.exports = class extends comando{
                         SPE: SPEF,
                         AC_S: ACF,
                         AC: (85 + ACF)
-                    },{reg: 'Item1', value: Itemf1},{reg: 'Item2', value: Itemf2})
+                    },
+                    {reg: 'Item', item1: Itemf1 , item2: Itemf2},
+                    {reg: 'Local', bg: 'E1', battle: false, pers: 3},
+                    {reg: 'Inimigo', id: 100, HP: 0, ATK: 0, SPE: 0, AC: 0});
 
                 //console.log(resps)                                           <------------------ checar resps
                 
@@ -158,15 +161,15 @@ module.exports = class extends comando{
 
                     if (userDB?.ficha) {
                         const dados = userDB.ficha.dados;
-                        const img = linksEmbedImg.map(function(e) { return e.reg; });
+                        const brasao = linksEmbedImg.map(function(e) { return e.reg; });
                         const posF = dados.map(function(e) { return e.reg; });
                         
                         let Nome = dados[posF.indexOf('Nome')].value; let Emblema = dados[posF.indexOf('Emblema')].value;
                         let Natalidade = dados[posF.indexOf('Natalidade')].value; let Sexo = dados[posF.indexOf('Sexo')].value;
-                        let It1 =  dados[posF.indexOf('Item1')].value; let It2 =  dados[posF.indexOf('Item2')].value;
+                        let It1 =  dados[posF.indexOf('Item')].item1; let It2 =  dados[posF.indexOf('Item')].item2;
                         let St = dados[posF.indexOf('Status')]; var barraExp =''; let LVLup = (((St.LVL - 1) * 100) + (50 * (0 ** (St.LVL - 1))))
                         let qtdLVLF = parseInt(((100 / LVLup) * St.EXP) / 10);
-                        let url = linksEmbedImg[img.indexOf(Emblema)].value;
+                        let url = linksEmbedImg[brasao.indexOf(Emblema)].value;
                         
                         //console.log(qtdLVLF , LVLup)
 
@@ -213,7 +216,7 @@ module.exports = class extends comando{
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **HP:** ~**${St.HP_S}**~   |   **AC:** \` ${St.AC_S}% \` 
 
-**Item1:** \` ${It1} \`   |   **Item2:** \` ${It2} \`
+**Item 1:** \` ${It1} \`   |   **Item 2:** \` ${It2} \`
 **ATK:** \` ${St.ATK_S} \`           |       **SPE:** \` ${St.SPE_S} \``)
 
                 

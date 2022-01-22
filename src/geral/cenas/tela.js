@@ -1,13 +1,13 @@
 const jimp = require('jimp');
-const { MessageEmbed, MessageActionRow, MessageSelectMenu, MessageAttachment } = require('discord.js');
-const backgroundX = require('./backgroundX');
-let inimigosX = require('./inimigosX');
-let personagensX = require('./personagensX')
+const { MessageEmbed, MessageAttachment } = require('discord.js');
+const backgroundX = require('./backgroundX'); 
+let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX')
+const battle = require('./battle');
 
-    const tela = async(interaction) => {
+    const tela = async(interaction, ficha) => {
 
-        //mapeando index   
-        let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf('E1');
+        //mapeando index
+        let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf(ficha[7].bg);
         const nomeDaImagem =  interaction.user.id.toString() + '.jpg';
         const nomeDoLugar = backgroundX[indexDoFundo].nome;
 
@@ -15,7 +15,8 @@ let personagensX = require('./personagensX')
 
         let chance = backgroundX[indexDoFundo].chance;
         let npc = 114 //(Math.floor(Math.random() * 100) + 1 >= chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 ;
-        
+        let botao = false;
+
         if (npc != 0){
             if(npc < 100){
 
@@ -50,7 +51,7 @@ let personagensX = require('./personagensX')
                 personagensX = null;
                 indexDoFundo = null;
 
-                let inimigo = inimigosX[(npc - 101)];
+                var inimigo = inimigosX[(npc - 101)];
                 let img = await jimp.read(inimigo.sprite);
                 img.write(nomeDaImagem);
             }
@@ -58,14 +59,13 @@ let personagensX = require('./personagensX')
             null
         }
     
-        const file = new MessageAttachment(('./' + nomeDaImagem))              // <--- colocando a imagem no Attachment do embed
-
+        const file = new MessageAttachment((nomeDaImagem))              // <--- colocando a imagem no Attachment do embed
+        let component = (botao == true)? 'Personagem' :[];
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setImage('attachment://' + nomeDaImagem);
 
-        interaction.channel.send({ embeds: [msg] , files: [file] })                    // <--- enviando a mensagem
-
-
+        await interaction.channel.send({ embeds: [msg] , files: [file]});                    // <--- enviando a mensagem
+        if (npc > 100){ await battle(interaction, inimigo, ficha) ;}
     }
 module.exports = tela;
