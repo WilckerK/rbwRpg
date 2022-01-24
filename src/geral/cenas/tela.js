@@ -4,6 +4,10 @@ const backgroundX = require('./backgroundX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX')
 const battle = require('./battle');
 
+    async function imprimir(img, nomeDaImagem){
+        img.write(nomeDaImagem);
+    }
+
     const tela = async(interaction, ficha) => {
 
         //mapeando index
@@ -17,7 +21,7 @@ const battle = require('./battle');
         let npc = 114 //(Math.floor(Math.random() * 100) + 1 >= chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 ;
         let botao = false;
 
-        if (npc != 0){
+        if (npc !== 0){
             if(npc < 100){
 
                 let inimigosX = null;
@@ -43,8 +47,7 @@ const battle = require('./battle');
                 //#endregion
 
                 //criando a imagem
-                img.write(nomeDaImagem)
-                img = null;
+                await imprimir(img, nomeDaImagem);
 
             }else{                                                         // <--- se for uma batalha
                 
@@ -52,8 +55,8 @@ const battle = require('./battle');
                 indexDoFundo = null;
 
                 var inimigo = inimigosX[(npc - 101)];
-                let img = await jimp.read(inimigo.sprite);
-                img.write(nomeDaImagem);
+                let img = await jimp.read(inimigo.sprite)
+                await imprimir(img, nomeDaImagem);
             }
         } else {                                                           // <--- se não tiver rolado encontro
             null
