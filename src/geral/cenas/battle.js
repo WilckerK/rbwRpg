@@ -7,7 +7,7 @@ const inimigosX = require('./inimigosX');
         new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
     ]);
 
-    const battle = async(interaction, inimigo, ficha) => {
+    const battle = async(interaction, inimigo, ficha, derrota) => {
 
         //#region dados inimigo
         let HPI = inimigo.HP;
@@ -26,7 +26,6 @@ const inimigosX = require('./inimigosX');
         let Item1 = ficha[6].item1;
         let Item2 = ficha[6].item2;
         let derrotaU = false;
-
         //#endregion
         
         let delta = 0;
@@ -36,25 +35,31 @@ const inimigosX = require('./inimigosX');
 
         function userAtacar(){
             //console.log('Chamou userAtacar')
-            let d20U = Math.floor(Math.random() * 20) + 1;
-            let danoU = Math.floor((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + delta);
-            danoU = (danoU >= 0)? danoU : 0;
-            HPI -= danoU;
-            actU = actU +  `Você atacou o inimigo e tirou ${danoU} de Dano.
+            if(Math.floor(Math.random() * 100) + 1 <= ACCU){
+                let d20U = Math.floor(Math.random() * 20) + 1;
+                let danoU = Math.floor((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + delta);
+                danoU = (danoU >= 0)? danoU : 0;
+                HPI -= danoU;
+                actU = actU +  `Você atacou o inimigo e tirou ${danoU} de Dano.
 `;           
-            if(HPI <= 0){derrotaI = true;}
+                if(HPI <= 0){derrotaI = true;}
+            }else{actU = actU +  `Você errou o ataque.
+`;}
         }
         
         function inimigoAtacar(){
             //console.log('Chamou inimigoAtacar')
             //let chanceSkill
-            let d20I = Math.floor(Math.random() * 20);
-            let danoI = Math.floor((((ATKI / ATKU) * 10) - (HPU / 10)) + (d20I - 5));
-            danoI = (danoI >= 0)? danoI : 0;
-            HPU -= danoI;
-            actI =  actI + `O inimigo te atacou e tirou ${danoI} de Dano.
+            if(Math.floor(Math.random() * 100) + 1 <= ACCI){
+                let d20I = Math.floor(Math.random() * 20);
+                let danoI = Math.floor((((ATKI / ATKU) * 10) - (HPU / 10)) + (d20I - 5));
+                danoI = (danoI >= 0)? danoI : 0;
+                HPU -= danoI;
+                actI =  actI + `O inimigo te atacou e tirou ${danoI} de Dano.
 `;           
-            if(HPU <= 0){derrotaU = true;}
+                if(HPU <= 0){derrotaU = true;}
+            }else{actI = actI +  `Seu inimigo errou o ataque.
+`;}
         }
 
         //#region embed
@@ -68,6 +73,7 @@ ${actU}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}`);
+
         //#endregion
         
         const enviada = await interaction.channel.send({ embeds: [msg], components:[Row], fetchReply: true });
@@ -121,6 +127,7 @@ ${actU}`
                         .setTitle(inimigo.nome)
                         .setFooter(`Item 1: ${Item1} | Item 2: ${Item2}`)
                         .setDescription(txt);
+                    
                     break;
                 case 'Desvio':
                     break;
@@ -129,10 +136,8 @@ ${actU}`
                 default:
                     break;
             }
-
-            i.update({
-                embeds: [msg]
-            })
+            if(!derrotaU && !derrotaI){i.update({embeds: [msg]})}
+            else{i.update({embeds: [msg], components: []}); collector.stop();}
         })
         
         collector.on('end', async(collected, reason) => {

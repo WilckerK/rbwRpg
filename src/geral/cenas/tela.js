@@ -4,11 +4,22 @@ const backgroundX = require('./backgroundX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX')
 const battle = require('./battle');
 
-    async function imprimir(img, nomeDaImagem){
+    async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
+        console.log(nomeDaImagem);
         img.write(nomeDaImagem);
+            
+        const file = new MessageAttachment(('./' + nomeDaImagem));              // <--- colocando a imagem no Attachment do embed
+        let msg = new MessageEmbed()
+            .setTitle(nomeDoLugar)
+            .setColor(cor)
+            .setImage('attachment://' + nomeDaImagem);
+        await interaction.channel.send({ embeds: [msg] , files: [file]});                    // <--- enviando a mensagem
+    
     }
 
     const tela = async(interaction, ficha) => {
+
+        let cor = ficha[4].value;
 
         //mapeando index
         let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf(ficha[7].bg);
@@ -19,7 +30,6 @@ const battle = require('./battle');
 
         let chance = backgroundX[indexDoFundo].chance;
         let npc = 114 //(Math.floor(Math.random() * 100) + 1 >= chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 ;
-        let botao = false;
 
         if (npc !== 0){
             if(npc < 100){
@@ -52,23 +62,17 @@ const battle = require('./battle');
             }else{                                                         // <--- se for uma batalha
                 
                 personagensX = null;
-                indexDoFundo = null;
 
                 var inimigo = inimigosX[(npc - 101)];
-                let img = await jimp.read(inimigo.sprite)
-                await imprimir(img, nomeDaImagem);
+                await jimp.read(inimigo.sprite).then(async img  => {
+                    await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
+                })
+                console.log(inimigo.sprite);
+                await battle(interaction, inimigo, ficha,(backgroundX[indexDoFundo].derrota));
             }
         } else {                                                           // <--- se não tiver rolado encontro
             null
         }
-    
-        const file = new MessageAttachment((nomeDaImagem))              // <--- colocando a imagem no Attachment do embed
-        let component = (botao == true)? 'Personagem' :[];
-        let msg = new MessageEmbed()
-            .setTitle(nomeDoLugar)
-            .setImage('attachment://' + nomeDaImagem);
-
-        await interaction.channel.send({ embeds: [msg] , files: [file]});                    // <--- enviando a mensagem
-        if (npc > 100){ await battle(interaction, inimigo, ficha) ;}
+        
     }
 module.exports = tela;
