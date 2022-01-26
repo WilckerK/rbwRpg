@@ -2,8 +2,7 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton } = require('discord.js');
 const backgroundX = require('./backgroundX'); 
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX')
-var continuidade = false; var trava = true;
-
+let npc = 0;
 //#region funções
 
     async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
@@ -30,9 +29,9 @@ var continuidade = false; var trava = true;
 
                 function userAtacar(){
                     //console.log('Chamou userAtacar')
-                    if(Math.floor(Math.random() * 100) + 1 <= ACCU){
-                        let d20U = Math.floor(Math.random() * 20) + 1;
-                        let danoU = Math.floor((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + delta);
+                    if(Math.ceil(Math.random() * 100) <= ACCU){
+                        let d20U = Math.ceil(Math.random() * 20);
+                        let danoU = Math.ceil((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + delta);
                         danoU = (danoU >= 0)? danoU : 0;
                         HPI -= danoU;
                         actU = actU +  `Você atacou o inimigo e tirou ${danoU} de Dano.
@@ -45,9 +44,9 @@ var continuidade = false; var trava = true;
                 function inimigoAtacar(){
                     //console.log('Chamou inimigoAtacar')
                     //let chanceSkill
-                    if(Math.floor(Math.random() * 100) + 1 <= ACCI){
-                        let d20I = Math.floor(Math.random() * 20);
-                        let danoI = Math.floor((((ATKI / ATKU) * 10) - (HPU / 10)) + (d20I - 5));
+                    if(Math.ceil(Math.random() * 100) <= ACCI){
+                        let d20I = Math.ceil(Math.random() * 20);
+                        let danoI = Math.ceil((((ATKI / ATKU) * 10) - (HPU / 10)) + (d20I - 5));
                         danoI = (danoI >= 0)? danoI : 0;
                         HPU -= danoI;
                         actI =  actI + `O inimigo te atacou e tirou ${danoI} de Dano.
@@ -55,6 +54,10 @@ var continuidade = false; var trava = true;
                         if(HPU <= 0){derrotaU = true;}
                     }else{actI = actI +  `Seu inimigo errou o ataque.
 `;}
+                }
+
+                function desvio(){
+                    if(Math.ceil)
                 }
                 //#endregion
 
@@ -140,7 +143,6 @@ Caso queira continua-la inicie a seção novamente.`);
 
 //#endregion
     const tela = async(interaction, ficha) => {
-        continuidade = true;
         let cor = ficha[4].value;
         
         //mapeando index
@@ -151,7 +153,7 @@ Caso queira continua-la inicie a seção novamente.`);
         //checando aparição/battle/npc
 
         let chance = backgroundX[indexDoFundo].chance;
-        let npc = (Math.floor(Math.random() * 100) + 1 <= chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 ;
+        npc = (Math.ceil(Math.random() * 100) <= chance)?backgroundX[indexDoFundo].npc[Math.ceil(Math.random() * 20)] : 0 ;
 
         if (npc !== 0){ //encontro
             if(npc < 100){ //personagem
@@ -247,8 +249,7 @@ ${actI}`);
         } else {                                                           // <--- se não tiver rolado encontro
             null
         }
-
-        trava = true;
     
     }
+
 module.exports = tela;
