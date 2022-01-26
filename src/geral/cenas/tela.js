@@ -3,17 +3,18 @@ const { MessageEmbed, MessageAttachment } = require('discord.js');
 const backgroundX = require('./backgroundX'); 
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX')
 const battle = require('./battle');
+var continuidade = true;
 
     async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
         console.log(nomeDaImagem);
         img.write(nomeDaImagem);
             
-        const file = new MessageAttachment(('./' + nomeDaImagem));              // <--- colocando a imagem no Attachment do embed
+        async function file(nomeDaImagem){ return new MessageAttachment(('./' + nomeDaImagem))};              // <--- colocando a imagem no Attachment do embed
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file]});                    // <--- enviando a mensagem
+        await interaction.channel.send({ embeds: [msg] , files: [await file(nomeDaImagem)]});                    // <--- enviando a mensagem
     
     }
 

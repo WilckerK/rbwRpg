@@ -1,6 +1,6 @@
 const comando = require('../../structures/Comando');
 const tela  = require('../../geral/cenas/tela.js');
-
+var continuidade = true;
 module.exports = class extends comando{
     constructor(client){
         super(client, {
@@ -24,7 +24,6 @@ assim que pronta começaremos... ~(°~°)~`);
                 await tela(interaction, userDB.ficha.dados);
 
             }
-
             criar();
         }
     }

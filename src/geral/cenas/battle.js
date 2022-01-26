@@ -1,6 +1,7 @@
 const {MessageActionRow , MessageButton, MessageEmbed} = require('discord.js');
 const inimigosX = require('./inimigosX');
 
+
     const Row = new MessageActionRow().addComponents([
         new MessageButton().setStyle('DANGER').setLabel('Ataque').setCustomId('Ataque'),
         new MessageButton().setStyle('SUCCESS').setLabel('Desvio').setCustomId('Desvio'),
@@ -81,7 +82,7 @@ ${actI}`);
         const filter = (b) => b.user.id === interaction.user.id;
         const collector = enviada.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: ( 10 * 60000) });
 
-        collector.on('collect', (i) => {
+         collector.on('collect', (i) => {
             switch(i.customId){
                 case 'Ataque':
                     let primeiroAIr = (SPEU != SPEI)?(SPEU > SPEI)?'U':'I':(Math.floor(Math.random() * 2) == 0)?'U':'I';
@@ -137,7 +138,12 @@ ${actU}`
                     break;
             }
             if(!derrotaU && !derrotaI){i.update({embeds: [msg]})}
-            else{i.update({embeds: [msg], components: []}); collector.stop();}
+            else{
+                i.update({embeds: [msg], components: []}); 
+                collector.stop();
+                if(derrotaU){interaction.user.db.ficha.dados[7].bg = derrota; interaction.user.db.save()}
+                tela(interaction, ficha);
+            }
         })
         
         collector.on('end', async(collected, reason) => {
@@ -154,6 +160,7 @@ Caso queira continua-la inicie a seção novamente.`);
                 //                                                                  // <-- salvar estado do inimigo na db
             }
         })
+
     }
 
 module.exports = battle;
