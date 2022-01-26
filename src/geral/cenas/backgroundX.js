@@ -1,9 +1,9 @@
 module.exports = [
     // Estrada
     {reg: 'E1', nome: 'Inicio da Estrada', img: './src/imagens/background/inicioEstrada.jpg', chance: 80, 
-     npc: [ 3, 3, 3, 3, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
+     npc: [ 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, ],
      derrota: 'E2'},
-
+//3, 3, 3, 3, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00
     {reg: 'E2', nome: 'Meio da Estrada', img: './src/imagens/background/meioEstrada.jpg', chance: 60, 
      npc: [ 3, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
      derrota: 'E3'},
