@@ -136,7 +136,7 @@ module.exports = class extends comando{
                 if(interaction.user.db.ficha) interaction.user.db.ficha.dados = resps
                 else interaction.user.db.ficha = {dados: resps}
                 
-                interaction.user.db.save()           //  <--------------- Salvar a db aqui
+                await interaction.user.db.save()           //  <--------------- Salvar a db aqui
                 interaction.channel.send('Ficha criada. Agora este comando servirá para você visualizar a sua ficha \n d~(o-o)~b')
                 } //criarFicha
 

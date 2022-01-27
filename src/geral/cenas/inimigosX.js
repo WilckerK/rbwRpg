@@ -6,7 +6,7 @@ module.exports = [
         HP: 35,
         ATK: 20,
         SPE: 20,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 102,
@@ -15,7 +15,7 @@ module.exports = [
         HP: 45,
         ATK: 30,
         SPE: 20,
-        ACC: 80,
+        AC: 80,
         SKILL: null
     },{
         reg: 103,
@@ -24,7 +24,7 @@ module.exports = [
         HP: 45, 
         ATK: 30,
         SPE: 25,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 104,
@@ -33,7 +33,7 @@ module.exports = [
         HP: 80,
         ATK: 85,
         SPE: 40,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 105,
@@ -42,7 +42,7 @@ module.exports = [
         HP: 95,
         ATK: 70,
         SPE: 35,
-        ACC: 90,
+        AC: 90,
         SKILL: null
     },{
         reg: 106,
@@ -51,7 +51,7 @@ module.exports = [
         HP: 70,
         ATK: 100,
         SPE: 30,
-        ACC: 70,
+        AC: 70,
         SKILL: null
     },{
         reg: 107,
@@ -60,7 +60,7 @@ module.exports = [
         HP: 120,
         ATK: 90,
         SPE: 60,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 108,
@@ -69,7 +69,7 @@ module.exports = [
         HP: 80,
         ATK: 150,
         SPE: 70,
-        ACC: 80,
+        AC: 80,
         SKILL: null
     },{
         reg: 109,
@@ -78,7 +78,7 @@ module.exports = [
         HP: 150,
         ATK: 110,
         SPE: 50,
-        ACC: 90,
+        AC: 90,
         SKILL: null
     },{
         reg: 110,
@@ -87,7 +87,7 @@ module.exports = [
         HP: 300,
         ATK: 240,
         SPE: 80,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 111,
@@ -96,7 +96,7 @@ module.exports = [
         HP: 230,
         ATK: 300,
         SPE: 90,
-        ACC: 80,
+        AC: 80,
         SKILL: null
     },{
         reg: 112,
@@ -105,7 +105,7 @@ module.exports = [
         HP: 260,
         ATK: 260,
         SPE: 70,
-        ACC: 100,
+        AC: 100,
         SKILL: null
     },{
         reg: 113,
@@ -114,7 +114,7 @@ module.exports = [
         HP: 300,
         ATK: 300,
         SPE: 90,
-        ACC: 85,
+        AC: 85,
         SKILL: null
     },{
         reg: 114,
@@ -123,7 +123,7 @@ module.exports = [
         HP: 500,
         ATK: 450,
         SPE: 100,
-        ACC: 100,
+        AC: 100,
         SKILL: null
     }
 ]
