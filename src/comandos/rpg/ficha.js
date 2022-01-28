@@ -91,28 +91,29 @@ module.exports = class extends comando{
 
                 cor = resps[pos.indexOf('Cor')].value
 
-                //definir valores e itens pelo emblema
-
+                //#region definir valores e itens pelo emblema
+                let v1 = 0; let v2 = 0;
                 switch(resps[pos.indexOf('Emblema')].value){
                     case 'Rei': ATKF = 20; HPF = 40; SPEF = 20; ACF = 1;
-                        Itemf1 = 'Cálice'; Itemf2 = 'Capa';
+                        Itemf1 = 'Cálice'; v1 = 1; Itemf2 = 'Capa'; v2 = 6;
                         break;
                     case 'Espada': ATKF = 30; HPF = 30; SPEF = 30; ACF = 0;
-                        Itemf1 = 'Faca'; Itemf2 = 'Escudo';
+                        Itemf1 = 'Faca'; v1 = 2; Itemf2 = 'Escudo'; v2 = 7;
                         break;
                     case 'Musica': ATKF = 10; HPF = 50; SPEF = 10; ACF = 2;
-                        Itemf1 = 'Flauta'; Itemf2 = 'Sino';
+                        Itemf1 = 'Flauta'; v1 = 3; Itemf2 = 'Sino'; v2 = 8;
                         break;
                     case 'Engrenagem':  ATKF = 30; HPF = 30; SPEF = 10; ACF = 2;
-                        Itemf1 = 'Estilingue'; Itemf2 = 'Flash Bang';
+                        Itemf1 = 'Estilingue'; v1 = 4; Itemf2 = 'Flash Bang', v2 = 9;
                         break;
                     case 'Sorriso':  ATKF = 10; HPF = 50; SPEF = 30; ACF = 0;
-                        Itemf1 = 'Balão'; Itemf2 = 'Flores';
+                        Itemf1 = 'Balão'; v1 = 5; Itemf2 = 'Flores', v2 = 1;
                         break;
                     default: throw ('Algo deu errado com o emblema')
                         break;
                 } //switch
-
+                //#endregion
+                
                 resps.push(
                     {
                         reg: 'Status',
@@ -127,7 +128,7 @@ module.exports = class extends comando{
                         AC_S: ACF,
                         AC: (85 + ACF)
                     },
-                    {reg: 'Item', item1: Itemf1 , item2: Itemf2},
+                    {reg: 'Item', i1: Itemf1, v1: v1 , i2: Itemf2, v2: v2},
                     {reg: 'Local', bg: 'E1', battle: false, pers: 3},
                     {reg: 'Inimigo', id: 100, HP: 0, ATK: 0, SPE: 0, AC: 0});
 
