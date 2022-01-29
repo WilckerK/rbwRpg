@@ -1,5 +1,5 @@
 const jimp = require('jimp');
-const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton } = require('discord.js');
+const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
 const backgroundX = require('./backgroundX'); let itensX = require('../itensX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX');
 let npc = 0; var teste = false; 
@@ -16,7 +16,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
             .setTitle(nomeDoLugar)
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file]}).then((msg) => { // console.log(msg.embeds[0].image)
+        await interaction.channel.send({ embeds: [msg] , files: [file]}).then((msg) => {
             if (msg.embeds[0].image){ check = true;}
             else {msg.delete().catch(() => {});}
         })
@@ -34,8 +34,8 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
     //#region dados
 
         //#region dados inimigo
-        let HPI = Math.ceil((inimigo.HP < 500)?inimigo.HP + (inimigo.HP * ((ficha[5].LVL * 2) / 100)):inimigo.HP);
-        let ATKI = Math.ceil((inimigo.ATK < 450)?inimigo.ATK + (inimigo.ATK * ((ficha[5].LVL * 2) / 100)):inimigo.ATK);
+        let HPI = Math.ceil((inimigo.HP < 500)?inimigo.HP + (inimigo.HP * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL):inimigo.HP);
+        let ATKI = Math.ceil((inimigo.ATK < 450)?inimigo.ATK + (inimigo.ATK * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL):inimigo.ATK);
         let SPEI = inimigo.SPE;
         let ACCI = inimigo.AC;
         let derrotaI = false;
@@ -59,25 +59,29 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
         let actU = 'Escoha a sua ação...';
         let actI = 'Avança em sua direção prestes a te atacar';
         let txt = '';
-        //#endregion
+        
         if (Item.v1 <= 20){
             eval(itensX[14].run); eval(itensX[Item.v2 - 1].run);
         }
-    //#endregion
+
+        let EXPGanho = Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100);
+        //#endregion
         
-    //#region embed battle
+   
+        
+
     let msg = new MessageEmbed()
         .setTitle(inimigo.nome)
         .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
-        .setDescription(`=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+        .setDescription(`=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${HPU}
 ${actU}
 
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}`);
 
-    //#endregion
+     //#endregion
 
     const enviada = await interaction.channel.send({ embeds: [msg], components:[RowBattle], fetchReply: true });
 
@@ -87,7 +91,6 @@ ${actI}`);
     //#region Funções de batalha
 
     function userAtacar(){
-        //console.log('Chamou userAtacar')
         let delta = 0 + danoExtraDoUser;
         let turno = SPEU;
         do{
@@ -159,25 +162,65 @@ ${actI}`);
                 inimigoAtacar();
         }
     }
+
+    async function upar(){
+        ficha[5].EXP += EXPGanho;
+        if(ficha[5].EXP >= ((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1)))){
+            interaction.user.db.ficha.dados[5].LVL = ficha[5].LVL++;
+            ficha[5].EXP = 0;
+            switch(ficha[1].value){
+                case 'Rei': ficha[5].HP_S += 10; ficha[5].ATK_S += 10; ficha[5].SPE_S += 4; ficha[5].AC_S += 1;
+                    break;
+                case 'Espada': ficha[5].HP_S += 5; ficha[5].ATK_S += 15; ficha[5].SPE_S += 5; ficha[5].AC_S += 0.5;
+                    break;
+                case 'Musica': ficha[5].HP_S += 15; ficha[5].ATK_S += 5; ficha[5].SPE_S += 3; ficha[5].AC_S += 1.5;
+                    break;
+                case 'Engrenagem': ficha[5].HP_S += 5; ficha[5].ATK_S += 15; ficha[5].SPE_S += 3; ficha[5].AC_S += 1.5;
+                    break;
+                case 'Sorriso': ficha[5].HP_S += 15; ficha[5].ATK_S += 5; ficha[5].SPE_S += 5; ficha[5].AC_S += 0.5;
+                    break;
+                default:
+                    break;
+            }
+            if(ficha[5].LVL % 2 === 1){
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "dados.reg" : "Status"},
+                    {$set: {"ficha.dados.$[].HP_S" : ficha[5].HP_S}, $set: {"ficha.dados.$[].ATK_S" : ficha[5].ATK_S} ,
+                    $set: {"ficha.dados.$[].SPE_S" : ficha[5].SPE_S} , $set:{"ficha.dados.$[].AC_S" : ficha[5].AC_S},
+                    $set: {"ficha.dados.$[].EXP" : ficha[5].EXP}, $set:{"ficha.dados.$[].LVL" : ficha[5].LVL}});
+            }else{
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "dados.reg" : "Status"},
+                {$set: {"ficha.dados.$[].HP_S" : ficha[5].HP_S}, $set: {"ficha.dados.$[].ATK_S" : ficha[5].ATK_S},
+                $set: {"ficha.dados.$[].EXP" : ficha[5].EXP}, $set: {"ficha.dados.$[].LVL" : ficha[5].LVL}});
+            }
+        }else{
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "dados.reg" : "Status"},
+            {$set: {"ficha.dados.$[].EXP" : ficha[5].EXP}});
+        }
+            
+    }
     //#endregion
 
     collector.on('collect', async(i) => {
 
         actU = '';
         actI = '';
-
+        HPI -= 100;
         switch(i.customId){
+
+
             case 'Ataque':
+
                 let primeiroAIr = (SPEU != SPEI)?(SPEU > SPEI)?'U':'I':(Math.floor(Math.random() * 2) == 0)?'U':'I';
+
                 if (primeiroAIr == 'U'){
                     userAtacar();
                     if(!derrotaI){inimigoAtacar();}
                     else{HPI = 0; actU = `O oponente foi derrotado por você.`}
 
-                    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+                    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${HPU}
 ${actU}
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}`
                 }else{
@@ -185,10 +228,10 @@ ${actI}`
                     if (!derrotaU){userAtacar();}
                     else{HPU = 0; actU = `Você foi derrotado pelo oponente.`}
                 
-                    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+                    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}                       
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${HPU}
 ${actU}`
                 }
@@ -196,19 +239,19 @@ ${actU}`
                 break;
             case 'Desvio':
                 desviar();
-                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${HPU}
 ${actU}
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}`
                 break;
             case 'Correr':
                 correr();
-                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${HPU}
 ${actU}
-=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${HPI}
 ${actI}`
                 break;
@@ -227,7 +270,10 @@ ${actI}`
             collector.stop(); teste = true;
             if(derrotaU){
                 interaction.user.db.ficha.dados[7].bg = derrota; 
-                await interaction.user.db.save()}
+                await interaction.user.db.save();
+            }else{
+                await upar()
+            }
             tela(interaction, Database);
         }
     })
@@ -301,8 +347,7 @@ const tela = async(interaction, Database) => {
             })
 
             
-            await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database)
-            console.log(inimigo.sprite);
+            await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
             
         }
     } else {                                                           // <--- se não tiver rolado encontro

@@ -23,6 +23,8 @@ module.exports = class extends Evento {
                     await this.client.db.users.findById(interaction.member.id) ||
                     new this.client.db.users({ _id: interaction.member.id})
                     
+                    interaction.userEdit = 
+                    await this.client.db.users
                 }
 
                 cmd.run(interaction)
