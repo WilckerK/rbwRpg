@@ -35,6 +35,7 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
 
         let actU = 'Escoha a sua ação...';
         let actI = 'Avança em sua direção prestes a te atacar';
+        let EXPGanho = 0
 
         //#region dados inimigo
         let HPI = 0, ATKI = 0, SPEI = 0, ACCI = 0;
@@ -75,7 +76,7 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
             eval(itensX[Item.v2 - 1].run); eval(itensX[Item.v2 - 1].run);
         }
 
-        let EXPGanho = Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100);
+        EXPGanho += Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100);
         //#endregion
         
    
@@ -102,13 +103,13 @@ ${actI}`);
     //#region Funções de batalha
 
     function userAtacar(){
-        let delta = 0 + danoExtraDoUser;
+        let delta = 0 ;
         let turno = SPEU;
         do{
 
         if( Math.ceil(Math.random() * 100) <= ACCU){
             let d20U = Math.ceil(Math.random() * 20);
-            let danoU = Math.ceil((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + delta);
+            let danoU = Math.ceil((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + danoExtraDoUser);
             danoU = (danoU >= 0)? danoU : 0;
             HPI -= danoU;
             actU = actU +  `Você atacou o inimigo e tirou ${danoU} de Dano.
@@ -121,6 +122,11 @@ ${actI}`);
 `}
         turno -= SPEI;
         }while(turno >= SPEI)
+        if(Item.v1 === 25 || Item.v2 === 25){
+            HPI -= danoU/10 * 2;
+            { actU = actU + `O filhotinho ataca também e tira ${danoU/10 * 2} de Dano.
+`}
+        }
     }
     
     function inimigoAtacar(){
@@ -339,7 +345,9 @@ const tela = async(interaction, Database) => {
         let inimigo = ficha[8]
         inimigo.nome = inimigosX[(inimigo.id - 101)].nome;
         inimigo.SKILL = inimigosX[(inimigo.id - 101)].SKILL;
-
+        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
+            {$set: {"ficha.dados.$.battle" : false}});
+        
         await jimp.read(inimigosX[(inimigo.id - 101)].sprite).then(async img  => {
             await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
         })

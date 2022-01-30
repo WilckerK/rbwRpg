@@ -22,7 +22,8 @@ module.exports = [
     run: "HPU += Math.floor(HPU/100) * 15; if(Item.i1 === 'Escudo' || Item.i2 === 'Escudo'){ACCI -= 3; desv += 10}"
     },
     {reg: 8 , nome: 'Sino', emblema: 'Musica', 
-    run: "ACCI -= 5; ficha[5].EXP += Math.floor(ficha[5].LVL/10)"
+    run: `ACCI -= 5; await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
+    {$set: {"ficha.dados.$.EXP" : (ficha[5].EXP + (ficha[5].LVL * 5))}});`
     },
     {reg: 9 , nome: 'Flash Bang', emblema: 'Engrenagem', 
     run: "ACCI -= 10; desv += 5; corrida += 5;"
@@ -49,7 +50,7 @@ module.exports = [
     run: "corrida += 100; ACCU += 5; HPU += 30"
     },
     {reg: 16, nome: 'Colar', emblema: 'Rei',
-    run: ""
+    run: "EXPGanho += (Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 2)"
     },
     {reg: 17, nome: 'Machado', emblema: 'Espada',
     run: "danoExtraDoUser += 30; ACCU -= Math.ceil(ACCU/10); SPEU -= 10;"
@@ -58,7 +59,7 @@ module.exports = [
     run: "desv += 20; curaExtra += Math.floor(HPU/10 * 2); ATKU -= Math.ceil(ATKU/10 * 30)"
     },
     {reg: 19, nome: 'Laser Gun', emblema: 'Engrenagem',
-    run: "SPEU += 30; ACCU = 10; ACCI += 10; corrida -= 30; "
+    run: "SPEU += 30; ACCU -= 10; ACCI += 10; corrida -= 30; "
     },
     {reg: 20, nome: 'Guarda-Chuva', emblema: 'Sorriso',
     run: "ACCI -= 30; ATKU -= 40; HPU -= Math.ceil(HPU/10 * 3)"
@@ -68,20 +69,47 @@ module.exports = [
     //#region Finais
     {reg: 21, nome: 'Coroa', emblema: 'Rei',
     run: 
-    `function runX() {
-        let coroa = Math.ceil(Math.random() * 10)
+    `Math.ceil(Math.random() * 10)
         switch(coroa){
             case 1: HPI -= Math.ceil(Math.random() * HPI);
             break;
-            case 2: ATKU += Math.ceil()
+            case 2: HPU += Math.ceil(Math.random() * ficha[5].HP_S);
+            break;
+            case 3: ATKI -= Math.ceil(Math.random() * ATKI);
+            break;
+            case 4: ATKU += Math.ceil(Math.random() * ficha[5].ATK_S);
+            break;
+            case 5: SPEI -= Math.ceil(Math.random() * SPEI);
+            break;
+            case 6: SPEU += Math.ceil(Math.random() * ficha[5].SPE_S);
+            break;
+            case 7: ACCI -= Math.ceil(Math.random() * ACCI);
+            break;
+            case 8: ACCU += Math.ceil(Math.random() * ficha[5].AC_S);
+            break;
+            default: actU = actU + "Nada aconteceu"
+            break;
+            
         }
     }
     `
     },
-    {reg: 22, nome: 'Katana', emblema: 'Espada'},
-    {reg: 23, nome: 'Guitarra', emblema: 'Musica'},
-    {reg: 24, nome: 'Canhão', emblema: 'Engrenagem'},
-    {reg: 25, nome: 'Filhotinho', emblema: 'Sorriso'}
+    {reg: 22, nome: 'Katana', emblema: 'Espada',
+    run:
+    `danoExtraDoUser += 40; ACCU = 1000`
+    },
+    {reg: 23, nome: 'Guitarra', emblema: 'Musica',
+    run: 
+    `inimigo.SKILL = null; SPEI -= Math.floor(SPEI / 10); ACCI -= 10`
+    },
+    {reg: 24, nome: 'Canhão', emblema: 'Engrenagem',
+    run: 
+    `HPI -= 150; ACCU -= 30; SPEU -= Math.floor(SPEI / 10)`
+    },
+    {reg: 25, nome: 'Filhotinho', emblema: 'Sorriso',
+    run:
+    `HPU += Math.ceil(ficha[5].HP_S / 10 * 3); SPEU += 10;`
+    }
     //#endregion
 
 ]
