@@ -130,7 +130,7 @@ module.exports = class extends comando{
                     },
                     {reg: 'Item', i1: Itemf1, v1: v1 , i2: Itemf2, v2: v2},
                     {reg: 'Local', bg: 'E1', battle: false, pers: 3},
-                    {reg: 'Inimigo', id: 100, HP: 0, ATK: 0, SPE: 0, AC: 0});
+                    {reg: 'Inimigo', id: 100, HPI: 0, ATKI: 0, SPEI: 0, ACCI: 0, actI: 'A', actU: 'A'});
 
                 //console.log(resps)                                           <------------------ checar resps
                 
