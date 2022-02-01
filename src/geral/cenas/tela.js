@@ -2,7 +2,7 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
 const backgroundX = require('./backgroundX'); let itensX = require('../itensX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX');
-let npc = 0; var teste = false;
+let npc = 102; var teste = false;
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
 
@@ -21,6 +21,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
         
     }while(check === false)
 }
+
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
     let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
     let idDoItemGanho = Math.ceil(Math.random() * 3);
@@ -67,24 +68,24 @@ async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha
     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Você encontrou um **${itemGanho.nome}**.
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-Seu item é ${ficha[6].i1},
-deseja trocar algum deles pelo item encontrado?`
+Seu item é **${ficha[6].i1}**.
+Deseja trocar algum deles pelo item encontrado?`
     }else{
         
     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Você encontrou um **${itemGanho.nome}**.
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-Seus itens são ${ficha[6].i1} e ${ficha[6].i2},
-deseja trocar algum deles pelo item encontrado?`
+Seus itens são **${ficha[6].i1}** e **${ficha[6].i2}**.
+Deseja trocar algum deles pelo item encontrado?`
     }
     let msg = new MessageEmbed()
                 .setTitle(`Você encontrou um item!!!`)
                 .setColor(ficha[4].value)
                 .setDescription(txt)
     const RowItem = new MessageActionRow().addComponents([
-        new MessageButton().setStyle('PRIMARY').setLabel('Trocar pelo item 1').setCustomId('TI1'),
-        new MessageButton().setStyle('PRIMARY').setLabel('Trocar pelo item 2').setCustomId('TI2'),
-        new MessageButton().setStyle('DANGER').setLabel('Manter itens atuais').setCustomId('MIA')
+        new MessageButton().setStyle('PRIMARY').setLabel('Trocar item 1').setCustomId('TI1'),
+        new MessageButton().setStyle('PRIMARY').setLabel('Trocar item 2').setCustomId('TI2'),
+        new MessageButton().setStyle('DANGER').setLabel('Manter atuais').setCustomId('MIA')
     ]);
 
     const enviada = await interaction.channel.send({ embeds: [msg], components:[RowItem], fetchReply: true });
@@ -97,34 +98,39 @@ deseja trocar algum deles pelo item encontrado?`
         switch(i.customId){
 
             case 'TI1':
+                ficha[6].i1 = itemGanho.nome; ficha[6].v1 = itemGanho.reg;
                 await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
-                {$set: {"ficha.dados.$.i1" : itemGanho.nome, "ficha.dados.$.v1" : itemGanho.reg}});
+                {$set: {"ficha.dados.$" : ficha[6]}});
                 await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
                 {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
 
                 msg = new MessageEmbed()
-                    .setTitle(inimigo.nome)
-                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
-                    .setDescription(`Feito!!! 
+                    .setTitle(`Novo item`)
+                    .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
+                    .setDescription(`**Feito!!!**
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Seus itens foram atualizados.`);
                 break;
             case 'TI2':
+                ficha[6].i2 = itemGanho.nome; ficha[6].v2 = itemGanho.reg;
                 await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
                 {$set: {"ficha.dados.$.i2" : itemGanho.nome, "ficha.dados.$.v2" : itemGanho.reg}});
                 await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
                 {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
 
                 msg = new MessageEmbed()
-                    .setTitle(inimigo.nome)
-                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
-                    .setDescription(`Feito!!! 
+                    .setTitle(`Novo item`)
+                    .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
+                    .setDescription(`**Feito!!! **
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Seus itens foram atualizados.`);
                 break;
             case 'MIA':
                 msg = new MessageEmbed()
-                    .setTitle(inimigo.nome)
-                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
-                    .setDescription(`Feito!!! 
+                    .setTitle(`Manteve os itens`)
+                    .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
+                    .setDescription(`**Feito!!!**
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Seus itens permaneceram, mas você pode encontrar esse item novamente.`);
                 break;
             default:
@@ -394,40 +400,52 @@ Seus Status Base agora são:
 **(O-O)-b**`)
             await interaction.channel.send({ embeds: [msg]})
 
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
+            {$set: {"ficha.dados.$.battle" : false}});
+            ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
             {$set: {"ficha.dados.$" : ficha[5]}});
+
+            tela(interaction, Database);
             
         }else{
             let msg = new MessageEmbed()
                 .setTitle(ficha[0].value + ` ganhou EXP`)
                 .setColor(ficha[4].value)
                 .setDescription(`**Você venceu!!!** 
-Ganhou ${EXPGanho} de EXP! `)
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**Ganhou ${EXPGanho} de EXP!** 
+Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) - ficha[5].EXP}** para o próximo LVL.`)
             await interaction.channel.send({ embeds: [msg]})
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-            {$set: {"ficha.dados.$.EXP" : ficha[5].EXP}});
 
-            let chanceItem = Math.ceil(Math.random() * 100);
-            if (chanceItem <= 35){encontrarItem(inimigo.emblemas[0], inimigo.emblemas[1], interaction, ficha[5], Database);}
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
+            {$set: {"ficha.dados.$.battle" : false}});
+            ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
+            {$set: {"ficha.dados.$" : ficha[5]}});
+    
+            let chanceItem = 20 //Math.ceil(Math.random() * 100);
+            if (chanceItem <= 35){encontrarItem(inimigo.emblemas[0], inimigo.emblemas[1], interaction, ficha, Database);}
             else{tela(interaction, Database);}
         }
             
     }
 
     async function finalizarBatalha(){
+        
         if(derrotaU){
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
+            {$set: {"ficha.dados.$.battle" : false}});
+            ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
+            {$set: {"ficha.dados.$" : ficha[5]}});
+    
             interaction.user.db.ficha.dados[7].bg = derrota; 
             await interaction.user.db.save();
             tela(interaction, Database);
         }else{
             await upar()
         }
-
-        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-        {$set: {"ficha.dados.$.battle" : false}});
-        ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
-        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-        {$set: {"ficha.dados.$" : ficha[5]}});
 
     }
 
@@ -461,7 +479,7 @@ ${actU}`
                 if (primeiroAIr == 'U'){
                     userAtacar();
                     if(!derrotaI){inimigoAtacar();}
-                    else{HPI = 0; actU = `O oponente foi derrotado por você.`}
+                    else{HPI = 0; actI = `O oponente foi derrotado por você.`}
 
                     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
