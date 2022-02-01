@@ -7,7 +7,7 @@ module.exports = [
     run: "SPEU += Math.floor(SPEU/100) * 5; ATKU += 10;"
     },
     {reg: 3 , nome: 'Flauta', emblema: 'Musica', 
-    run: "ACCU += 6; ATKU += 5;"
+    run: "ACCU += 6; ACCI -= 5;"
     },
     {reg: 4 , nome: 'Estilingue', emblema: 'Engrenagem', 
     run: "SPEU += 10; ACCU += 3;"
@@ -26,7 +26,7 @@ module.exports = [
     {$set: {"ficha.dados.$.EXP" : (ficha[5].EXP + (ficha[5].LVL * 5))}});`
     },
     {reg: 9 , nome: 'Flash Bang', emblema: 'Engrenagem', 
-    run: "ACCI -= 10; desv += 5; corrida += 5;"
+    run: "ACCI -= 13; desv += 5; corrida += 5;"
     },
     {reg: 10, nome: 'Flores', emblema: 'Sorriso', 
     run: "HPU += 20; ATKI -= Math.floor(ATK/10);"

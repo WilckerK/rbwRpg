@@ -167,7 +167,7 @@ module.exports = class extends comando{
                         
                         let Nome = dados[posF.indexOf('Nome')].value; let Emblema = dados[posF.indexOf('Emblema')].value;
                         let Natalidade = dados[posF.indexOf('Natalidade')].value; let Sexo = dados[posF.indexOf('Sexo')].value;
-                        let It1 =  dados[posF.indexOf('Item')].item1; let It2 =  dados[posF.indexOf('Item')].item2;
+                        let It1 =  dados[posF.indexOf('Item')].i1; let It2 =  dados[posF.indexOf('Item')].i2;
                         let St = dados[posF.indexOf('Status')]; var barraExp =''; let LVLup = (((St.LVL - 1) * 100) + (50 * (0 ** (St.LVL - 1))))
                         let qtdLVLF = parseInt(((100 / LVLup) * St.EXP) / 10);
                         let url = linksEmbedImg[brasao.indexOf(Emblema)].value;

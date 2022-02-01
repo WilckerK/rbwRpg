@@ -2,9 +2,7 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
 const backgroundX = require('./backgroundX'); let itensX = require('../itensX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX');
-let npc = 0; var teste = false; 
-
-//#region funções
+let npc = 0; var teste = false;
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
 
@@ -23,6 +21,137 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
         
     }while(check === false)
 }
+async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
+    let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
+    let idDoItemGanho = Math.ceil(Math.random() * 3);
+    if (idDoItemGanho > 3){
+        switch(PrimeiroEmblema){
+            case 'Rei': idDoItemGanho = 0 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Espada': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Musica': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+                
+            case 'Engrenagem': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Sorriso': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            default: idDoItemGanho = Math.floor(Math.random() * (nivelDosItensGanhos * 5));
+        }
+    }else{
+        switch(SegundoEmblema){
+            case 'Rei': idDoItemGanho = 0 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Espada': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Musica': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+                
+            case 'Engrenagem': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            
+            case 'Sorriso': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+                break;
+            default: idDoItemGanho = Math.floor(Math.random() * (nivelDosItensGanhos * 5));
+        }
+    }
+    let itemGanho  = itensX[idDoItemGanho];
+    let txt = '';
+    if(ficha[6].v1 > 20){
+    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+Você encontrou um **${itemGanho.nome}**.
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+Seu item é ${ficha[6].i1},
+deseja trocar algum deles pelo item encontrado?`
+    }else{
+        
+    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+Você encontrou um **${itemGanho.nome}**.
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+Seus itens são ${ficha[6].i1} e ${ficha[6].i2},
+deseja trocar algum deles pelo item encontrado?`
+    }
+    let msg = new MessageEmbed()
+                .setTitle(`Você encontrou um item!!!`)
+                .setColor(ficha[4].value)
+                .setDescription(txt)
+    const RowItem = new MessageActionRow().addComponents([
+        new MessageButton().setStyle('PRIMARY').setLabel('Trocar pelo item 1').setCustomId('TI1'),
+        new MessageButton().setStyle('PRIMARY').setLabel('Trocar pelo item 2').setCustomId('TI2'),
+        new MessageButton().setStyle('DANGER').setLabel('Manter itens atuais').setCustomId('MIA')
+    ]);
+
+    const enviada = await interaction.channel.send({ embeds: [msg], components:[RowItem], fetchReply: true });
+
+    const filter = (b) => b.user.id === interaction.user.id;
+    const collector = enviada.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: ( 5 * 60000) });
+
+    collector.on('collect', async(i) => {
+
+        switch(i.customId){
+
+            case 'TI1':
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
+                {$set: {"ficha.dados.$.i1" : itemGanho.nome, "ficha.dados.$.v1" : itemGanho.reg}});
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
+                {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
+
+                msg = new MessageEmbed()
+                    .setTitle(inimigo.nome)
+                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
+                    .setDescription(`Feito!!! 
+Seus itens foram atualizados.`);
+                break;
+            case 'TI2':
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
+                {$set: {"ficha.dados.$.i2" : itemGanho.nome, "ficha.dados.$.v2" : itemGanho.reg}});
+                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
+                {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
+
+                msg = new MessageEmbed()
+                    .setTitle(inimigo.nome)
+                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
+                    .setDescription(`Feito!!! 
+Seus itens foram atualizados.`);
+                break;
+            case 'MIA':
+                msg = new MessageEmbed()
+                    .setTitle(inimigo.nome)
+                    .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
+                    .setDescription(`Feito!!! 
+Seus itens permaneceram, mas você pode encontrar esse item novamente.`);
+                break;
+            default:
+                break;
+        }
+
+        i.update({embeds: [msg], components: []}); 
+        collector.stop();
+        tela(interaction, Database);
+        
+    })
+    
+    collector.on('end', async(collected, reason) => {
+        if (reason === 'time'){
+
+
+            let timeMsg = new MessageEmbed()
+                .setTitle('Seção Finalizada')
+                .setDescription(`A seção foi terminada devido ao tempo de resposta.
+Você tem 5 minutos para decidir se iria ficar com o item ou não.
+O item foi perdido, mas pode ser que você encontre ele novamente.
+Caso queira continuar inicie a seção novamente.`);
+
+            await enviada.edit({embeds: [timeMsg], components: []});
+        }
+    })
+}
 
 async function Batalha(ficha, inimigo, interaction, derrota, Database){
     const RowBattle = new MessageActionRow().addComponents([
@@ -34,19 +163,21 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
     //#region dados
 
         let actU = 'Escoha a sua ação...';
-        let actI = 'Avança em sua direção prestes a te atacar';
+        let actI = 'Avança em sua direção prestes a te atacar.';
         let EXPGanho = 0
-
+        let KuburaEffect = false;
         //#region dados inimigo
         let HPI = 0, ATKI = 0, SPEI = 0, ACCI = 0;
         let derrotaI = false;
 
         if(!inimigo.id){
-            HPI = Math.ceil((inimigo.HP < 500)?inimigo.HP + (inimigo.HP * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL):inimigo.HP);
-            ATKI = Math.ceil((inimigo.ATK < 450)?inimigo.ATK + (inimigo.ATK * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL):inimigo.ATK);
+            HPI = Math.ceil((inimigo.HP < 500)?inimigo.HP + (inimigo.HP * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL * 2):inimigo.HP);
+            ATKI = Math.ceil((inimigo.ATK < 450)?inimigo.ATK + (inimigo.ATK * ((ficha[5].LVL * 2) / 100) + ficha[5].LVL * 2):inimigo.ATK);
             SPEI = inimigo.SPE + (inimigo.HP * ((ficha[5].LVL * 2) / 100));
             ACCI = inimigo.AC;
         }else{
+            
+            inimigo.reg = inimigo.id;
             HPI = inimigo.HPI;
             ATKI = inimigo.ATKI;
             SPEI = inimigo.SPEI;
@@ -54,6 +185,8 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
             actI = inimigo.actI;
             actU = inimigo.actU;
         }
+
+        let skillUsada = false;
         //#endregion
         
         //#region dados user
@@ -68,6 +201,7 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
         //#region dados gerais
         let desv = 0;
         let danoExtraDoUser = 0;
+        let danoExtraDoInimigo = 0;
         let corrida = 0;
         let curaExtra = 0;
         let txt = '';
@@ -76,12 +210,43 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
             eval(itensX[Item.v2 - 1].run); eval(itensX[Item.v2 - 1].run);
         }
 
-        EXPGanho += Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100);
+        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 2.5);
         //#endregion
-        
+        switch(inimigo.emblemas[0]){
+            case 'Rei': 
+                if(ficha[1].value === 'Espada' || ficha[1].value === 'Engrenagem')
+                    {danoExtraDoInimigo += 5}
+                else if(ficha[1].value === 'Musica' || ficha[1].value === 'Sorriso')
+                    {danoExtraDoUser += 5}
+                break;
+            case 'Espada': 
+                if(ficha[1].value === 'Musica' || ficha[1].value === 'Sorriso')
+                    {danoExtraDoInimigo += 5}
+                else if(ficha[1].value === 'Rei' || ficha[1].value === 'Engrenagem')
+                    {danoExtraDoUser += 5}
+                break;
+            case 'Musica': 
+                if(ficha[1].value === 'Rei' || ficha[1].value === 'Sorriso')
+                    {danoExtraDoInimigo += 5}
+                else if(ficha[1].value === 'Espada' || ficha[1].value === 'Engrenagem')
+                    {danoExtraDoUser += 5}
+                break;
+            case 'Engrenagem': 
+                if(ficha[1].value === 'Espada' || ficha[1].value === 'Musica')
+                    {danoExtraDoInimigo += 5}
+                else if(ficha[1].value === 'Rei' || ficha[1].value === 'Sorriso')
+                    {danoExtraDoUser += 5}
+                break;
+            case 'Sorriso': 
+                if(ficha[1].value === 'Rei' || ficha[1].value === 'Engrenagem')
+                    {danoExtraDoInimigo += 5}
+                else if(ficha[1].value === 'Espada' || ficha[1].value === 'Musica')
+                    {danoExtraDoUser += 5}
+                break;
+            default:
+                break;
+        }
    
-        
-
     let msg = new MessageEmbed()
         .setTitle(inimigo.nome)
         .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
@@ -109,19 +274,24 @@ ${actI}`);
 
         if( Math.ceil(Math.random() * 100) <= ACCU){
             let d20U = Math.ceil(Math.random() * 20);
-            let danoU = Math.ceil((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + danoExtraDoUser);
+            let calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
+            let danoU = ((calcU > 0)?calcU:-5)+ d20U + danoExtraDoUser;
             danoU = (danoU >= 0)? danoU : 0;
+            if(d20U === 20){
+                danoU += Math.floor(danoU/2);
+                actU = actU + `**DANO CRÍTICO**
+`;}
             HPI -= danoU;
             actU = actU +  `Você atacou o inimigo e tirou ${danoU} de Dano.
 `;
-            if(HPI <= 0){derrotaI = true;}
+            if(HPI <= 0){HPI = 0;derrotaI = true;}
         }else{actU = actU +  `Você errou o ataque.
 `;}
         if(derrotaI){break;}
-        if((turno - SPEI >= SPEI)){ actU = actU + `Você é tão mais rápido que seu oponente, que ataca novamente.
+        if((turno - SPEI > SPEI)){ actU = actU + `Você é tão mais rápido que seu oponente, que ataca novamente.
 `}
         turno -= SPEI;
-        }while(turno >= SPEI)
+        }while(turno > SPEI)
         if(Item.v1 === 25 || Item.v2 === 25){
             HPI -= danoU/10 * 2;
             { actU = actU + `O filhotinho ataca também e tira ${danoU/10 * 2} de Dano.
@@ -134,19 +304,24 @@ ${actI}`);
         do{
         if(Math.ceil(Math.random() * 100) <= ACCI){
             let d20I = Math.ceil(Math.random() * 20);
-            let danoI = Math.ceil((((ATKI / ATKU) * 10) - (HPU / 10)) + (d20I - 5));
+            let calcI = Math.ceil(((ATKI / ATKU) * 8) - Math.floor(HPU / 50))
+            let danoI = ((calcI > 0)?calcI:-5) + d20I + danoExtraDoInimigo;
             danoI = (danoI >= 0)? danoI : 0;
+            if(d20I === 20){
+                danoI += Math.ceil(danoI/2);
+                actI = actI + `**DANO CRÍTICO**
+`;}
             HPU -= danoI;
             actI =  actI + `O inimigo te atacou e tirou ${danoI} de Dano.
 `;
-            if(HPU <= 0){derrotaU = true;}
+            if(HPU <= 0){HPU = 0;derrotaU = true;}
         }else{actI = actI +  `Seu inimigo errou o ataque.
 `;}
         if (derrotaU){break;}
-        if((turno - SPEU >= SPEU)){ actI = actI + `Seu oponente e tão mais rápido que você, que ataca novamente.
+        if((turno - SPEU > SPEU)){ actI = actI + `Seu oponente e tão mais rápido que você, que ataca novamente.
 `}
         turno -= SPEU;  
-        }while(turno >= SPEU)
+        }while(turno > SPEU)
     }
 
     function desviar(){
@@ -181,6 +356,7 @@ ${actI}`);
     }
 
     async function upar(){
+
         ficha[5].EXP += EXPGanho;
         if(ficha[5].EXP >= ((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1)))){
             interaction.user.db.ficha.dados[5].LVL = ficha[5].LVL++;
@@ -205,26 +381,57 @@ ${actI}`);
                     break;
             }
             let msg = new MessageEmbed()
-                .setTitle(ficha[0].value + `upou de LVL`)
+                .setTitle(ficha[0].value + ` upou de LVL`)
                 .setColor(ficha[4].value)
-                .setDescription(`**Parabéns!!! Agora você é nivel ${ficha[5].LVL}**
-
+                .setDescription(`=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**Parabéns!!! Agora você é nivel ${ficha[5].LVL}**
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Seus Status Base agora são:
 **HP:** ${ficha[5].HP_S}
 **ATK:** ${ficha[5].ATK_S} 
 **SPE:** ${ficha[5].SPE_S}
-**AC:** ${ficha[5].AC_S}    \\(OuO)\\`)
+**AC:** ${ficha[5].AC_S}%  
+**(O-O)-b**`)
             await interaction.channel.send({ embeds: [msg]})
 
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
             {$set: {"ficha.dados.$" : ficha[5]}});
             
         }else{
+            let msg = new MessageEmbed()
+                .setTitle(ficha[0].value + ` ganhou EXP`)
+                .setColor(ficha[4].value)
+                .setDescription(`**Você venceu!!!** 
+Ganhou ${EXPGanho} de EXP! `)
+            await interaction.channel.send({ embeds: [msg]})
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
             {$set: {"ficha.dados.$.EXP" : ficha[5].EXP}});
+
+            let chanceItem = Math.ceil(Math.random() * 100);
+            if (chanceItem <= 35){encontrarItem(inimigo.emblemas[0], inimigo.emblemas[1], interaction, ficha[5], Database);}
+            else{tela(interaction, Database);}
         }
             
     }
+
+    async function finalizarBatalha(){
+        if(derrotaU){
+            interaction.user.db.ficha.dados[7].bg = derrota; 
+            await interaction.user.db.save();
+            tela(interaction, Database);
+        }else{
+            await upar()
+        }
+
+        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
+        {$set: {"ficha.dados.$.battle" : false}});
+        ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
+        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
+        {$set: {"ficha.dados.$" : ficha[5]}});
+
+    }
+
+
     //#endregion
 
     collector.on('collect', async(i) => {
@@ -234,8 +441,20 @@ Seus Status Base agora são:
 
         switch(i.customId){
 
-
             case 'Ataque':
+            let skillRand = 0 //Math.ceil(Math.random() * 3)
+            if(skillRand === 3 && skillUsada === false){
+                eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
+                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
+**SKILL**
+${actI}                       
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
+${actU}`
+                
+                break;
+            }
 
                 let primeiroAIr = (SPEU != SPEI)?(SPEU > SPEI)?'U':'I':(Math.ceil(Math.random() * 2) == 0)?'U':'I';
 
@@ -245,10 +464,10 @@ Seus Status Base agora são:
                     else{HPI = 0; actU = `O oponente foi derrotado por você.`}
 
                     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${ficha[0].value}**: | HP: ${HPU}
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
 ${actU}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${inimigo.nome}**: | HP: ${HPI}
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 ${actI}`
                 }else{
                     inimigoAtacar();
@@ -256,10 +475,10 @@ ${actI}`
                     else{HPU = 0; actU = `Você foi derrotado pelo oponente.`}
                 
                     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${inimigo.nome}**: | HP: ${HPI}
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 ${actI}                       
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${ficha[0].value}**: | HP: ${HPU}
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
 ${actU}`
                 }
                 
@@ -267,19 +486,19 @@ ${actU}`
             case 'Desvio':
                 desviar();
                 txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${ficha[0].value}**: | HP: ${HPU}
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
 ${actU}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${inimigo.nome}**: | HP: ${HPI}
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 ${actI}`
                 break;
             case 'Correr':
                 correr();
                 txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${ficha[0].value}**: | HP: ${HPU}
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
 ${actU}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-**${inimigo.nome}**: | HP: ${HPI}
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 ${actI}`
                 break;
             default:
@@ -294,14 +513,8 @@ ${actI}`
         if(!derrotaU && !derrotaI){i.update({embeds: [msg]})}
         else{
             i.update({embeds: [msg], components: []}); 
-            collector.stop(); teste = true;
-            if(derrotaU){
-                interaction.user.db.ficha.dados[7].bg = derrota; 
-                await interaction.user.db.save();
-            }else{
-                await upar()
-            }
-            tela(interaction, Database);
+            collector.stop(); 
+            finalizarBatalha();
         }
     })
     
@@ -317,17 +530,19 @@ Caso queira continua-la inicie a seção novamente.`);
 
             await enviada.edit({embeds: [timeMsg], components: []});
 
-            if(inimigo.id){inimigo.reg = inimigo.id}
+            
             let salvarInimigoNaDB = {reg: "Inimigo", id: inimigo.reg, HPI: HPI, ATKI: ATKI, SPEI: SPEI, ACCI: ACCI, actI: actI, actU: actU};
+            ficha[5].HP = HPU; ficha[5].ATK = ATKU; ficha[5].SPE = SPEU; ficha[5].AC = ACCU;
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Inimigo"},
             {$set: {"ficha.dados.$" : salvarInimigoNaDB}});
+            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
+            {$set: {"ficha.dados.$" : ficha[5]}});
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
             {$set: {"ficha.dados.$.battle" : true}});
         }
     })
     
 }
-//#endregion
 
 const tela = async(interaction, Database) => {
     let ficha = Database.ficha.dados;
@@ -345,6 +560,8 @@ const tela = async(interaction, Database) => {
         let inimigo = ficha[8]
         inimigo.nome = inimigosX[(inimigo.id - 101)].nome;
         inimigo.SKILL = inimigosX[(inimigo.id - 101)].SKILL;
+        inimigo.emblemas = inimigosX[(inimigo.id - 101)].emblemas;
+        inimigo.repetitivo = inimigosX[(inimigo.id - 101)].repetitivo;
         await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
             {$set: {"ficha.dados.$.battle" : false}});
         
