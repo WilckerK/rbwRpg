@@ -2,7 +2,7 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
 const backgroundX = require('./backgroundX'); let itensX = require('../itensX');
 let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX');
-let npc = 102; var teste = false;
+let npc = 0; var teste = false;
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
 
@@ -25,7 +25,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
     let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
     let idDoItemGanho = Math.ceil(Math.random() * 3);
-    if (idDoItemGanho > 3){
+    if (idDoItemGanho < 3){
         switch(PrimeiroEmblema){
             case 'Rei': idDoItemGanho = 0 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
@@ -216,7 +216,7 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
             eval(itensX[Item.v2 - 1].run); eval(itensX[Item.v2 - 1].run);
         }
 
-        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 2.5);
+        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 1.5);
         //#endregion
         switch(inimigo.emblemas[0]){
             case 'Rei': 
@@ -424,7 +424,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
             {$set: {"ficha.dados.$" : ficha[5]}});
     
-            let chanceItem = 20 //Math.ceil(Math.random() * 100);
+            let chanceItem = Math.ceil(Math.random() * 100);
             if (chanceItem <= 35){encontrarItem(inimigo.emblemas[0], inimigo.emblemas[1], interaction, ficha, Database);}
             else{tela(interaction, Database);}
         }
