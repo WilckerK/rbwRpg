@@ -11,7 +11,7 @@ module.exports = class extends comando{
                 {
                     name: 'escolha',
                     type:'STRING',
-                    description: 'Qual a cor? [Vermelho, Amarelo, Verde, Azul ou Preto]',
+                    description: 'Qual a cor?[Vermelho, Amarelo, Verde, Azul ou Preto]',
                     required: true
                 }
             ]
@@ -21,23 +21,30 @@ module.exports = class extends comando{
     run = async (interaction) => {
         const cor = interaction.options.getString('escolha')
         let hex = 'x';
-        switch(cor){
-            case'Vermelho': hex = '#FF0000';
+        switch(cor.toLowerCase()){
+            case'vermelho': hex = '#FF0000';
             break;
-            case'Amarelo': hex = '#FFFF00';
+            case'amarelo': hex = '#FFFF00';
             break;
-            case'Verde': hex = '#00FF00';
+            case'verde': hex = '#00FF00';
             break;
-            case'Azul': hex = '#0000FF';
+            case'azul': hex = '#0000FF';
             break;
-            case'Preto': hex = '#010101';
+            case'preto': hex = '#010101';
             break;
-            default: interaction.reply(({ content: `Por favor mande uma cor válida com a primeira letra maiúscula.`, ephemeral: true}))
+            case'roxo': hex = '#6A0DAD';
+            break;
+            case'rosa': hex = '#FF00FF';
+            break;
+            case'zzz': hex = '#00FFFF';
+            break;
+            default: interaction.reply(({ content: `Por favor mande uma cor válida.`, ephemeral: true}))
         }
         
         if(hex !== 'x'){
             await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Cor"},
             {$set: {"ficha.dados.$.value" : hex}});
+            interaction.reply(({ content: `Feito! (C_C)`, ephemeral: true}));
         }
     }
 }

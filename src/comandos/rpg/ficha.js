@@ -197,7 +197,22 @@ module.exports = class extends comando{
                                 for(let i = 0; i < qtdLVLF ; i++){barraExp = barraExp + '⬜'}
                                 for(let i = 0; i < 10 - qtdLVLF; i++){barraExp = barraExp + '⬛'}
                                 break;
-                            default: throw('Algo deu errado com a barra de HP')
+                            case '#6A0DAD':
+                                for(let i = 0; i < qtdLVLF ; i++){barraExp = barraExp + '⬜'}
+                                for(let i = 0; i < 10 - qtdLVLF; i++){barraExp = barraExp + '🟪'}
+                                break;
+                            case '#FF00FF':
+                                for(let i = 0; i < qtdLVLF ; i++){barraExp = barraExp + '⬜'}
+                                for(let i = 0; i < 10 - qtdLVLF; i++){barraExp = barraExp + '🌈'}
+                                break;
+                            case '#00FFFF':
+                                for(let i = 0; i < qtdLVLF ; i++){barraExp = barraExp + '⬜'}
+                                for(let i = 0; i < 10 - qtdLVLF; i++){barraExp = barraExp + '💤'}
+                                break;
+                            default:
+                                for(let i = 0; i < qtdLVLF ; i++){barraExp = barraExp + '⬜'}
+                                for(let i = 0; i < 10 - qtdLVLF; i++){barraExp = barraExp + '🌌'}
+                                break;
                         }
                 
                         let ficha = new MessageEmbed()
