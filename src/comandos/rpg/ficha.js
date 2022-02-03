@@ -89,8 +89,6 @@ module.exports = class extends comando{
 
                 const pos = resps.map(function(e) { return e.reg; });
 
-                cor = resps[pos.indexOf('Cor')].value
-
                 //#region definir valores e itens pelo emblema
                 let v1 = 0; let v2 = 0;
                 switch(resps[pos.indexOf('Emblema')].value){
@@ -129,8 +127,21 @@ module.exports = class extends comando{
                         AC: (85 + ACF)
                     },
                     {reg: 'Item', i1: Itemf1, v1: v1 , i2: Itemf2, v2: v2},
-                    {reg: 'Local', bg: 'E1', battle: false, pers: 3},
-                    {reg: 'Inimigo', id: 100, HPI: 0, ATKI: 0, SPEI: 0, ACCI: 0, actI: 'A', actU: 'A'});
+                    {reg: 'Local', bg: 'E1', battle: false, pers: 0},
+                    {reg: 'Inimigo', id: 100, HPI: 0, ATKI: 0, SPEI: 0, ACCI: 0, actI: 'A', actU: 'A'},
+                    {reg: 'Personagens', 
+                        Wilcker: 0,
+                        Lulli: 0,
+                        C0r0nga: 0,
+                        Lofime: 0,
+                        Luizftitan: 0,
+                        Raposinha: 0,
+                        Perdeu: 0,
+                        Pema: 0,
+                        Cookie: 0,
+                        Batata: 0,
+                        Svelter: 0,
+                    });
 
                 //console.log(resps)                                           <------------------ checar resps
                 
@@ -233,7 +244,7 @@ module.exports = class extends comando{
 **HP:** ~**${St.HP_S}**~   |   **AC:** \` ${St.AC_S}% \` 
 
 **Item 1:** \` ${It1} \`   |   **Item 2:** \` ${It2} \`
-**ATK:** \` ${St.ATK_S} \`           |       **SPE:** \` ${St.SPE_S} \``)
+**ATK:** \` ${St.ATK_S} \`   |   **SPE:** \` ${St.SPE_S} \``)
 
                 
                         interaction.channel.send({ embeds: [ficha] })

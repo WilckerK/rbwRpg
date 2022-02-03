@@ -1,8 +1,8 @@
 const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
-const backgroundX = require('./backgroundX'); let itensX = require('../itensX');
-let inimigosX = require('./inimigosX'); let personagensX = require('./personagensX');
-let npc = 0; var teste = false;
+const backgroundX = require('./backgroundX'); const itensX = require('../itensX');
+const inimigosX = require('./inimigosX'); const personagensX = require('./personagensX');
+let npc = 0; var teste = null;
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
 
@@ -591,22 +591,20 @@ const tela = async(interaction, Database) => {
         await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
         
     }else{
-        npc = (npc === 0)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
+        npc = 0//(npc === 0)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
 
         if (npc !== 0){ //encontro
             if(npc < 100){ //personagem
-
-                let inimigosX = null;
                 //lendo infos
                 
-                let fundo = backgroundX[indexDoFundo].img;                  
-                let fonte = await jimp.loadFont(jimp.FONT_SANS_64_WHITE);
+                let fundo = backgroundX[indexDoFundo].img;
+                let texto = 'aaaaaaaaa'
+                let fonte =  await jimp.loadFont('src/extra/fonte.fnt');  
                 let img = await jimp.read(fundo);
-                let texto = 'Eu preciso escrever um texto com 160 letras pra testar qual é o limite da caixa de diálogo que eu coloquei nas imagens, pois eu não consigo diminuir a fonte no jimp triste dms slk.'
                 let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
 
                 //montando a imagem
-                img.print(fonte, 50, 730, texto, 1200);
+                img.print(fonte, 50, 730, texto, 1250);
                 img.composite(person, 640, 720);
 
                 //#region limpar
@@ -623,19 +621,35 @@ const tela = async(interaction, Database) => {
 
             }else{ //se for uma batalha
 
-                personagensX = null;
                 let inimigo = inimigosX[(npc - 101)];
                 
                 await jimp.read(inimigo.sprite).then(async img  => {
                     await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
                 })
 
-                
                 await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
-                
             }
+
         } else {                                                           // <--- se não tiver rolado encontro
-            null
+            let fundo = backgroundX[indexDoFundo].img;
+            let texto = backgroundX[indexDoFundo].textoPadrao; 
+            let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
+            let img = await jimp.read(fundo);
+
+            //montando a imagem
+            img.print(fonte, 50, 730, texto, 1000);
+
+            //#region limpar
+            indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
+            fonte = null;
+            fundo = null;
+            texto = null;
+            person = null;
+            npc = null;
+            //#endregion
+
+            //criando a imagem
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
         }
     }
 }

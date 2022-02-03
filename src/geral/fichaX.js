@@ -1,8 +1,10 @@
 module.exports = [
-    {   reg: 'Nome',
+    {   
+        reg: 'Nome',
         pergunta: 'Qual o nome do seu personagem?'
     },
-    {   customId: 'Emblema',
+    {   
+        customId: 'Emblema',
         pergunta: 'Qual o seu emblema?',
         placeholder: 'Escolha um emblema',
         
@@ -35,10 +37,12 @@ module.exports = [
             }
         ]
     },
-    {   reg: 'Natalidade',
+    {   
+        reg: 'Natalidade',
         pergunta: 'De onde veio o seu personagem?'
     },
-    {   customId: 'Sexo',
+    {   
+        customId: 'Sexo',
         pergunta: 'Qual o sexo do seu personagem?',
         placeholder: 'Escolha seu sexo.',
         
@@ -61,7 +65,8 @@ module.exports = [
             }
         ]
     },
-    {   customId: 'Cor',
+    {   
+        customId: 'Cor',
         pergunta: 'Qual cor dessas você prefere?',
         placeholder: 'Escolha uma cor.',
         
