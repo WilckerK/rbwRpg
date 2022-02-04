@@ -49,13 +49,13 @@ module.exports = class extends comando{
                         .setFooter('Você tem 5 minutos para responder cada pergunta, relaxe. (^-^)')
 
                     if(pergunta.options){
-                        const Row = new MessageActionRow().addComponents(new MessageSelectMenu(pergunta))
+                        const Row = new MessageActionRow().addComponents(new MessageSelectMenu(pergunta));
 
                         const msg = await channel.send({content: interaction.user.toString(), embeds: [embed], components: [Row]})
-                        const filter = (i) => i.user.id === interaction.user.id
-                        const collector = msg.createMessageComponentCollector({ filter, max: 1, time: (5 * 60000)})
+                        const filter = (i) => i.user.id === interaction.user.id;
+                        const collector = msg.createMessageComponentCollector({ filter, max: 1, time: (5 * 60000)});
 
-                        const [collected, reason] = await once(collector, 'end')
+                        const [collected, reason] = await once(collector, 'end');
 
                         if (reason === 'limit'){
                             msg.delete().catch(() => {})

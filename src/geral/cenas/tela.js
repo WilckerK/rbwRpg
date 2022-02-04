@@ -1,11 +1,11 @@
 const jimp = require('jimp');
-const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton} = require('discord.js');
+const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
 const backgroundX = require('./backgroundX'); const itensX = require('../itensX');
 const inimigosX = require('./inimigosX'); const personagensX = require('./personagensX');
 let npc = 0; var teste = null;
 
-async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
-
+async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row){
+    row = (row !== null)?row:[];
     img.write(nomeDaImagem);
     let check = false;
     do{
@@ -14,7 +14,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor){
             .setTitle(nomeDoLugar)
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file]}).then((msg) => {
+        await interaction.channel.send({ embeds: [msg] , files: [file], components: [row]}).then((msg) => {
             if (msg.embeds[0].image){ check = true;}
             else {msg.delete().catch(() => {});}
         })
@@ -565,7 +565,8 @@ Caso queira continua-la inicie a seção novamente.`);
 const tela = async(interaction, Database) => {
     let ficha = Database.ficha.dados;
     let cor = ficha[4].value;
-    
+    let row = null; 
+    let etapa = 0;
     //mapeando index
     let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf(ficha[7].bg);
     const nomeDaImagem =  interaction.user.id.toString() + '.jpg';
@@ -584,7 +585,7 @@ const tela = async(interaction, Database) => {
             {$set: {"ficha.dados.$.battle" : false}});
         
         await jimp.read(inimigosX[(inimigo.id - 101)].sprite).then(async img  => {
-            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
         })
 
         
@@ -616,40 +617,43 @@ const tela = async(interaction, Database) => {
                 npc = null;
                 //#endregion
 
-                //criando a imagem
-                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
+                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
 
             }else{ //se for uma batalha
 
                 let inimigo = inimigosX[(npc - 101)];
                 
                 await jimp.read(inimigo.sprite).then(async img  => {
-                    await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
+                    await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
                 })
 
                 await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
             }
 
         } else {                                                           // <--- se não tiver rolado encontro
+            const backgroundY = require('./backgroundY');
+            console.log(ficha[7].bg + ',' + etapa);
+            const obj = backgroundY(ficha[7].bg, etapa);
             let fundo = backgroundX[indexDoFundo].img;
-            let texto = backgroundX[indexDoFundo].textoPadrao; 
+            let texto = obj.textoPadrao; 
+            console.log(obj)
             let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
             let img = await jimp.read(fundo);
 
             //montando a imagem
-            img.print(fonte, 50, 730, texto, 1000);
+            img.print(fonte, 30, 730, texto, 998);
 
-            //#region limpar
-            indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
+            //#region limpar                                      // <---- liberando memória para uma melhor performace
             fonte = null;
             fundo = null;
             texto = null;
             person = null;
             npc = null;
             //#endregion
+            
+            row = new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0]));
 
-            //criando a imagem
-            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor);
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
         }
     }
 }
