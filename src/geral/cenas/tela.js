@@ -2,24 +2,102 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
 const backgroundX = require('./backgroundX'); const itensX = require('../itensX');
 const inimigosX = require('./inimigosX'); const personagensX = require('./personagensX');
-let npc = 0; var teste = null;
+let npc = 0; var teste = null; let derrotaU = false; let etapa = 0;
 
-async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row){
-    row = (row !== null)?row:[];
+async function salvar(interaction, ficha, num){
+    index = "";
+    switch(num){
+        case 0: index = "Nome";
+        break;
+        case 1: index = "Emblema";
+        break;
+        case 2: index = "Natalidade";
+        break;
+        case 3: index = "Sexo";
+        break;
+        case 4: index = "Cor";
+        break;
+        case 5: index = "Status";
+        break;
+        case 6: index = "Item";
+        break;
+        case 7: index = "Local";
+        break;
+        case 8: index = "Inimigo";
+        break;
+        case 9: index = "Personagem";
+        break;
+    }
+ 
+    await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : (index)},{$set: {"ficha.dados.$" : ficha[num]}});
+}
+
+async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database){
+    
     img.write(nomeDaImagem);
     let check = false;
+    if (row){
     do{
         let file = new MessageAttachment(('./' + nomeDaImagem)); 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file], components: [row]}).then((msg) => {
+        await interaction.channel.send({ embeds: [msg] , files: [file], components: [row], fetchReply: true}).then((msg) => {
+            if (msg.embeds[0].image){ 
+                check = true;
+                const filter = (b) => b.user.id === interaction.user.id;
+                const collector = msg.createMessageComponentCollector({ filter, max: 1, componentType: 'SELECT_MENU', time: (7 * 60000) });
+                coletarRespostas(collector, msg, ficha, interaction, Database);
+            }
+            else {msg.delete().catch(() => {});}
+        })
+    }while(check === false)
+
+    }else{
+    do{
+        let file = new MessageAttachment(('./' + nomeDaImagem)); 
+        let msg = new MessageEmbed()
+            .setTitle(nomeDoLugar)
+            .setColor(cor)
+            .setImage('attachment://' + nomeDaImagem);
+        await interaction.channel.send({ embeds: [msg] , files: [file]}).then((msg) => {
             if (msg.embeds[0].image){ check = true;}
             else {msg.delete().catch(() => {});}
         })
         
     }while(check === false)
+    }
+}
+
+async function coletarRespostas(collector, enviada, ficha, interaction, Database){
+
+    collector.on('collect', async(i) => {
+        console.log(parseInt(i.values))
+        etapa =  parseInt(i.values);
+        tela(interaction, Database);
+    });
+
+    collector.on('end', async(collected, reason) => {
+        if (reason === 'time'){
+
+
+            let timeMsg = new MessageEmbed()
+                .setTitle('Seção Finalizada')
+                .setDescription(`A seção foi terminada devido ao tempo de resposta.
+Cada interação tem 7 minutos para terminar.
+Caso queira continua-la inicie a seção novamente.`);
+
+            await enviada.edit({embeds: [timeMsg], components: []});
+
+            salvar(interaction, ficha, 7);
+        }
+    })
+    
+}
+
+async function ocorrido(run, interaction, ficha, Database){
+    eval(run);
 }
 
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
@@ -98,11 +176,9 @@ Deseja trocar algum deles pelo item encontrado?`
         switch(i.customId){
 
             case 'TI1':
-                ficha[6].i1 = itemGanho.nome; ficha[6].v1 = itemGanho.reg;
-                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
-                {$set: {"ficha.dados.$" : ficha[6]}});
-                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
-                {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
+                ficha[6].i1 = itemGanho.nome; ficha[6].v1 = itemGanho.reg; ficha[1].value = itemGanho.emblema;
+                salvar(interaction, ficha, 6);
+                salvar(interaction, ficha, 1);
 
                 msg = new MessageEmbed()
                     .setTitle(`Novo item`)
@@ -113,10 +189,7 @@ Seus itens foram atualizados.`);
                 break;
             case 'TI2':
                 ficha[6].i2 = itemGanho.nome; ficha[6].v2 = itemGanho.reg;
-                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Item"},
-                {$set: {"ficha.dados.$.i2" : itemGanho.nome, "ficha.dados.$.v2" : itemGanho.reg}});
-                await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Emblema"},
-                {$set: {"ficha.dados.$.value" : itemGanho.emblema}});
+                salvar(interaction, ficha, 6);
 
                 msg = new MessageEmbed()
                     .setTitle(`Novo item`)
@@ -159,7 +232,10 @@ Caso queira continuar inicie a seção novamente.`);
     })
 }
 
-async function Batalha(ficha, inimigo, interaction, derrota, Database){
+async function batalha(ficha, inimigo, interaction, derrota, Database){
+
+    //#region dados
+    
     const RowBattle = new MessageActionRow().addComponents([
         new MessageButton().setStyle('DANGER').setLabel('Ataque').setCustomId('Ataque'),
         new MessageButton().setStyle('SUCCESS').setLabel('Desvio').setCustomId('Desvio'),
@@ -201,7 +277,6 @@ async function Batalha(ficha, inimigo, interaction, derrota, Database){
         let SPEU = ficha[5].SPE;
         let ACCU = ficha[5].AC;
         let Item = ficha[6];
-        let derrotaU = false;
         //#endregion
         
         //#region dados gerais
@@ -267,7 +342,6 @@ ${actI}`);
      //#endregion
 
     const enviada = await interaction.channel.send({ embeds: [msg], components:[RowBattle], fetchReply: true });
-
     const filter = (b) => b.user.id === interaction.user.id;
     const collector = enviada.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: ( 10 * 60000) });
 
@@ -278,7 +352,7 @@ ${actI}`);
         let turno = SPEU;
         do{
 
-        if( Math.ceil(Math.random() * 100) <= ACCU){
+        if( Math.floor(Math.random() * 100) <= ACCU){
             let d20U = Math.ceil(Math.random() * 20);
             let calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
             let danoU = ((calcU > 0)?calcU:-5)+ d20U + danoExtraDoUser;
@@ -399,12 +473,10 @@ Seus Status Base agora são:
 **AC:** ${ficha[5].AC_S}%  
 **(O-O)-b**`)
             await interaction.channel.send({ embeds: [msg]})
-
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-            {$set: {"ficha.dados.$.battle" : false}});
+            ficha[7].battle = false;
             ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-            {$set: {"ficha.dados.$" : ficha[5]}});
+            salvar(interaction, ficha, 5);
+            salvar(interaction, ficha, 7);
 
             tela(interaction, Database);
             
@@ -418,11 +490,10 @@ Seus Status Base agora são:
 Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) - ficha[5].EXP}** para o próximo LVL.`)
             await interaction.channel.send({ embeds: [msg]})
 
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-            {$set: {"ficha.dados.$.battle" : false}});
+            ficha[7].battle = false;
+            salvar(interaction, ficha, 7)
             ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-            {$set: {"ficha.dados.$" : ficha[5]}});
+            salvar(interaction, ficha, 5);
     
             let chanceItem = Math.ceil(Math.random() * 100);
             if (chanceItem <= 35){encontrarItem(inimigo.emblemas[0], inimigo.emblemas[1], interaction, ficha, Database);}
@@ -434,14 +505,12 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
     async function finalizarBatalha(){
         
         if(derrotaU){
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-            {$set: {"ficha.dados.$.battle" : false}});
+            
+            interaction.user.db.ficha.dados[7].bg = derrota;
+            ficha[7].battle = false;
             ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-            {$set: {"ficha.dados.$" : ficha[5]}});
-    
-            interaction.user.db.ficha.dados[7].bg = derrota; 
-            await interaction.user.db.save();
+            salvar(interaction, ficha, 5);
+            salvar(interaction, ficha, 7);
             tela(interaction, Database);
         }else{
             await upar()
@@ -460,7 +529,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
         switch(i.customId){
 
             case 'Ataque':
-            let skillRand = 0 //Math.ceil(Math.random() * 3)
+            let skillRand = Math.ceil(Math.random() * 3)
             if(skillRand === 3 && skillUsada === false){
                 eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
                 txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
@@ -522,7 +591,6 @@ ${actI}`
             default:
                 break;
         }
-
         msg = new MessageEmbed()
             .setTitle(inimigo.nome)
             .setFooter(`Item 1: ${Item.i1} | Item 2: ${Item.i2}`)
@@ -532,6 +600,7 @@ ${actI}`
         else{
             i.update({embeds: [msg], components: []}); 
             collector.stop(); 
+            npc = '';
             finalizarBatalha();
         }
     })
@@ -548,15 +617,12 @@ Caso queira continua-la inicie a seção novamente.`);
 
             await enviada.edit({embeds: [timeMsg], components: []});
 
-            
-            let salvarInimigoNaDB = {reg: "Inimigo", id: inimigo.reg, HPI: HPI, ATKI: ATKI, SPEI: SPEI, ACCI: ACCI, actI: actI, actU: actU};
+            ficha[7].battle = true;
+            ficha[8] = {reg: "Inimigo", id: inimigo.reg, HPI: HPI, ATKI: ATKI, SPEI: SPEI, ACCI: ACCI, actI: actI, actU: actU};
             ficha[5].HP = HPU; ficha[5].ATK = ATKU; ficha[5].SPE = SPEU; ficha[5].AC = ACCU;
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Inimigo"},
-            {$set: {"ficha.dados.$" : salvarInimigoNaDB}});
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Status"},
-            {$set: {"ficha.dados.$" : ficha[5]}});
-            await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-            {$set: {"ficha.dados.$.battle" : true}});
+            salvar(interaction, ficha, 8);
+            salvar(interaction, ficha, 5);
+            salvar(interaction, ficha, 7);
         }
     })
     
@@ -566,7 +632,6 @@ const tela = async(interaction, Database) => {
     let ficha = Database.ficha.dados;
     let cor = ficha[4].value;
     let row = null; 
-    let etapa = 0;
     //mapeando index
     let indexDoFundo = (backgroundX.map(function(e) { return e.reg; })).indexOf(ficha[7].bg);
     const nomeDaImagem =  interaction.user.id.toString() + '.jpg';
@@ -576,86 +641,85 @@ const tela = async(interaction, Database) => {
     if(ficha[7].battle === true){
         
         personagensX = null;
-        let inimigo = ficha[8]
+        let inimigo = ficha[8];
         inimigo.nome = inimigosX[(inimigo.id - 101)].nome;
         inimigo.SKILL = inimigosX[(inimigo.id - 101)].SKILL;
         inimigo.emblemas = inimigosX[(inimigo.id - 101)].emblemas;
         inimigo.repetitivo = inimigosX[(inimigo.id - 101)].repetitivo;
-        await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : "Local"},
-            {$set: {"ficha.dados.$.battle" : false}});
+        ficha[7].battle = false;
+        salvar(interaction, ficha, 7)
         
         await jimp.read(inimigosX[(inimigo.id - 101)].sprite).then(async img  => {
-            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
         })
 
         
-        await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
-        
-    }else{
-        npc = 0//(npc === 0)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
+        await batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
+        return;
+    }
+    npc = 0//(typeof npc === 'string' || npc instanceof String)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
+    npc = (derrotaU === true && npc > 100)?0:npc;
+    derrotaU = false;
 
-        if (npc !== 0){ //encontro
-            if(npc < 100){ //personagem
-                //lendo infos
-                
-                let fundo = backgroundX[indexDoFundo].img;
-                let texto = 'aaaaaaaaa'
-                let fonte =  await jimp.loadFont('src/extra/fonte.fnt');  
-                let img = await jimp.read(fundo);
-                let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
-
-                //montando a imagem
-                img.print(fonte, 50, 730, texto, 1250);
-                img.composite(person, 640, 720);
-
-                //#region limpar
-                indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
-                fonte = null;
-                fundo = null;
-                texto = null;
-                person = null;
-                npc = null;
-                //#endregion
-
-                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
-
-            }else{ //se for uma batalha
-
-                let inimigo = inimigosX[(npc - 101)];
-                
-                await jimp.read(inimigo.sprite).then(async img  => {
-                    await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
-                })
-
-                await Batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
-            }
-
-        } else {                                                           // <--- se não tiver rolado encontro
-            const backgroundY = require('./backgroundY');
-            console.log(ficha[7].bg + ',' + etapa);
-            const obj = backgroundY(ficha[7].bg, etapa);
+    if (npc !== 0){ //encontro
+        if(npc < 100){ //personagem
+            //lendo infos
+            
             let fundo = backgroundX[indexDoFundo].img;
-            let texto = obj.textoPadrao; 
-            console.log(obj)
-            let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
+            let texto = 'aaaaaaaaa'
+            let fonte =  await jimp.loadFont('src/extra/fonte.fnt');  
             let img = await jimp.read(fundo);
+            let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
 
-            //montando a imagem
             img.print(fonte, 30, 730, texto, 998);
+            img.composite(person, 640, 720);
 
-            //#region limpar                                      // <---- liberando memória para uma melhor performace
+            //#region limpar
+            indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
             fonte = null;
             fundo = null;
             texto = null;
             person = null;
             npc = null;
             //#endregion
-            
-            row = new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0]));
 
-            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row);
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
+
+        }else{ //se for uma batalha
+
+            let inimigo = inimigosX[(npc - 101)];
+            
+            await jimp.read(inimigo.sprite).then(async img  => {
+                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
+            })
+
+            await batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
         }
+
+    } else {// se não tiver rolado encontro
+        const backgroundY = require('./backgroundY');
+        const obj = backgroundY(ficha[7].bg, etapa);
+        if (obj.run){ocorrido(obj.run, interaction, ficha, Database); return}
+        let fundo = backgroundX[indexDoFundo].img;
+        let texto = obj.textoPadrao; 
+        let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
+        let img = await jimp.read(fundo);
+
+        img.print(fonte, 30, 730, texto, 998);
+
+        ficha[7].pers = npc;
+        //#region limpar                                      // <---- liberando memória para uma melhor performace
+        fonte = null;
+        fundo = null;
+        texto = null;
+        person = null;
+        npc = null;
+        //#endregion
+        
+        row = new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0]));
+        await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
     }
+
 }
 
 module.exports = tela;

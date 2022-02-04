@@ -92,19 +92,19 @@ module.exports = class extends comando{
                 //#region definir valores e itens pelo emblema
                 let v1 = 0; let v2 = 0;
                 switch(resps[pos.indexOf('Emblema')].value){
-                    case 'Rei': ATKF = 20; HPF = 40; SPEF = 20; ACF = 1;
+                    case 'Rei': ATKF = 20; HPF = 50; SPEF = 20; ACF = 1;
                         Itemf1 = 'Cálice'; v1 = 1; Itemf2 = 'Capa'; v2 = 6;
                         break;
-                    case 'Espada': ATKF = 30; HPF = 30; SPEF = 30; ACF = 0;
+                    case 'Espada': ATKF = 30; HPF = 40; SPEF = 30; ACF = 0;
                         Itemf1 = 'Faca'; v1 = 2; Itemf2 = 'Escudo'; v2 = 7;
                         break;
-                    case 'Musica': ATKF = 10; HPF = 50; SPEF = 10; ACF = 2;
+                    case 'Musica': ATKF = 10; HPF = 60; SPEF = 10; ACF = 2;
                         Itemf1 = 'Flauta'; v1 = 3; Itemf2 = 'Sino'; v2 = 8;
                         break;
-                    case 'Engrenagem':  ATKF = 30; HPF = 30; SPEF = 10; ACF = 2;
+                    case 'Engrenagem':  ATKF = 30; HPF = 40; SPEF = 10; ACF = 2;
                         Itemf1 = 'Estilingue'; v1 = 4; Itemf2 = 'Flash Bang', v2 = 9;
                         break;
-                    case 'Sorriso':  ATKF = 10; HPF = 50; SPEF = 30; ACF = 0;
+                    case 'Sorriso':  ATKF = 10; HPF = 60; SPEF = 30; ACF = 0;
                         Itemf1 = 'Balão'; v1 = 5; Itemf2 = 'Flores', v2 = 1;
                         break;
                     default: throw ('Algo deu errado com o emblema')
@@ -123,7 +123,7 @@ module.exports = class extends comando{
                         HP: HPF,
                         SPE_S: SPEF,
                         SPE: SPEF,
-                        AC_S: ACF,
+                        AC_S: (85 + ACF),
                         AC: (85 + ACF)
                     },
                     {reg: 'Item', i1: Itemf1, v1: v1 , i2: Itemf2, v2: v2},

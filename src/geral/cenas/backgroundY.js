@@ -6,12 +6,16 @@ const objeto = (local, etapa) =>{
         case 'E1':
             switch(etapa){
                 case 0:
-                    obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas. Um ambiente calmo para um bom piquenique.';
+                    obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
                     montagem.push(
                         {label: 'Seguir em direção ao Norte.', value: '100'},
                         {label: 'Seguir em direção ao Sul.', value: '200'},
-                        {label: 'Procurar por um item.', value: '300'}
+                        {label: 'Entrar na caverna.', value: '300'},
+                        {label: 'Procurar por um item.', value: '400'}
                         )
+                break;
+                case 100: 
+                    obj.run =  `etapa = 0; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); tela(interaction, Database);`
                 break;
                 default:
                 break;
@@ -21,8 +25,20 @@ const objeto = (local, etapa) =>{
         case'E2':
             switch(etapa){
                 case 0:
-                    obj.textoPadrao ='Uma estrada com uma leve névoa, caso saia da trilha vai adentrar uma floresta densa e misteriosa que aparenta ser nem um pouco amigável.';
-
+                    obj.textoPadrao ='Uma estrada com uma leve névoa, caso saia da trilha vai adentrar uma floresta densa e misteriosa que não aparenta amigável, você também vê de longe um cemitério no meio da mata.';
+                    montagem.push(
+                        {label: 'Seguir em direção ao Norte.', value: '100'},
+                        {label: 'Seguir em direção ao Sul.', value: '200'},
+                        {label: 'Entrar na floresta.', value: '300'},
+                        {label: 'Entrar no cemitério.', value: '400'},
+                        {label: 'Procurar por um item.', value: '500'}
+                        )
+                break;
+                case 100: 
+                    obj.run =  `etapa = 0; ficha[7].bg = "E3"; salvar(interaction, ficha, 7); tela(interaction, Database);`
+                break;
+                case 200: 
+                    obj.run =  `etapa = 0; ficha[7].bg = "E1"; salvar(interaction, ficha, 7); tela(interaction, Database);`
                 break;
                 default:
                 break;
