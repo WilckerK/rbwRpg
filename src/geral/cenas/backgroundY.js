@@ -1,5 +1,5 @@
 const objeto = (local, etapa) =>{
-    let obj = {textoPadrao: '', resps: []};
+    let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
     switch(local){
         
@@ -8,14 +8,20 @@ const objeto = (local, etapa) =>{
                 case 0:
                     obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
                     montagem.push(
-                        {label: 'Seguir em direção ao Norte.', value: '100'},
-                        {label: 'Seguir em direção ao Sul.', value: '200'},
-                        {label: 'Entrar na caverna.', value: '300'},
-                        {label: 'Procurar por um item.', value: '400'}
+                        {label: 'Seguir em direção ao Norte.', value: '101'},
+                        {label: 'Seguir em direção ao Sul.', value: '202'},
+                        {label: 'Entrar na caverna.', value: '303'},
+                        {label: 'Procurar por um item.', value: '404'}
                         )
+                        Str1 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
+                        Str2 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
+                        Str3 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                        Str4 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
+                        Str5 = ``;
+
+                        obj.run = [Str1, Str2, Str3, Str4, Str5]
                 break;
-                case 100: 
-                    obj.run =  `etapa = 0; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); tela(interaction, Database);`
+                case 100:
                 break;
                 default:
                 break;
@@ -35,10 +41,10 @@ const objeto = (local, etapa) =>{
                         )
                 break;
                 case 100: 
-                    obj.run =  `etapa = 0; ficha[7].bg = "E3"; salvar(interaction, ficha, 7); tela(interaction, Database);`
+                    obj.run =  ` ficha[7].bg = "E3"; salvar(interaction, ficha, 7); tela(interaction, Database);`
                 break;
                 case 200: 
-                    obj.run =  `etapa = 0; ficha[7].bg = "E1"; salvar(interaction, ficha, 7); tela(interaction, Database);`
+                    obj.run =  ` ficha[7].bg = "E1"; salvar(interaction, ficha, 7); tela(interaction, Database);`
                 break;
                 default:
                 break;

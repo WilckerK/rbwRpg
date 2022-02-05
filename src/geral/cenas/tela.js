@@ -2,7 +2,8 @@ const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
 const backgroundX = require('./backgroundX'); const itensX = require('../itensX');
 const inimigosX = require('./inimigosX'); const personagensX = require('./personagensX');
-let npc = 0; var teste = null; let derrotaU = false; let etapa = 0;
+const backgroundY = require('./backgroundY'); let obj = null; let texto = null;
+let npc = 0; let derrotaU = false; let etapa = 0;
 
 async function salvar(interaction, ficha, num){
     index = "";
@@ -71,11 +72,19 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
 }
 
 async function coletarRespostas(collector, enviada, ficha, interaction, Database){
+    
+    ficha[7].pers = npc;
+    
+    async function ocorrido(id){
+        id = (id%10) - 1;
+        eval(obj.run[id]);
+        tela(interaction, Database);
+    }
 
     collector.on('collect', async(i) => {
-        console.log(parseInt(i.values))
-        etapa =  parseInt(i.values);
-        tela(interaction, Database);
+        let id =  parseInt(i.values);
+        enviada.delete({ timeout: 2000}).catch(() => {})
+        ocorrido(id);
     });
 
     collector.on('end', async(collected, reason) => {
@@ -96,9 +105,6 @@ Caso queira continua-la inicie a seção novamente.`);
     
 }
 
-async function ocorrido(run, interaction, ficha, Database){
-    eval(run);
-}
 
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
     let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
@@ -657,16 +663,17 @@ const tela = async(interaction, Database) => {
         await batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
         return;
     }
-    npc = 0//(typeof npc === 'string' || npc instanceof String)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
-    npc = (derrotaU === true && npc > 100)?0:npc;
-    derrotaU = false;
+    npc = (typeof npc === 'string' || npc instanceof String)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
+    if(derrotaU === true ){
+        derrotaU = false; 
+        if(npc > 100){npc = 0}
+    }
 
     if (npc !== 0){ //encontro
         if(npc < 100){ //personagem
-            //lendo infos
             
+            texto = (texto === null || texto === '')?'aaaaaaaaa':texto;
             let fundo = backgroundX[indexDoFundo].img;
-            let texto = 'aaaaaaaaa'
             let fonte =  await jimp.loadFont('src/extra/fonte.fnt');  
             let img = await jimp.read(fundo);
             let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
@@ -680,7 +687,6 @@ const tela = async(interaction, Database) => {
             fundo = null;
             texto = null;
             person = null;
-            npc = null;
             //#endregion
 
             await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
@@ -697,23 +703,20 @@ const tela = async(interaction, Database) => {
         }
 
     } else {// se não tiver rolado encontro
-        const backgroundY = require('./backgroundY');
-        const obj = backgroundY(ficha[7].bg, etapa);
-        if (obj.run){ocorrido(obj.run, interaction, ficha, Database); return}
+
+        obj = backgroundY(ficha[7].bg, etapa);
+        texto = (texto === null || texto === '')?obj.textoPadrao:texto;
         let fundo = backgroundX[indexDoFundo].img;
-        let texto = obj.textoPadrao; 
         let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
         let img = await jimp.read(fundo);
 
         img.print(fonte, 30, 730, texto, 998);
 
-        ficha[7].pers = npc;
         //#region limpar                                      // <---- liberando memória para uma melhor performace
         fonte = null;
         fundo = null;
         texto = null;
         person = null;
-        npc = null;
         //#endregion
         
         row = new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0]));
