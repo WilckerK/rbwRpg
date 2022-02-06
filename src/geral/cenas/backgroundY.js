@@ -1,3 +1,11 @@
+/* Lembrete: 3 digitos do value são referentes a árvore de eventos
+Milhar: Raiz                        Ex: 4305
+Centena: Galho                          4: Raiz 4
+Dezena: Galho                            3: Galho 3
+Unidade: Id da resposta no menu           0: Galho 0 referente a base do galho 3,
+Zero representa a base.                    5: Id 5 do menu
+*/
+
 const objeto = (local, etapa) =>{
     let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
@@ -8,20 +16,35 @@ const objeto = (local, etapa) =>{
                 case 0:
                     obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
                     montagem.push(
-                        {label: 'Seguir em direção ao Norte.', value: '101'},
-                        {label: 'Seguir em direção ao Sul.', value: '202'},
-                        {label: 'Entrar na caverna.', value: '303'},
-                        {label: 'Procurar por um item.', value: '404'}
+                        {label: 'Seguir em direção ao Norte.', value: '0001'},
+                        {label: 'Seguir em direção ao Sul.', value: '0002'},
+                        {label: 'Entrar na caverna.', value: '0003'},
+                        {label: 'Procurar por um item.', value: '1004'}
                         )
                         Str1 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
                         Str2 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
                         Str3 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
-                        Str4 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
+                        Str4 = `if(Math.ceil( 6 /*Math.random() * 6 */) === 6){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
+                            else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
+                            calcularEtapa();`
                         Str5 = ``;
 
-                        obj.run = [Str1, Str2, Str3, Str4, Str5]
+                        obj.run = [Str1, Str2, Str3, Str4, Str5];
                 break;
-                case 100:
+                case 1000:
+                    obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
+                    montagem.push(
+                        {label: 'Seguir em direção ao Norte.', value: '0001'},
+                        {label: 'Seguir em direção ao Sul.', value: '0002'},
+                        {label: 'Entrar na caverna.', value: '0003'}
+                        )
+                        Str1 = `calcularEtapa(); ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
+                        Str2 = `calcularEtapa(); ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
+                        Str3 = `calcularEtapa(); ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                        Str4 = ``
+                        Str5 = ``;
+
+                        obj.run = [Str1, Str2, Str3, Str4, Str5];
                 break;
                 default:
                 break;

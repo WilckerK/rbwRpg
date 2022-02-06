@@ -74,16 +74,21 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
 async function coletarRespostas(collector, enviada, ficha, interaction, Database){
     
     ficha[7].pers = npc;
-    
+
     async function ocorrido(id){
-        id = (id%10) - 1;
-        eval(obj.run[id]);
-        tela(interaction, Database);
+
+        async function calcularEtapa(){
+            etapa = id - (id%10);
+        }
+
+        let UnidadeId = (id%10) - 1;
+        let negarTela = false;
+        eval(obj.run[UnidadeId]).then(() => {if(negarTela === false){tela(interaction, Database);}});
     }
 
     collector.on('collect', async(i) => {
         let id =  parseInt(i.values);
-        enviada.delete({ timeout: 2000}).catch(() => {})
+        enviada.delete({timeout: 3000}).catch(() => {});
         ocorrido(id);
     });
 
