@@ -9,27 +9,26 @@ Zero representa a base.                    5: Id 5 do menu
 const objeto = (local, etapa) =>{
     let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
+    let Str1, Str2, Str3, Str4, Str5;
     switch(local){
         
-        case 'E1':
+        case'E1':
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
                     montagem.push(
                         {label: 'Seguir em direção ao Norte.', value: '0001'},
                         {label: 'Seguir em direção ao Sul.', value: '0002'},
-                        {label: 'Entrar na caverna.', value: '0003'},
+                        {label: 'Seguir em direção à caverna.', value: '0003'},
                         {label: 'Procurar por um item.', value: '1004'}
                         )
                         Str1 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
                         Str2 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
                         Str3 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
-                        Str4 = `if(Math.ceil( 6 /*Math.random() * 6 */) === 6){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
+                        Str4 = `if(Math.ceil(Math.random() * 4) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                             else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
-                            calcularEtapa();`
+                            calcularEtapa();`;
                         Str5 = ``;
-
-                        obj.run = [Str1, Str2, Str3, Str4, Str5];
                 break;
                 case 1000:
                     obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
@@ -41,10 +40,9 @@ const objeto = (local, etapa) =>{
                         Str1 = `calcularEtapa(); ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
                         Str2 = `calcularEtapa(); ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
                         Str3 = `calcularEtapa(); ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
-                        Str4 = ``
+                        Str4 = ``;
                         Str5 = ``;
 
-                        obj.run = [Str1, Str2, Str3, Str4, Str5];
                 break;
                 default:
                 break;
@@ -56,18 +54,36 @@ const objeto = (local, etapa) =>{
                 case 0:
                     obj.textoPadrao ='Uma estrada com uma leve névoa, caso saia da trilha vai adentrar uma floresta densa e misteriosa que não aparenta amigável, você também vê de longe um cemitério no meio da mata.';
                     montagem.push(
-                        {label: 'Seguir em direção ao Norte.', value: '100'},
-                        {label: 'Seguir em direção ao Sul.', value: '200'},
-                        {label: 'Entrar na floresta.', value: '300'},
-                        {label: 'Entrar no cemitério.', value: '400'},
-                        {label: 'Procurar por um item.', value: '500'}
+                        {label: 'Seguir em direção ao Norte.', value: '0001'},
+                        {label: 'Seguir em direção ao Sul.', value: '0002'},
+                        {label: 'Entrar na floresta.', value: '0003'},
+                        {label: 'Entrar no cemitério.', value: '0004'},
+                        {label: 'Procurar por um item.', value: '1005'}
                         )
+
+                        Str1 = `calcularEtapa(); ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
+                        Str2 = `calcularEtapa(); ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
+                        Str3 = `calcularEtapa(); ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
+                        Str4 = `calcularEtapa(); ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
+                        Str5 = `if(Math.ceil(Math.random() * 4 ) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
+                        else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
+                        calcularEtapa();`;
                 break;
-                case 100: 
-                    obj.run =  ` ficha[7].bg = "E3"; salvar(interaction, ficha, 7); tela(interaction, Database);`
-                break;
-                case 200: 
-                    obj.run =  ` ficha[7].bg = "E1"; salvar(interaction, ficha, 7); tela(interaction, Database);`
+                case 1000: 
+                obj.textoPadrao ='Uma estrada com uma leve névoa, caso saia da trilha vai adentrar uma floresta densa e misteriosa que não aparenta amigável, você também vê de longe um cemitério no meio da mata.';
+                montagem.push(
+                    {label: 'Seguir em direção ao Norte.', value: '0001'},
+                    {label: 'Seguir em direção ao Sul.', value: '0002'},
+                    {label: 'Entrar na floresta.', value: '0003'},
+                    {label: 'Entrar no cemitério.', value: '0004'},
+                    )
+
+                    Str1 = `calcularEtapa(); ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
+                    Str2 = `calcularEtapa(); ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
+                    Str3 = `calcularEtapa(); ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
+                    Str4 = `calcularEtapa(); ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
+                    Str5 = ``;
+            break;
                 break;
                 default:
                 break;
@@ -78,7 +94,34 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Local com uma forte névoa, porém com belas árvores laranjas, mesmo algumas estando secas e sem vida. A rua e o passeio não se separam mais. Também há banquinhos.';
+                    montagem.push(
+                        {label: 'Seguir em direção ao Norte.', value: '0001'},
+                        {label: 'Seguir em direção ao Sul.', value: '0002'},
+                        {label: 'Seguir em direção à Montanha.', value: '0003'},
+                        {label: 'Procurar por um item.', value: '1004'}
+                        )
 
+                        Str1 = `calcularEtapa(); ficha[7].bg = "CA1"; salvar(interaction, ficha, 7); `;
+                        Str2 = `calcularEtapa(); ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
+                        Str3 = `calcularEtapa(); ficha[7].bg = "MT1"; salvar(interaction, ficha, 7); `;
+                        Str4 = `if(Math.ceil(Math.random() * 4 ) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
+                        else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
+                        calcularEtapa();`;
+                        Str5 = ``;
+                break;
+                case 1000:
+                    obj.textoPadrao = 'Local com uma forte névoa, porém com belas árvores laranjas, mesmo algumas estando secas e sem vida. A rua e o passeio não se separam mais. Também há banquinhos.';
+                    montagem.push(
+                        {label: 'Seguir em direção ao Norte.', value: '0001'},
+                        {label: 'Seguir em direção ao Sul.', value: '0002'},
+                        {label: 'Seguir em direção à Montanha.', value: '0003'}
+                        )
+
+                        Str1 = `calcularEtapa(); ficha[7].bg = "CA1"; salvar(interaction, ficha, 7); `;
+                        Str2 = `calcularEtapa(); ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
+                        Str3 = `calcularEtapa(); ficha[7].bg = "MT1"; salvar(interaction, ficha, 7); `;
+                        Str4 = ``;
+                        Str5 = ``;
                 break;
                 default:
                 break;
@@ -310,6 +353,9 @@ const objeto = (local, etapa) =>{
 
     }
     
+    
+    obj.run = [Str1, Str2, Str3, Str4, Str5];
+
     obj.resps = [{   
         customId: 'Dialogo',
         placeholder: 'O que vai fazer/dizer?',

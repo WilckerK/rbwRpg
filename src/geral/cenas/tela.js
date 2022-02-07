@@ -76,19 +76,25 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
     ficha[7].pers = npc;
 
     async function ocorrido(id){
+        
+        let UnidadeId = (id%10) - 1;
+        let negarTela = false;
+        let zerarEtapa = true;
 
         async function calcularEtapa(){
             etapa = id - (id%10);
+            zerarEtapa = false;
         }
 
-        let UnidadeId = (id%10) - 1;
-        let negarTela = false;
-        eval(obj.run[UnidadeId]).then(() => {if(negarTela === false){tela(interaction, Database);}});
+        eval(obj.run[UnidadeId]).then(() => {
+            if (zerarEtapa === true){etapa = 0;}
+            if(negarTela === false){tela(interaction, Database);}
+        });
     }
 
     collector.on('collect', async(i) => {
         let id =  parseInt(i.values);
-        enviada.delete({timeout: 3000}).catch(() => {});
+        setTimeout(() => enviada.delete().catch(() => {}), 500 );
         ocorrido(id);
     });
 
@@ -109,7 +115,6 @@ Caso queira continua-la inicie a seção novamente.`);
     })
     
 }
-
 
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
     let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
