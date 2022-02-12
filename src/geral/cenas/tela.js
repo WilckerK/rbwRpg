@@ -126,37 +126,37 @@ async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha
     let idDoItemGanho = Math.ceil(Math.random() * 3);
     if (idDoItemGanho < 3){
         switch(PrimeiroEmblema){
-            case 'Rei': idDoItemGanho = 0 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Rei': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Espada': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Espada': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Musica': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Musica': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
                 
-            case 'Engrenagem': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Engrenagem': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Sorriso': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Sorriso': idDoItemGanho = 5 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             default: idDoItemGanho = Math.floor(Math.random() * (nivelDosItensGanhos * 5));
         }
     }else{
         switch(SegundoEmblema){
-            case 'Rei': idDoItemGanho = 0 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Rei': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Espada': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Espada': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Musica': idDoItemGanho = 2 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Musica': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
                 
-            case 'Engrenagem': idDoItemGanho = 3 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Engrenagem': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             
-            case 'Sorriso': idDoItemGanho = 4 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
+            case 'Sorriso': idDoItemGanho = 5 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
                 break;
             default: idDoItemGanho = Math.floor(Math.random() * (nivelDosItensGanhos * 5));
         }
@@ -309,7 +309,7 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
         let txt = '';
         
         if (Item.v1 <= 20){
-            eval(itensX[Item.v2 - 1].run); eval(itensX[Item.v2 - 1].run);
+            eval(itensX[Item.v2].run); eval(itensX[Item.v2].run);
         }
 
         EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 1.5);
@@ -693,7 +693,7 @@ const tela = async(interaction, Database) => {
             let img = await jimp.read(fundo);
             let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
 
-            img.print(fonte, 30, 730, texto, 998);
+            img.print(fonte, 30, 730, texto, 996);
             img.composite(person, 640, 720);
 
             //#region limpar
@@ -725,7 +725,7 @@ const tela = async(interaction, Database) => {
         let fonte =  await jimp.loadFont('src/extra/fonte.fnt')
         let img = await jimp.read(fundo);
 
-        img.print(fonte, 30, 730, texto, 998);
+        img.print(fonte, 30, 730, texto, 989);
 
         //#region limpar                                      // <---- liberando memória para uma melhor performace
         fonte = null;

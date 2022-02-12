@@ -1,5 +1,9 @@
 module.exports = [
     //#region iniciais
+    {
+        reg: 0, nome: 'Nada', emblema: 'Rei',
+        run: ""
+    },
     {reg: 1 , nome: 'Cálice', emblema: 'Rei', 
     run: "HPU += Math.floor(HPU/10); curaExtra += 2;" 
     },
