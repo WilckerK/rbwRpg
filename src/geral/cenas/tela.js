@@ -1,9 +1,9 @@
 const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
-const backgroundX = require('./backgroundX'); const itensX = require('../itensX');
-const inimigosX = require('./inimigosX'); const personagensX = require('./personagensX');
-const backgroundY = require('./backgroundY'); let obj = null; let texto = null;
-let npc = 0; let derrotaU = false; let etapa = 0;
+const backgroundX = require('./backgroundX');const backgroundY = require('./backgroundY'); 
+const personagensX = require('./personagensX');
+const itensX = require('../itensX');const inimigosX = require('./inimigosX'); 
+let obj = null; let texto = null; let npc = 0; let derrotaU = false; let etapa = 0;
 
 async function salvar(interaction, ficha, num){
     index = "";
@@ -81,12 +81,17 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
         let negarTela = false;
         let zerarEtapa = true;
 
+        async function runDoObjeto(){
+            eval(obj.run[UnidadeId]);
+        }
+
         async function calcularEtapa(){
             etapa = id - (id%10);
             zerarEtapa = false;
         }
+        
 
-        eval(obj.run[UnidadeId]).then(() => {
+        runDoObjeto().then(() => {
             if (zerarEtapa === true){etapa = 0;}
             if(negarTela === false){tela(interaction, Database);}
         });
@@ -94,7 +99,7 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
 
     collector.on('collect', async(i) => {
         let id =  parseInt(i.values);
-        setTimeout(() => enviada.delete().catch(() => {}), 500 );
+        setTimeout(() => enviada.delete().catch(() => {}), 550 );
         ocorrido(id);
     });
 
