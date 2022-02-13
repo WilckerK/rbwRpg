@@ -526,11 +526,11 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
     }
 
     async function finalizarBatalha(){
-        
+        npc = 0
         if(derrotaU){
-            
-            interaction.user.db.ficha.dados[7].bg = derrota;
-            ficha[7].battle = false;
+            texto = 'Você misteriosamente acorda na estrada após ficar um tempo desacordado. O inimigo não te matou, mas te nocauteou.';
+            etapa = 0;
+            ficha[7].battle = false; ficha[7].bg = derrota;
             ficha[5].HP = ficha[5].HP_S; ficha[5].ATK = ficha[5].ATK_S; ficha[5].SPE = ficha[5].SPE_S; ficha[5].AC = ficha[5].AC_S;
             salvar(interaction, ficha, 5);
             salvar(interaction, ficha, 7);
@@ -622,8 +622,7 @@ ${actI}`
         if(!derrotaU && !derrotaI){i.update({embeds: [msg]})}
         else{
             i.update({embeds: [msg], components: []}); 
-            collector.stop(); 
-            npc = '';
+            collector.stop();
             finalizarBatalha();
         }
     })

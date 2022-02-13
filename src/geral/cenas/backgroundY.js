@@ -425,7 +425,8 @@ const objeto = (local, etapa) =>{
                             case 5: npc = 103;
                             break;
                         }
-                        
+                    }else{
+                        texto = 'Você não encontrou nenhum inimigo.';
                     } `;
                     Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
                         let ouro = '';
@@ -445,7 +446,7 @@ const objeto = (local, etapa) =>{
                         }
                         salvar(interaction, ficha, 10); 
                         texto = 'Você encontrou um ' + ouro + ' bruto.';
-                    }else{ texto = 'Você não encontrou ouro na entrada da caverna.'}`;
+                    }else{ texto = 'Você não encontrou ouro dentro da caverna.'}`;
                 break;
                 default:
                 break;
@@ -456,7 +457,12 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Você vê uma monstanha gigantesca que vai além das nuvens, a entrada é estreita porém você pode passar entre ela.';
-
+                    montagem.push(
+                        {label: 'Entrar na montanha.', value: '0001'},
+                        {label: 'Voltar para a estrada.', value: '0002'}
+                    );
+                    Str1 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);`;
                 break;
                 default:
                 break;
