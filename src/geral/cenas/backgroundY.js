@@ -313,7 +313,7 @@ const objeto = (local, etapa) =>{
                         {label: 'Deixar ele.', value: '0002'}
                     );
                     Str1 = `ficha[6].v1 = 25; ficha[6].v2 = 0; ficha[6].i1 = "Filhotinho"; ficha[6].i2 = "Nada"; salvar(interaction, ficha, 6); calcularEtapa(); ficha[1].value = 'Sorriso'; salvar(interaction, ficha, 1);`;
-                    Str2 = `texto = 'Você deixa o filhotinho para trás.'; zerarEtapa = true;;`;
+                    Str2 = `texto = 'Você deixa o filhotinho para trás.'; zerarEtapa = true;`;
                 break;
 
                 case 2000:
@@ -473,7 +473,26 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Local frio e congelante, toda a iluminação do ambiente sai do topo, você vê um caminho coberto de gelo longo e escorregadio até lá.';
-
+                    montagem.push(
+                        {label: 'Tentar subir pelo caminho.', value: '0001'},
+                        {label: 'Sair da montanha.', value: '0002'}
+                    );
+                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 95){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);}
+                    else{
+                        let ini = Math.ceil(Math.random() * 5);
+                        switch(ini){
+                            case 1: npc = 109;
+                            break;
+                            case 2: npc = 108;
+                            break; 
+                            case 3: npc = 107;
+                            break; 
+                            case 4: npc = 109;
+                            break;
+                            case 5: npc = 103;
+                            break;
+                        }}`;
+                    Str2 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);`;
                 break;
                 default:
                 break;
@@ -484,7 +503,40 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Você fica maravilhado com o céu azul, as nuvens passam sobre os seus pés, os ventos fazem você sentir como se estivesse voando.';
+                    montagem.push(
+                        {label: 'Apreciar a vista.', value: '0001'},
+                        {label: 'Voltar para dentro da montanha.', value: '0002'},
+                        {label: 'Olhar melhor ao redor.', value: '1003'},
+                        {label: 'Pular do topo.', value: '0004'}
+                    );
+                    Str1 = `texto = Você olha a beleza do céu durante um bom tempo.`;
+                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
+                    Str3 = `calcularEtapa()`;
+                    Str4 = ` texto = 'Você pula do topo da montanha e acaba caindo no meio da floresta, felizmente as folhas do chão diminuem o impacto da queda.';
+                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`
+                break;
 
+                case 1000:
+                    obj.textoPadrao = 'Você encontra uma Katana enterrada no meio da neve. Você não consegue levar ela com você a menos que deixe seus itens.'
+                    montagem.push(
+                        {label: 'Pegar a Katana.', value: '2001'},
+                        {label: 'Deixar ela.', value: '0002'}
+                    );
+                    Str1 = `ficha[6].v1 = 22; ficha[6].v2 = 0; ficha[6].i1 = "Katana"; ficha[6].i2 = "Nada"; salvar(interaction, ficha, 6); calcularEtapa(); ficha[1].value = 'Espada'; salvar(interaction, ficha, 1);`;
+                    Str2 = `texto = 'Você deixa a Katana para trás.'; zerarEtapa = true;`;
+                break;
+
+                case 2000:
+                    obj.textoPadrao = 'Você pega o cachorrinho e leva ele com você.'
+                    montagem.push(
+                        {label: 'Apreciar a vista.', value: '0001'},
+                        {label: 'Voltar para dentro da montanha.', value: '0002'},
+                        {label: 'Pular do topo.', value: '0003'}
+                    );
+                    Str1 = `texto = Você olha a beleza do céu durante um bom tempo.`;
+                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
+                    Str3 = ` texto = 'Você pula do topo da montanha e acaba caindo no meio da floresta, felizmente as folhas do chão diminuem o impacto da queda.';
+                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`
                 break;
                 default:
                 break;
