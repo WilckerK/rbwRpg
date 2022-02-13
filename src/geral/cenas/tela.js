@@ -28,6 +28,8 @@ async function salvar(interaction, ficha, num){
         break;
         case 9: index = "Personagem";
         break;
+        case 10: index = "Coletaveis";
+        break;
     }
  
     await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : (index)},{$set: {"ficha.dados.$" : ficha[num]}});

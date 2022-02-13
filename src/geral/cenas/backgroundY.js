@@ -9,7 +9,7 @@ Zero representa a base.                    5: Id 5 do menu
 const objeto = (local, etapa) =>{
     let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
-    let Str1, Str2, Str3, Str4, Str5;
+    let Str1 = ``, Str2 = ``, Str3 = ``, Str4 = ``, Str5 = ``;
     switch(local){
 
         //#region Estrada
@@ -29,7 +29,6 @@ const objeto = (local, etapa) =>{
                         Str4 = `if(Math.ceil(Math.random() * 4) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                             else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                             calcularEtapa();`;
-                        Str5 = ``;
                 break;
                 case 1000:
                     obj.textoPadrao = 'Uma estrada de terra, os gramados ao redor possuem algumas poucas árvores com as flores amarelas, um ambiente calmo para um bom piquenique. Mas no fundo você vê algo parecido com uma caverna.';
@@ -41,8 +40,6 @@ const objeto = (local, etapa) =>{
                         Str1 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
                         Str2 = `zerarEtapa = true; ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
                         Str3 = `zerarEtapa = true; ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
-                        Str4 = ``;
-                        Str5 = ``;
 
                 break;
                 default:
@@ -83,7 +80,6 @@ const objeto = (local, etapa) =>{
                     Str2 = `zerarEtapa = true; ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
                     Str3 = `zerarEtapa = true; ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
                     Str4 = `zerarEtapa = true; ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
-                    Str5 = ``;
             break;
                 break;
                 default:
@@ -108,7 +104,6 @@ const objeto = (local, etapa) =>{
                         Str4 = `if(Math.ceil(Math.random() * 4 ) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                         else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                         calcularEtapa();`;
-                        Str5 = ``;
                 break;
                 case 1000:
                     obj.textoPadrao = 'Local com uma forte névoa, porém com belas árvores laranjas, mesmo algumas estando secas e sem vida. A rua e o passeio não se separam mais. Também há banquinhos.';
@@ -121,8 +116,6 @@ const objeto = (local, etapa) =>{
                         Str1 = `zerarEtapa = true; ficha[7].bg = "CA1"; salvar(interaction, ficha, 7); `;
                         Str2 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
                         Str3 = `zerarEtapa = true; ficha[7].bg = "MT1"; salvar(interaction, ficha, 7); `;
-                        Str4 = ``;
-                        Str5 = ``;
                 break;
                 default:
                 break;
@@ -235,8 +228,6 @@ const objeto = (local, etapa) =>{
                     Str1 = `ficha[7].bg = "F2"; salvar(interaction, ficha, 7);`;
                     Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);`;
                     Str3 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7);`;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
                 default:
                 break;
@@ -265,8 +256,6 @@ const objeto = (local, etapa) =>{
                     Str3 = `if(Math.ceil(Math.random() * 100) > 25){
                         npc = 3;
                     }else{texto = 'Ninguém apareceu.';}`;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
                 default:
                 break;
@@ -297,8 +286,6 @@ const objeto = (local, etapa) =>{
                     Str3 = `if(Math.ceil(Math.random() * 100) > 25){
                         npc = 3;
                     }else{texto = 'Ninguém apareceu.';}`;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
                 default:
                 break;
@@ -317,8 +304,6 @@ const objeto = (local, etapa) =>{
                     Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7);`;
                     Str2 = `calcularEtapa();`;
                     Str3 = `texto = 'Você aprecia a vista.';`;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
 
                 case 1000:
@@ -329,9 +314,6 @@ const objeto = (local, etapa) =>{
                     );
                     Str1 = `ficha[6].v1 = 25; ficha[6].v2 = 0; ficha[6].i1 = "Filhotinho"; ficha[6].i2 = "Nada"; salvar(interaction, ficha, 6); calcularEtapa(); ficha[1].value = 'Sorriso'; salvar(interaction, ficha, 1);`;
                     Str2 = `texto = 'Você deixa o filhotinho para trás.'; zerarEtapa = true;;`;
-                    Str3 = ``;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
 
                 case 2000:
@@ -342,9 +324,6 @@ const objeto = (local, etapa) =>{
                     );
                     Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7); zerarEtapa = true;`;
                     Str2 = `texto = 'Você aprecia a vista.';`;
-                    Str3 = ``;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
 
                 default:
@@ -377,8 +356,6 @@ const objeto = (local, etapa) =>{
                     texto = "Você vê uma lápide com o nome " + nome;`;
                     Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);`;
                     Str3 = `ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`;
-                    Str4 = ``;
-                    Str5 = ``;
                 break;
                 default:
                 break;
@@ -392,7 +369,32 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'A entrada de uma carverna escura e ameaçadora, você ouve sons de bichos e monstros saindo de lá de dentro.';
-
+                    montagem.push(
+                        {label: 'Entrar na Caverna.', value: '0001'},
+                        {label: 'Voltar para a estrada.', value: '0002'},
+                        {label: 'Procurar ouro.', value: '0003'}
+                    );
+                    Str1 = `ficha[7].bg = "CV2"; salvar(interaction, ficha, 7); `;
+                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
+                    Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
+                        let ouro = '';
+                        switch(Math.ceil(Math.random() * 6)){
+                            case 1: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
+                            break;
+                            case 2: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
+                            break;
+                            case 3: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
+                            break;
+                            case 4: ficha[10].ouroM ++; ouro = 'pedaço médio de ouro';
+                            break;
+                            case 5: ficha[10].ouroM ++; ouro = 'pedaço médio de ouro';
+                            break;
+                            case 6: ficha[10].ouroG ++; ouro = 'grande pedaço de ouro';
+                            break;
+                        }
+                        salvar(interaction, ficha, 10); 
+                        texto = 'Você encontrou um ' + ouro + ' bruto.';
+                    }else{ texto = 'Você não encontrou ouro na entrada da caverna.'}`;
                 break;
                 default:
                 break;
@@ -403,7 +405,47 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao = 'Um breu quase completo, você confia mais na sua audição do que na própria visão, pois não enxerga a quatro passos de você.';
-
+                    montagem.push(
+                        {label: 'Sair da caverna.', value: '0001'},
+                        {label: 'Procurar inimigos.', value: '0002'},
+                        {label: 'Procurar ouro.', value: '0003'}
+                    );
+                    Str1 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                    Str2 = `if(Math.ceil(Math.random() * 100) > 35){
+                        let ini = Math.ceil(Math.random() * 5);
+                        switch(ini){
+                            case 1: npc = 105;
+                            break;
+                            case 2: npc = 106;
+                            break; 
+                            case 3: npc = 107;
+                            break; 
+                            case 4: npc = 109;
+                            break;
+                            case 5: npc = 103;
+                            break;
+                        }
+                        
+                    } `;
+                    Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
+                        let ouro = '';
+                        switch(Math.ceil(Math.random() * 6)){
+                            case 1: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
+                            break;
+                            case 2: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
+                            break;
+                            case 3: ficha[10].ouroM ++; ouro = 'pedaço médio de ouro';
+                            break;
+                            case 4: ficha[10].ouroM ++; ouro = 'pedaço médio de ouro';
+                            break;
+                            case 5: ficha[10].ouroM ++; ouro = 'pedaço médio de ouro';
+                            break;
+                            case 6: ficha[10].ouroG ++; ouro = 'grande pedaço de ouro';
+                            break;
+                        }
+                        salvar(interaction, ficha, 10); 
+                        texto = 'Você encontrou um ' + ouro + ' bruto.';
+                    }else{ texto = 'Você não encontrou ouro na entrada da caverna.'}`;
                 break;
                 default:
                 break;
@@ -469,7 +511,6 @@ const objeto = (local, etapa) =>{
                         Str3 = `if( Math.ceil( Math.random() * 20 ) === 20){ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);}
                         else{texto = 'Você não encontrou outra forma de entrar.'}`;
                         Str4 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);`;
-                        Str5 = ``;
                 break;
                 default:
                 break;
@@ -479,7 +520,7 @@ const objeto = (local, etapa) =>{
         case'CA2':
             switch(etapa){
                 case 0:
-                    obj.textoPadrao = '...'
+                    obj.textoPadrao = '... ... ...'
                     montagem.push(
                         {label: '...', value: '0001'},
                         {label: '...', value: '0002'},

@@ -128,7 +128,7 @@ module.exports = class extends comando{
                     },
                     {reg: 'Item', i1: Itemf1, v1: v1 , i2: Itemf2, v2: v2},
                     {reg: 'Local', bg: 'E1', battle: false, pers: 0},
-                    {reg: 'Inimigo', id: 100, HPI: 0, ATKI: 0, SPEI: 0, ACCI: 0, actI: 'A', actU: 'A'},
+                    {reg: 'Inimigo', id: 100, HPI: 0, ATKI: 0, SPEI: 0, ACCI: 0, actI: 'X', actU: 'X'},
                     {reg: 'Personagens', 
                         Wilcker: 0,
                         Lulli: 0,
@@ -141,6 +141,11 @@ module.exports = class extends comando{
                         Cookie: 0,
                         Batata: 0,
                         Svelter: 0,
+                    },{reg: 'Coletaveis',
+                        rewbs: 0,
+                        ouroP: 0,
+                        ouroM: 0,
+                        ouroG: 0
                     });
 
                 //console.log(resps)                                           <------------------ checar resps
