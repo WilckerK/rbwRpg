@@ -9,7 +9,7 @@ Zero representa a base.                    5: Id 5 do menu
 const objeto = (local, etapa) =>{
     let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
-    let Str1 = ``, Str2 = ``, Str3 = ``, Str4 = ``, Str5 = ``;
+    let Str1 = ``, Str2 = ``, Str3 = ``, Str4 = ``, Str5 = ``; StrP = ``;
     switch(local){
 
         //#region Estrada
@@ -59,10 +59,10 @@ const objeto = (local, etapa) =>{
                             {label: 'Procurar por um item.', value: '1005'}
                         )
 
-                        Str1 = `calcularEtapa(); ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
-                        Str2 = `calcularEtapa(); ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
-                        Str3 = `calcularEtapa(); ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
-                        Str4 = `calcularEtapa(); ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
+                        Str1 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
+                        Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
+                        Str3 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
+                        Str4 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
                         Str5 = `if(Math.ceil(Math.random() * 4 ) === 4){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                         else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                         calcularEtapa();`;
@@ -129,7 +129,14 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao ='O portão da cidade, com uma placa entre os pilares pintado como a bandeira da cidade. Muitas plantas e flores em vasos ao redor da avenida, pouca movimentação de carros.';
-
+                    montagem.push(
+                        {label: 'Entrar na cidade.', value: '0001'},
+                        {label: 'Voltar para a cidade.', value: '0002'},
+                        {label: 'Observar as plantas.', value: '0003'}
+                    );
+                    Str1 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);`;
+                    Str3 = `texto = 'Você observa as plantas, e ao chegar mais perto você esbarra e derruba um vaso quebrando ele.'`;
                 break;
                 default:
                 break;
@@ -140,7 +147,16 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao ='Uma constante movimentação de carros, um fluxo de pessoas indo e vindo de cada canto. Você vê placas informando que você está na "Praça Geral".';
-
+                    montagem.push(
+                        {label: 'Ir para o bar.', value: '0001'},
+                        {label: 'Ir para o cassino.', value: '0002'},
+                        {label: 'Ir para a biblioteca.', value: '0003'},
+                        {label: 'Voltar para a entrada da cidade.', value: '0004'}
+                    );
+                    Str1 = `ficha[7].bg = "C5"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "C3"; salvar(interaction, ficha, 7);`;
+                    Str3 = `ficha[7].bg = "C7"; salvar(interaction, ficha, 7);`;
+                    Str4 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7);`;
                 break;
                 default:
                 break;
@@ -150,8 +166,15 @@ const objeto = (local, etapa) =>{
         case'C3':
             switch(etapa){
                 case 0:
-                    obj.textoPadrao = 'Luzes fortes e seguranças rodeando descrevem o lugar, você vê uma placa onde diz "aberto" 24hrs.';
-
+                    obj.textoPadrao = 'Luzes fortes e seguranças rodeando descrevem o lugar, você vê uma placa onde diz "aberto" 24hrs. Mas atrás do cassino você vê uma rua meio escura com uma boate ao fundo.';
+                    montagem.push(
+                        {label: 'Entrar no cassino.', value: '0001'},
+                        {label: 'Ir paté a boate.', value: '0002'},
+                        {label: 'Voltar para a Praça Geral.', value: '0003'},
+                    );
+                    Str1 = `ficha[7].bg = "C4"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "C6"; salvar(interaction, ficha, 7);`;
+                    Str3 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);`;
                 break;
                 default:
                 break;
@@ -162,7 +185,107 @@ const objeto = (local, etapa) =>{
             switch(etapa){
                 case 0:
                     obj.textoPadrao ='Máquinas de apostas e uma musica Eletro-Pop incessante, você vê diversas pessoas perdendo dinheiro, porém uma exclamando ter tirado a sorte grande!';
-
+                    montagem.push(
+                        {label: 'Jogar "Jogo do Bixo".', value: '0001'},
+                        {label: 'Apostar.', value: '1002'},
+                        {label: 'Ir nas máquinas caça-níquel.', value: '2003'},
+                        {label: 'Sair do cassino.', value: '0004'},
+                    );
+                    Str1 = `interaction.channel.send({content: 'https://discord.gg/ZQC2JxXzZR'})`;
+                    Str2 = `if(ficha[10].rewbs >=  50){
+                        calcularEtapa();
+                    }else{
+                        texto = 'Você não tem dinheiro o suficiente para fazer nenhuma aposta.'
+                    }`;
+                    Str3 = `if(ficha[10].rewbs > 5){
+                        calcularEtapa();
+                    }else{
+                        texto = 'Você não tem dinheiro o suficiente para poder rodar uma máquina caça-níquel.'
+                    }`;
+                    Str4 = `ficha[7].bg = "C3"; salvar(interaction, ficha, 7);`;
+                break;
+                case 1000:
+                    obj.textoPadrao = 'A aposta é de 50 rewbs. Em qual cavalo quer apostar?'
+                    montagem.push(
+                        {label: 'Reizin, o campeão.', value: '0001'},
+                        {label: 'Adaga, a violenta.', value: '0002'},
+                        {label: 'Sonoro, o elegante.', value: '0003'},
+                        {label: 'Engen, o esperto.', value: '0004'},
+                        {label: 'Gargalho, o contente.', value: '0005'}
+                    );
+                    StrP = `
+                    ficha[10].rewbs -= 50;
+                    let decis = Math.ceil(Math.random() * 5)
+                    switch(decis){
+                        case 1: decis = 'Reizin';
+                        break;
+                        case 2: decis = 'Adaga';
+                        break;
+                        case 3: decis = 'Sonoro';
+                        break;
+                        case 4: decis = 'Engen';
+                        break;
+                        case 5: decis = 'Gargalho';
+                        break;
+                    } 
+                    zerarEtapa = true;
+                    texto = 'O vencedor foi ' + decis + '.'; `;
+                    Str1 = StrP + `if(decis === 'Reizin'){
+                        ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
+                        texto = texto + ' Parabéns você ganhou.';
+                    }else{
+                        salvar(interaction, ficha, 10); 
+                        texto = texto + ' Infelizmente você perdeu.';
+                    }`;
+                    Str2 = StrP + `if(decis === 'Adaga'){
+                        ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
+                        texto = texto + ' Parabéns você ganhou.';
+                    }else{
+                        salvar(interaction, ficha, 10); 
+                        texto = texto + ' Infelizmente você perdeu.';
+                    }`;
+                    Str3 = StrP + `if(decis === 'Sonoro'){
+                        ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
+                        texto = texto + ' Parabéns você ganhou.';
+                    }else{
+                        salvar(interaction, ficha, 10); 
+                        texto = texto + ' Infelizmente você perdeu.';
+                    }`;
+                    Str4 = StrP + `if(decis === 'Engen'){
+                        ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
+                        texto = texto + ' Parabéns você ganhou.';
+                    }else{
+                        salvar(interaction, ficha, 10); 
+                        texto = texto + ' Infelizmente você perdeu.';
+                    }`;
+                    Str5 = StrP + `if(decis === 'Gargalho'){
+                        ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
+                        texto = texto + ' Parabéns você ganhou.';
+                    }else{
+                        salvar(interaction, ficha, 10); 
+                        texto = texto + ' Infelizmente você perdeu.';
+                    }`;
+                break;
+                case 2000:
+                    obj.textoPadrao = 'Quanto você quer colocar na máquina?'
+                    montagem.push(
+                        {label: '5', value: '0001'},
+                        {label: '10', value: '0002'},
+                        {label: '50', value: '0003'},
+                        {label: '100', value: '0004'},
+                        {label: '500', value: '0005'}
+                    );
+                    StrP = `chanceDeGanhar = Math.ceil(Math.random() * 3); zerarEtapa = true;`
+                    Str1 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 10}
+                    else{ficha[10].rewbs -= 5}`;
+                    Str2 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 20}
+                    else{ficha[10].rewbs -= 10}`;
+                    Str3 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 100}
+                    else{ficha[10].rewbs -= 50}`;
+                    Str4 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 200}
+                    else{ficha[10].rewbs -= 100}`;
+                    Str5 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 1000}
+                    else{ficha[10].rewbs -= 500}`;
                 break;
                 default:
                 break;
@@ -477,7 +600,7 @@ const objeto = (local, etapa) =>{
                         {label: 'Tentar subir pelo caminho.', value: '0001'},
                         {label: 'Sair da montanha.', value: '0002'}
                     );
-                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 95){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);}
+                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);}
                     else{
                         let ini = Math.ceil(Math.random() * 5);
                         switch(ini){

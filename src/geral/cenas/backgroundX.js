@@ -88,7 +88,7 @@ module.exports = [
      derrota: 'E3' },
 
     {reg: 'MT3', nome: 'Topo da Montanha', img: './src/imagens/background/topoMontanha.jpg', chance: 100, 
-     npc: [ 112, 112, 112, 112, 112, 112, 112, 112, 112, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
+     npc: [ 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 112, 00 ],
      derrota: 'E3' },
 
 
