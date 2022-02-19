@@ -52,6 +52,10 @@ module.exports = class extends comando{
                         {
                             name: 'Personagem',
                             value: 'Personagem'
+                        },
+                        {
+                            name: 'Coletaveis',
+                            value: 'Coletaveis'
                         }
                     ]
                 },

@@ -124,6 +124,7 @@ Caso queira continua-la inicie a seção novamente.`);
 }
 
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
+    if (PrimeiroEmblema === 'Neutro' || PrimeiroEmblema != 'Rei' || PrimeiroEmblema != 'Espada' || PrimeiroEmblema != 'Musica' || PrimeiroEmblema != 'Engrenagem' || PrimeiroEmblema != 'Sorriso'){
     let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
     let idDoItemGanho = Math.ceil(Math.random() * 3);
     if (idDoItemGanho < 3){
@@ -163,6 +164,7 @@ async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha
             default: idDoItemGanho = Math.floor(Math.random() * (nivelDosItensGanhos * 5));
         }
     }
+    }else{ idDoItemGanho = PrimeiroEmblema;}
     let itemGanho  = itensX[idDoItemGanho];
     let txt = '';
     if(ficha[6].v1 > 20){
