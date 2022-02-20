@@ -6,7 +6,7 @@ Unidade: Id da resposta no menu           0: Galho 0 referente a base do galho 3
 Zero representa a base.                    5: Id 5 do menu
 */
 
-const objeto = (local, etapa) =>{
+const objeto = (local, etapa, ficha) =>{
     let obj = {textoPadrao: '', resps: [], run: []};
     let montagem = [];
     let Str1 = ``, Str2 = ``, Str3 = ``, Str4 = ``, Str5 = ``; StrP = ``;

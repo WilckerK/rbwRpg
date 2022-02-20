@@ -1,9 +1,9 @@
 const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
 const backgroundX = require('./backgroundX');const backgroundY = require('./backgroundY'); 
-const personagensX = require('./personagensX');
+const personagensX = require('./personagensX'); let menu = true;
 const itensX = require('../itensX');const inimigosX = require('./inimigosX'); 
-let obj = null; let texto = null; let npc = 0; let derrotaU = false; let etapa = 0;
+let obj = null; let texto = null; let npc = 3; let derrotaU = false; let etapa = 3100;
 
 async function salvar(interaction, ficha, num){
     index = "";
@@ -39,7 +39,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     
     img.write(nomeDaImagem);
     let check = false;
-    if (row){
+    if (row.components){
     do{
         let file = new MessageAttachment(('./' + nomeDaImagem)); 
         let msg = new MessageEmbed()
@@ -47,15 +47,33 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
         await interaction.channel.send({ embeds: [msg] , files: [file], components: [row], fetchReply: true}).then((msg) => {
-            if (msg.embeds[0].image){ 
-                check = true;
-                const filter = (b) => b.user.id === interaction.user.id;
-                const collector = msg.createMessageComponentCollector({ filter, max: 1, componentType: 'SELECT_MENU', time: (7 * 60000) });
+            if (msg.embeds[0].image){check = true;
+                const filter = (b) => b.user.id === interaction.user.id; 
+                let collector = msg.createMessageComponentCollector({ filter, max: 1, componentType: 'SELECT_MENU', time: (7 * 60000) });
+                
                 coletarRespostas(collector, msg, ficha, interaction, Database);
             }
             else {msg.delete().catch(() => {});}
         })
     }while(check === false)
+
+    }else if(row){
+        do{
+            let file = new MessageAttachment(('./' + nomeDaImagem)); 
+            let msg = new MessageEmbed()
+                .setTitle(nomeDoLugar)
+                .setColor(cor)
+                .setImage('attachment://' + nomeDaImagem);
+            await interaction.channel.send({ embeds: [msg] , files: [file], fetchReply: true}).then((msg) => {
+                if (msg.embeds[0].image){  check = true;
+                    const filter = (b) => b.author.id === interaction.user.id; 
+                    menu = false;
+                    let collector = msg.channel.createMessageCollector({ filter, max: 1, time: (7 * 60000) });
+                    coletarRespostas(collector, msg, ficha, interaction, Database);
+                }
+                else {msg.delete().catch(() => {});}
+            })
+        }while(check === false)    
 
     }else{
     do{
@@ -77,11 +95,11 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
     
     ficha[7].pers = npc;
 
-    async function ocorrido(id){
+    async function ocorrido(id, i){
         
         let UnidadeId = (id%10) - 1;
         let negarTela = false;
-        let zerarEtapa = true;
+        let zerarEtapa = false;
 
         async function runDoObjeto(){
             eval(obj.run[UnidadeId]);
@@ -100,9 +118,19 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
     }
 
     collector.on('collect', async(i) => {
-        let id =  parseInt(i.values);
-        setTimeout(() => enviada.delete().catch(() => {}), 550 );
-        ocorrido(id);
+        let id = 1;
+        let delay = 550;
+        
+
+        if(menu === true){
+            id =  parseInt(i.values);
+            
+            setTimeout(() => enviada.delete().catch(() => {}), delay );
+            ocorrido(id, i);
+        }else{
+            setTimeout(() => interaction.channel.bulkDelete([enviada.id, i.id]).catch(() => {}), delay );
+            ocorrido(id, i).then(() => {menu = true;});
+        }
     });
 
     collector.on('end', async(collected, reason) => {
@@ -689,15 +717,17 @@ const tela = async(interaction, Database) => {
 
     if (npc !== 0){ //encontro
         if(npc < 100){ //personagem
-            
-            texto = (texto === null || texto === '')?'aaaaaaaaa':texto;
+            let personagem = personagensX[npc - 1];
+            const arquivo = require(personagem.arquivo);
+            obj = arquivo(ficha[7].bg, etapa, ficha);
+            texto = (texto === null || texto === '')?obj.textoPadrao:texto;
             let fundo = backgroundX[indexDoFundo].img;
             let fonte =  await jimp.loadFont('src/extra/fonte.fnt');  
             let img = await jimp.read(fundo);
-            let person = await jimp.read('src/imagens/personagens/c0r0nga.png');
+            let person = await jimp.read(personagem.sprite);
 
-            img.print(fonte, 30, 730, texto, 996);
-            img.composite(person, 640, 720);
+            img.print(fonte, 30, 730, texto, 970);
+            //img.composite(person, 640, 720);
 
             //#region limpar
             indexDoFundo = null;                                        // <---- liberando memória para uma melhor performace
@@ -706,6 +736,8 @@ const tela = async(interaction, Database) => {
             texto = null;
             person = null;
             //#endregion
+            
+            row = (obj.resps[0].customId)?new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0])):obj.resps;
 
             await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
 
@@ -722,7 +754,7 @@ const tela = async(interaction, Database) => {
 
     } else {// se não tiver rolado encontro
 
-        obj = backgroundY(ficha[7].bg, etapa);
+        obj = backgroundY(ficha[7].bg, etapa, ficha);
         texto = (texto === null || texto === '')?obj.textoPadrao:texto;
         let fundo = backgroundX[indexDoFundo].img;
         let fonte =  await jimp.loadFont('src/extra/fonte.fnt')

@@ -44,8 +44,7 @@ module.exports = class extends comando{
                 const channel = interaction.channel
 
                 for (const pergunta of perguntas){
-                    const embed = new MessageEmbed()
-                        .setTitle(pergunta.pergunta)
+                    const embed = new MessageEmbed().setTitle(pergunta.pergunta)
                         .setFooter('Você tem 5 minutos para responder cada pergunta, relaxe. (^-^)')
 
                     if(pergunta.options){
