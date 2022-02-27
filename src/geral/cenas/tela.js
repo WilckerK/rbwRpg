@@ -3,7 +3,7 @@ const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, Messa
 const backgroundX = require('./backgroundX');const backgroundY = require('./backgroundY'); 
 const personagensX = require('./personagensX'); let menu = true;
 const itensX = require('../itensX');const inimigosX = require('./inimigosX'); 
-let obj = null; let texto = null; let npc = 3; let derrotaU = false; let etapa = 3100;
+let obj = null; let texto = null; let npc = 00; let derrotaU = false; let etapa = 00;
 
 async function salvar(interaction, ficha, num){
     index = "";
@@ -30,6 +30,8 @@ async function salvar(interaction, ficha, num){
         break;
         case 10: index = "Coletaveis";
         break;
+        case 11: index = "Loja";
+        break;
     }
  
     await interaction.userEdit.updateOne({_id: interaction.member.id, "ficha.dados.reg" : (index)},{$set: {"ficha.dados.$" : ficha[num]}});
@@ -40,6 +42,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     img.write(nomeDaImagem);
     let check = false;
     if (row.components){
+        
     do{
         let file = new MessageAttachment(('./' + nomeDaImagem)); 
         let msg = new MessageEmbed()
@@ -58,6 +61,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     }while(check === false)
 
     }else if(row){
+        
         do{
             let file = new MessageAttachment(('./' + nomeDaImagem)); 
             let msg = new MessageEmbed()
@@ -76,6 +80,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
         }while(check === false)    
 
     }else{
+        
     do{
         let file = new MessageAttachment(('./' + nomeDaImagem)); 
         let msg = new MessageEmbed()
@@ -152,9 +157,10 @@ Caso queira continua-la inicie a seção novamente.`);
 }
 
 async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha, Database){
-    if (PrimeiroEmblema === 'Neutro' || PrimeiroEmblema != 'Rei' || PrimeiroEmblema != 'Espada' || PrimeiroEmblema != 'Musica' || PrimeiroEmblema != 'Engrenagem' || PrimeiroEmblema != 'Sorriso'){
-    let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
     let idDoItemGanho = Math.ceil(Math.random() * 3);
+    if (PrimeiroEmblema === 'Neutro' || PrimeiroEmblema === 'Rei' || PrimeiroEmblema === 'Espada' || PrimeiroEmblema === 'Musica' || PrimeiroEmblema === 'Engrenagem' || PrimeiroEmblema === 'Sorriso'){
+    let nivelDosItensGanhos = (ficha[5].LVL >= 15)? 4:(ficha[5].LVL >= 7)?3:2;
+    
     if (idDoItemGanho < 3){
         switch(PrimeiroEmblema){
             case 'Rei': idDoItemGanho = 1 + 5 * (Math.floor(Math.random() * nivelDosItensGanhos));
@@ -200,7 +206,7 @@ async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha
 Você encontrou um **${itemGanho.nome}**.
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 Seu item é **${ficha[6].i1}**.
-Deseja trocar algum deles pelo item encontrado?`
+Deseja trocar pelo item encontrado?`
     }else{
         
     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
@@ -744,7 +750,7 @@ const tela = async(interaction, Database) => {
         }else{ //se for uma batalha
 
             let inimigo = inimigosX[(npc - 101)];
-            
+            ficha[11].reset = true; salvar(interaction, ficha, 11);
             await jimp.read(inimigo.sprite).then(async img  => {
                 await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
             })
@@ -770,6 +776,7 @@ const tela = async(interaction, Database) => {
         //#endregion
         
         row = new MessageActionRow().addComponents(new MessageSelectMenu(obj.resps[0]));
+        
         await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
     }
 

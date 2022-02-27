@@ -10,7 +10,7 @@ module.exports = class extends comando{
     constructor(client){
         super(client, {
             nome: 'ficha' ,
-            desc: 'Cria uma ficha para você.',
+            desc: 'Cria uma ficha para você ou mostra a sua.',
             requireDatabase: true
         })
     }
@@ -145,6 +145,12 @@ module.exports = class extends comando{
                         ouroP: 0,
                         ouroM: 0,
                         ouroG: 0
+                    },{reg: 'Loja',
+                        reset: true,
+                        it1: null,
+                        it2: null,
+                        it3: null,
+                        it4: null
                     });
 
                 //console.log(resps)                                           <------------------ checar resps
@@ -184,7 +190,7 @@ module.exports = class extends comando{
                         let Natalidade = dados[posF.indexOf('Natalidade')].value; let Sexo = dados[posF.indexOf('Sexo')].value;
                         let It1 =  dados[posF.indexOf('Item')].i1; let It2 =  dados[posF.indexOf('Item')].i2;
                         let St = dados[posF.indexOf('Status')]; var barraExp =''; let LVLup = (((St.LVL - 1) * 100) + (50 * (0 ** (St.LVL - 1))))
-                        let qtdLVLF = parseInt(((100 / LVLup) * St.EXP) / 10);
+                        let qtdLVLF = parseInt(((100 / LVLup) * St.EXP) / 10); let rewbs = dados[posF.indexOf('Coletaveis')].rewbs;
                         let url = linksEmbedImg[brasao.indexOf(Emblema)].value;
                         
                         //console.log(qtdLVLF , LVLup)
@@ -239,6 +245,7 @@ module.exports = class extends comando{
                             .setThumbnail(url)
                             .setDescription(
                                 `**Nome:** \`\`\` ${Nome} \`\`\`
+**Rewbs: ${rewbs}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **LVL**~(**${St.LVL}**)   |   **Emblema:** **${Emblema}**
 **Próximo LVL:** ${St.EXP}/${LVLup}
