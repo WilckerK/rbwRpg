@@ -1,4 +1,3 @@
-const { interaction } = require('discord.js');
 const comando = require('../../structures/Comando');
 
 module.exports = class extends comando{

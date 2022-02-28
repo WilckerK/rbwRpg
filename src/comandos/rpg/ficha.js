@@ -2,7 +2,7 @@ const { MessageEmbed, MessageActionRow, MessageSelectMenu } = require('discord.j
 const perguntas = require('../../geral/fichaX');
 const comando = require('../../structures/Comando');
 const { once } = require('events');
-const linksEmbedImg = require('../../geral/embedImg')
+const linksEmbedImg = require('../../geral/embedImg');
 
 
 
@@ -258,7 +258,7 @@ module.exports = class extends comando{
 **ATK:** \` ${St.ATK_S} \`   |   **SPE:** \` ${St.SPE_S} \``)
 
                 
-                        interaction.channel.send({ embeds: [ficha] })
+                        await interaction.channel.send({ embeds: [ficha] })
                         
                 }else throw('Erro na database')     //UserDB Denovo
                         
