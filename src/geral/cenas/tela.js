@@ -3,7 +3,7 @@ const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, Messa
 const backgroundX = require('./backgroundX');const backgroundY = require('./backgroundY'); 
 const personagensX = require('./personagensX'); let menu = true;
 const itensX = require('../itensX');const inimigosX = require('./inimigosX'); 
-let obj = null; let texto = null; let npc = 00; let derrotaU = false; let etapa = 00;
+let obj = null; let texto = null; let npc = ''; let derrotaU = false; let etapa = 00;
 
 async function salvar(interaction, ficha, num){
     index = "";

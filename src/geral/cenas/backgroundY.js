@@ -23,9 +23,9 @@ const objeto = (local, etapa, ficha) =>{
                             {label: 'Seguir em direção à caverna.', value: '0003'},
                             {label: 'Procurar por um item.', value: '1004'}
                         )
-                        Str1 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
-                        Str2 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
-                        Str3 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                        Str1 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str2 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str3 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7);npc = ''; `;
                         Str4 = `if(Math.ceil(Math.random() * 10 ) === 10){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                             else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                             calcularEtapa();`;
@@ -37,9 +37,9 @@ const objeto = (local, etapa, ficha) =>{
                             {label: 'Seguir em direção ao Sul.', value: '0002'},
                             {label: 'Entrar na caverna.', value: '0003'}
                         )
-                        Str1 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
-                        Str2 = `zerarEtapa = true; ficha[7].bg = "C1"; salvar(interaction, ficha, 7); `;
-                        Str3 = `zerarEtapa = true; ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                        Str1 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str2 = `zerarEtapa = true; ficha[7].bg = "C1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str3 = `zerarEtapa = true; ficha[7].bg = "CV1"; salvar(interaction, ficha, 7);npc = ''; `;
 
                 break;
                 default:
@@ -59,10 +59,10 @@ const objeto = (local, etapa, ficha) =>{
                             {label: 'Procurar por um item.', value: '1005'}
                         )
 
-                        Str1 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
-                        Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
-                        Str3 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
-                        Str4 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
+                        Str1 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str3 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str4 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7);npc = ''; `;
                         Str5 = `if(Math.ceil(Math.random() * 10 ) === 10){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                         else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                         calcularEtapa();`;
@@ -76,10 +76,10 @@ const objeto = (local, etapa, ficha) =>{
                         {label: 'Entrar no cemitério.', value: '0004'},
                     )
 
-                    Str1 = `zerarEtapa = true; ficha[7].bg = "E3"; salvar(interaction, ficha, 7); `;
-                    Str2 = `zerarEtapa = true; ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
-                    Str3 = `zerarEtapa = true; ficha[7].bg = "F1"; salvar(interaction, ficha, 7); `;
-                    Str4 = `zerarEtapa = true; ficha[7].bg = "F5"; salvar(interaction, ficha, 7); `;
+                    Str1 = `zerarEtapa = true; ficha[7].bg = "E3"; salvar(interaction, ficha, 7);npc = ''; `;
+                    Str2 = `zerarEtapa = true; ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = ''; `;
+                    Str3 = `zerarEtapa = true; ficha[7].bg = "F1"; salvar(interaction, ficha, 7);npc = ''; `;
+                    Str4 = `zerarEtapa = true; ficha[7].bg = "F5"; salvar(interaction, ficha, 7);npc = ''; `;
             break;
                 break;
                 default:
@@ -98,9 +98,9 @@ const objeto = (local, etapa, ficha) =>{
                             {label: 'Procurar por um item.', value: '1004'}
                         )
 
-                        Str1 = `ficha[7].bg = "CA1"; salvar(interaction, ficha, 7); `;
-                        Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
-                        Str3 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7); `;
+                        Str1 = `ficha[7].bg = "CA1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str3 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);npc = ''; `;
                         Str4 = `if(Math.ceil(Math.random() * 10 ) === 10){negarTela = true; encontrarItem('Neutro', 'Neutro', interaction, ficha, Database)}
                         else{texto = 'Você revirou pedras e cavou na terra, mas infelizmente você não conseguiu encontrar um item.'}
                         calcularEtapa();`;
@@ -113,9 +113,9 @@ const objeto = (local, etapa, ficha) =>{
                             {label: 'Seguir em direção à Montanha.', value: '0003'}
                         )
 
-                        Str1 = `zerarEtapa = true; ficha[7].bg = "CA1"; salvar(interaction, ficha, 7); `;
-                        Str2 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7); `;
-                        Str3 = `zerarEtapa = true; ficha[7].bg = "MT1"; salvar(interaction, ficha, 7); `;
+                        Str1 = `zerarEtapa = true; ficha[7].bg = "CA1"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str2 = `zerarEtapa = true; ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = ''; `;
+                        Str3 = `zerarEtapa = true; ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);npc = ''; `;
                 break;
                 default:
                 break;
@@ -134,8 +134,8 @@ const objeto = (local, etapa, ficha) =>{
                         {label: 'Voltar para a estrada.', value: '0002'},
                         {label: 'Observar as plantas.', value: '1003'}
                     );
-                    Str1 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);`;
-                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);npc = '';`;
+                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = `if(Math.ceil(Math.random() * 3) === 2) {texto = 'Você observa as plantas, e ao chegar mais perto você esbarra e derruba um vaso quebrando ele.;'}
                     else{calcularEtapa();}`;
                 break;
@@ -146,9 +146,9 @@ const objeto = (local, etapa, ficha) =>{
                         {label: 'Voltar para a estrada.', value: '0002'},
                         {label: 'Seguir o caminho.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7); zerarEtapa = true;`;
-                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7); zerarEtapa = true;`;
-                    Str3 = `ficha[7].bg = "C8"; salvar(interaction, ficha, 7); zerarEtapa = true;`;
+                    Str1 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);npc = ''; zerarEtapa = true;`;
+                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = ''; zerarEtapa = true;`;
+                    Str3 = `ficha[7].bg = "C8"; salvar(interaction, ficha, 7);npc = ''; zerarEtapa = true;`;
                 break;
                 default:
                 break;
@@ -168,7 +168,7 @@ const objeto = (local, etapa, ficha) =>{
                     Str1 = `ficha[7].bg = "C5"; salvar(interaction, ficha, 7);`;
                     Str2 = `ficha[7].bg = "C3"; salvar(interaction, ficha, 7);`;
                     Str3 = `ficha[7].bg = "C7"; salvar(interaction, ficha, 7);`;
-                    Str4 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7);`;
+                    Str4 = `ficha[7].bg = "C1"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -523,9 +523,9 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Voltar para a estrada.', value: '0002'},
                         {label: 'Ir para o cemitério.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "F2"; salvar(interaction, ficha, 7);`;
-                    Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);`;
-                    Str3 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "F2"; salvar(interaction, ficha, 7);npc = '';`;
+                    Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = '';`;
+                    Str3 = `ficha[7].bg = "F5"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -541,7 +541,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Tentar voltar.', value: '0002'},
                         {label: 'Gritar por ajuda.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "F3"; salvar(interaction, ficha, 7);npc = '';`;
                     Str2 = `if(Math.ceil(Math.random() * 100) <= 30){
                         ficha[7].bg = "F1"
                     }else if(Math.ceil(Math.random() * 100) <= 90){
@@ -550,7 +550,7 @@ ${it4.nome} por ${itv4}.`
                     }else{
                         ficha[7].bg = "F4";
                     }
-                    salvar(interaction, ficha, 7);`;
+                    salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = `if(Math.ceil(Math.random() * 100) > 25){
                         npc = 3;
                     }else{texto = 'Ninguém apareceu.';}`;
@@ -571,7 +571,7 @@ ${it4.nome} por ${itv4}.`
                     );
                     Str1 = `if (Math.ceil(Math.random() * 100) > 10){ficha[7].bg = "F2";}
                     else{ficha[7].bg = "F4";}
-                    salvar(interaction, ficha, 7);`;
+                    salvar(interaction, ficha, 7);npc = '';`;
                     Str2 = `if(Math.ceil(Math.random() * 100) <= 30){
                         ficha[7].bg = "F1";
                     }else if(Math.ceil(Math.random() * 100) <= 90){
@@ -580,7 +580,7 @@ ${it4.nome} por ${itv4}.`
                     }else{
                         ficha[7].bg = "F4";
                     }
-                    salvar(interaction, ficha, 7);`;
+                    salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = `if(Math.ceil(Math.random() * 100) > 25){
                         npc = 3;
                     }else{texto = 'Ninguém apareceu.';}`;
@@ -599,7 +599,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Olhar melhor ao redor.', value: '1002'},
                         {label: 'Apreciar a vista.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7);npc = '';`;
                     Str2 = `calcularEtapa();`;
                     Str3 = `texto = 'Você aprecia a vista da floresta, vê o brilho do sol atravessar as folhas das árvores e sente como se fosse um lugar encantado.';`;
                 break;
@@ -620,7 +620,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Voltar para o começo da floresta.', value: '0001'},
                         {label: 'Apreciar a vista.', value: '0002'}
                     );
-                    Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7); zerarEtapa = true;`;
+                    Str1 = `ficha[7].bg = "F1"; salvar(interaction, ficha, 7);npc = ''; zerarEtapa = true;`;
                     Str2 = `texto = 'Você aprecia a vista da floresta, vê o brilho do sol atravessar as folhas das árvores e sente como se fosse um lugar encantado.';`;
                 break;
 
@@ -652,8 +652,8 @@ ${it4.nome} por ${itv4}.`
                         break;
                     }
                     texto = "Você vê uma lápide com o nome " + nome;`;
-                    Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);`;
-                    Str3 = `ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "E2"; salvar(interaction, ficha, 7);npc = '';`;
+                    Str3 = `ficha[7].bg = "F3"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -672,8 +672,8 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Voltar para a estrada.', value: '0002'},
                         {label: 'Procurar ouro.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "CV2"; salvar(interaction, ficha, 7); `;
-                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7); `;
+                    Str1 = `ficha[7].bg = "CV2"; salvar(interaction, ficha, 7);npc = ''; `;
+                    Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = ''; `;
                     Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
                         let ouro = '';
                         switch(Math.ceil(Math.random() * 6)){
@@ -708,7 +708,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Procurar inimigos.', value: '0002'},
                         {label: 'Procurar ouro.', value: '0003'}
                     );
-                    Str1 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7); `;
+                    Str1 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7);npc = ''; `;
                     Str2 = `if(Math.ceil(Math.random() * 100) > 35){
                         let ini = Math.ceil(Math.random() * 5);
                         switch(ini){
@@ -759,8 +759,8 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Entrar na montanha.', value: '0001'},
                         {label: 'Voltar para a estrada.', value: '0002'}
                     );
-                    Str1 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
-                    Str2 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);npc = '';`;
+                    Str2 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -775,7 +775,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Tentar subir pelo caminho.', value: '0001'},
                         {label: 'Sair da montanha.', value: '0002'}
                     );
-                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);}
+                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);npc = '';}
                     else{
                         let ini = Math.ceil(Math.random() * 5);
                         switch(ini){
@@ -790,7 +790,7 @@ ${it4.nome} por ${itv4}.`
                             case 5: npc = 103;
                             break;
                         }}`;
-                    Str2 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -808,10 +808,10 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Pular do topo.', value: '0004'}
                     );
                     Str1 = `texto = Você olha a beleza do céu durante um bom tempo.`;
-                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = `calcularEtapa()`;
                     Str4 = ` texto = 'Você pula do topo da montanha e acaba caindo no meio da floresta, felizmente as folhas do chão diminuem o impacto da queda.';
-                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`
+                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);npc = '';`
                 break;
 
                 case 1000:
@@ -832,9 +832,9 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Pular do topo.', value: '0003'}
                     );
                     Str1 = `texto = Você olha a beleza do céu durante um bom tempo.`;
-                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);`;
+                    Str2 = `ficha[7].bg = "MT2"; salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = ` texto = 'Você pula do topo da montanha e acaba caindo no meio da floresta, felizmente as folhas do chão diminuem o impacto da queda.';
-                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);`
+                    ficha[7].bg = "F3"; salvar(interaction, ficha, 7);npc = '';`
                 break;
                 default:
                 break;
@@ -860,13 +860,13 @@ ${it4.nome} por ${itv4}.`
                             texto = 'Voce bate no portão, mas ninguém aparece';
                         }`;
                         Str2 = `if(ficha[5].LVL >= 25){
-                            ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);
+                            ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);npc = '';
                         }else{
                             texto = 'Seu LVL não é o suficiente para abrir o portão';
                         } `;
-                        Str3 = `if( Math.ceil( Math.random() * 20 ) === 20){ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);}
+                        Str3 = `if( Math.ceil( Math.random() * 20 ) === 20){ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);npc = '';}
                         else{texto = 'Você não encontrou outra forma de entrar.'}`;
-                        Str4 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);`;
+                        Str4 = `ficha[7].bg = "E3"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
@@ -904,7 +904,7 @@ ${it4.nome} por ${itv4}.`
                     montagem.push(
                         {label: 'Sair.', value: '2001'}
                     );
-                    Str1 = `ficha[7].bg = "CA1"; salvar(interaction, ficha, 7);`;
+                    Str1 = `ficha[7].bg = "CA1"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:
                 break;
