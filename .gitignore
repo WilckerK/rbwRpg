@@ -1,5 +1,5 @@
 node_modules/
 package-lock.json
 del/
-.env
+#.env
 367709212320464896.jpg
