@@ -149,7 +149,7 @@ module.exports = [
         HP: 300,
         ATK: 300,
         SPE: 90,
-        AC: 85,
+        AC: 95,
         emblemas: ['Rei', 'Rei'],
         repetitivo: false,
         SKILL: `HPU -= Math.ceil(HPU/10 * 4); HPI -= Math.floor(HPI/10 * 4); 

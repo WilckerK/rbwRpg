@@ -301,7 +301,6 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
         new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
     ]);
 
-    //#region dados
 
         let actU = 'Escoha a sua ação...';
         let actI = 'Avança em sua direção prestes a te atacar.';
@@ -572,6 +571,8 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             salvar(interaction, ficha, 7);
             tela(interaction, Database);
         }else{
+            ficha[10].rewbs += (ficha[5].LVL * 2 + (Math.floor((ficha[5].LVL * 2) * ((Math.random() * 50)/ 100)) + ((((inimigo.reg - 100) - ((inimigo.reg - 100) % 3 )) * 5) )));
+            salvar(interaction, ficha, 10);
             await upar()
         }
 

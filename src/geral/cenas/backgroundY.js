@@ -346,7 +346,7 @@ const objeto = (local, etapa, ficha) =>{
                         {label: 'Aguardar.', value: '1101'},
                         {label: 'Sair do bar.', value: '0002'}
                     );
-                    Str1 = `if(Math.ceil(Math.random() * 4) === 4){etapa = 10001;zerarEtapa = true;}
+                    Str1 = `if(Math.ceil(Math.random() * 4) === 4){zerarEtapa = true;}
                     else{texto = 'Talvez ele demore a vir...';}`;
                     Str2 = `ficha[7].bg = "C2";zerarEtapa = true; salvar(interaction, ficha, 7);`;
                 break;
@@ -447,8 +447,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Aguardar.', value: '1101'},
                         {label: 'Sair do bar.', value: '0002'}
                     );
-                    Str1 = `if(Math.ceil(Math.random() * 4) === 4){etapa = 10001;zerarEtapa = true;}
-                    else{texto = texto + 'Aparentemente ele irá demorar...';}`;
+                    Str1 = `texto = 'Aparentemente ele irá demorar...';`;
                     Str2 = `ficha[7].bg = "C2";zerarEtapa = true; salvar(interaction, ficha, 7);`;
                 break;
                 default:

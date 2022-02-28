@@ -237,7 +237,7 @@ module.exports = class extends comando{
                         }
                 
                         let ficha = new MessageEmbed()
-                            .setTitle('Ficha:')
+                            .setTitle('Ficha de Status Base:')
                             .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ dynamic: true }))
                             .setTimestamp()
                             .setFooter(`ID de usuário: ${interaction.user.id}`)
@@ -245,7 +245,7 @@ module.exports = class extends comando{
                             .setThumbnail(url)
                             .setDescription(
                                 `**Nome:** \`\`\` ${Nome} \`\`\`
-**Rewbs: ${rewbs}**
+**•Rewbs: ${rewbs}**
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **LVL**~(**${St.LVL}**)   |   **Emblema:** **${Emblema}**
 **Próximo LVL:** ${St.EXP}/${LVLup}
