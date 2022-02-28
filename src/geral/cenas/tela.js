@@ -44,7 +44,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     if (row){
         
     do{
-        let file = new MessageAttachment(('./' + nomeDaImagem)); 
+        let file = new MessageAttachment((nomeDaImagem)); 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
@@ -63,7 +63,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     }else{
         
     do{
-        let file = new MessageAttachment(('./' + nomeDaImagem)); 
+        let file = new MessageAttachment((nomeDaImagem)); 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
