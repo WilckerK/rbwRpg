@@ -87,7 +87,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
             .setTitle(nomeDoLugar)
             .setColor(cor)
             .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file]}).then((msg) => {
+        await interaction.channel.send({ embeds: [msg] , files: [file], fetchReply: true}).then((msg) => {
             if (msg.embeds[0].image){ check = true;}
             else {msg.delete().catch(() => {});}
         })

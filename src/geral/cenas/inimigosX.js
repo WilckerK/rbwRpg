@@ -105,7 +105,7 @@ module.exports = [
         ATK: 110,
         SPE: 50,
         AC: 90,
-        emblemas: ['Engrenagem', 'Engrenagem'],
+        emblemas: ['Engrenagem', 'Rei'],
         repetitivo: false,
         SKILL: `HPI *= 2;
         actI = actI + \'Seu oponente dobra o HP que tinha.\' + \'\\n\'

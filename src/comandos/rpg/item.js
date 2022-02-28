@@ -43,7 +43,7 @@ module.exports = class extends comando{
             case 'escudo': txt = 'Aumenta seu HP em 15%, se estiver acompanhado de uma espada, seu inimigo perde 3% de acerto e você ganha 10 pontos de desvio.';  
             Emblema = 'Espada';
             break;
-            case 'sino': txt = 'Você ganha seu LVL multiplicado por 4 toda vez que entrar em uma batalha.';  
+            case 'sino': txt = 'Você ganha de EXP seu LVL multiplicado por 4 toda vez que entrar em uma batalha.';  
             Emblema = 'Musica';
             break;
             case 'flash bang': txt = 'Seu oponente perde 13% de acerto, você ganha 5 pontos de desvio e corrida.';  
@@ -106,7 +106,7 @@ module.exports = class extends comando{
         if(Emblema !== ''){const url = linksEmbedImg[brasao.indexOf(Emblema)].value;
 
             msg = new MessageEmbed()
-                .setTitle(`${item}`)
+                .setTitle(`${item[0].toUpperCase() + item.slice(1).toLowerCase()}`)
                 .setColor('#010101')
                 .setThumbnail(url)
                 .setDescription(txt)
