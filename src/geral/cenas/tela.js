@@ -41,7 +41,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     
     img.write(nomeDaImagem);
     let check = false;
-    if (row.components){
+    if (row){
         
     do{
         let file = new MessageAttachment(('./' + nomeDaImagem)); 
@@ -58,26 +58,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
             }
             else {msg.delete().catch(() => {});}
         })
-    }while(check === false)
-
-    }else if(row){
-        
-        do{
-            let file = new MessageAttachment(('./' + nomeDaImagem)); 
-            let msg = new MessageEmbed()
-                .setTitle(nomeDoLugar)
-                .setColor(cor)
-                .setImage('attachment://' + nomeDaImagem);
-            await interaction.channel.send({ embeds: [msg] , files: [file], fetchReply: true}).then((msg) => {
-                if (msg.embeds[0].image){  check = true;
-                    const filter = (b) => b.author.id === interaction.user.id; 
-                    menu = false;
-                    let collector = msg.channel.createMessageCollector({ filter, max: 1, time: (7 * 60000) });
-                    coletarRespostas(collector, msg, ficha, interaction, Database);
-                }
-                else {msg.delete().catch(() => {});}
-            })
-        }while(check === false)    
+    }while(check === false)   
 
     }else{
         
