@@ -245,7 +245,7 @@ module.exports = class extends comando{
                             .setThumbnail(url)
                             .setDescription(
                                 `**Nome:** \`\`\` ${Nome} \`\`\`
-**Rewbs: ${rewbs}
+**Rewbs: ${rewbs}**
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **LVL**~(**${St.LVL}**)   |   **Emblema:** **${Emblema}**
 **Próximo LVL:** ${St.EXP}/${LVLup}
