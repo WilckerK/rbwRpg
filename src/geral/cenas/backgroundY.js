@@ -311,11 +311,13 @@ const objeto = (local, etapa, ficha) =>{
                     obj.textoPadrao = 'Dentro do bar você vê diversas bebidas e camisas de esportes, porém na frente do barman você vê diversos itens e uma placa que diz "Compra-mos ouro".';
                     montagem.push(
                         {label: 'Perguntar dos itens.', value: '2001'},
-                        {label: 'Vender ouro.', value: '0002'},
+                        {label: 'Vender ouro.', value: '3002'},
                         {label: 'Sair do bar.', value: '9003'}
                     );
                     Str1 = `calcularEtapa();`;
-                    Str2 = ``;
+                    Str2 = `if(ficha[10].ouroP === 0 && ficha[10].ouroM === 0 && ficha[10].ouroG === 0){
+                        texto = 'Você não tem nenhum ouro para poder vender no momento.'
+                    }else{etapa = 3000;}`;
                     Str3 = `ficha[7].bg = "C2"; salvar(interaction, ficha, 7);`;
                 break;
                 case 100:
@@ -395,7 +397,23 @@ ${it4.nome} por ${itv4}.`
                     else{texto = 'Você não tem rewbs o bastante para comprar este item.';}` 
                     Str4 = `if(ficha[10].rewbs >= ${itv4}){ficha[10].rewbs -= ${itv4}; encontrarItem( ${parseInt(it4.reg)} , 'Neutro', interaction, ficha, Database); ` + StrP + ` }
                     else{texto = 'Você não tem rewbs o bastante para comprar este item.';}` 
-                    Str5 = `zerarEtapa(); ficha[11].reset = false; salvar(interaction, ficha, 11);`;
+                    Str5 = `zerarEtapa = true; ficha[11].reset = false; salvar(interaction, ficha, 11);`;
+                break;
+                case 3000:
+                    obj.textoPadrao = `Quais ouros você quer vender? Você possui ${ficha[10].ouroP} de ouro pequeno, ${ficha[10].ouroM} de ouro médio e ${ficha[10].ouroG} de ouro grande.`;
+                    montagem.push(
+                        {label: 'Vender Pequenos', value: '0001'},
+                        {label: 'Vender Médios', value: '0002'},
+                        {label: 'Vender Grandes', value: '0003'},
+                        {label: "Voltar", value: '0004'}
+                    )
+                    Str1 = `if(ficha[10].ouroP > 0){ficha[10].rewbs += (ficha[10].ouroP * 15);texto = 'Voce vendeu ${ficha[10].ouroP} e ganhou ${ficha[10].ouroP * 15} de rewbs.'; ficha[10].ouroP = 0; }
+                    else{texto = 'Você não possui ouros pequenos.'}`;
+                    Str2 = `if(ficha[10].ouroM > 0){ficha[10].rewbs += (ficha[10].ouroM * 33);texto = 'Voce vendeu ${ficha[10].ouroM} e ganhou ${ficha[10].ouroM * 33} de rewbs.'; ficha[10].ouroM = 0; }
+                    else{texto = 'Você não possui ouros médios.'}`;
+                    Str3 = `if(ficha[10].ouroG > 0){ficha[10].rewbs += (ficha[10].ouroG * 50);texto = 'Voce vendeu ${ficha[10].ouroG} e ganhou ${ficha[10].ouroG * 50} de rewbs.'; ficha[10].ouroG = 0; }
+                    else{texto = 'Você não possui ouros grandes.'}`;
+                    Str4 = `zerarEtapa = true; salvar(interaction, ficha, 11);`;
                 break;
                 default:
                 break;
