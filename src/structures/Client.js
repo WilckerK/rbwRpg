@@ -15,7 +15,7 @@ module.exports = class extends Client {
     }
 
     registroComandos() {
-        this.guilds.cache.get('922185174517678111').commands.set(this.comandos)
+        this.guilds.cache.get('732276333429784707').commands.set(this.comandos)
     }
     
     loadComands(path = 'src/comandos'){
