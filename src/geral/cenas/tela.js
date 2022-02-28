@@ -294,13 +294,21 @@ Caso queira continuar inicie a seção novamente.`);
 async function batalha(ficha, inimigo, interaction, derrota, Database){
 
     //#region dados
-    
-    const RowBattle = new MessageActionRow().addComponents([
-        new MessageButton().setStyle('DANGER').setLabel('Ataque').setCustomId('Ataque'),
-        new MessageButton().setStyle('SUCCESS').setLabel('Desvio').setCustomId('Desvio'),
-        new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
-    ]);
-
+    let RowBattle;
+    if(ficha[6].v1 > 20){
+        RowBattle = new MessageActionRow().addComponents([
+            new MessageButton().setStyle('DANGER').setLabel('Ataque').setCustomId('Ataque'),
+            new MessageButton().setStyle('PRIMARY').setLabel('Item').setCustomId('Item'),
+            new MessageButton().setStyle('SUCCESS').setLabel('Desvio').setCustomId('Desvio'),
+            new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
+        ]);
+    }else{
+        RowBattle = new MessageActionRow().addComponents([
+            new MessageButton().setStyle('DANGER').setLabel('Ataque').setCustomId('Ataque'),
+            new MessageButton().setStyle('SUCCESS').setLabel('Desvio').setCustomId('Desvio'),
+            new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
+        ]);
+    }
 
         let actU = 'Escoha a sua ação...';
         let actI = 'Avança em sua direção prestes a te atacar.';
@@ -346,7 +354,7 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
         let txt = '';
         
         if (Item.v1 <= 20){
-            eval(itensX[Item.v2].run); eval(itensX[Item.v2].run);
+            eval(itensX[Item.v1].run); eval(itensX[Item.v2].run);
         }
 
         EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 1.5);
@@ -491,6 +499,10 @@ ${actI}`);
 `;
                 inimigoAtacar();
         }
+    }
+
+    function item(){
+        eval(itensX[Item.v1].run);
     }
 
     async function upar(){
@@ -643,6 +655,16 @@ ${actI}`
                 correr();
                 txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
+${actU}
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
+${actI}`
+                break;
+            case 'Item':
+                item();
+                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+**${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
+Você usou o efeito de ${ficha[6].i1},
 ${actU}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
