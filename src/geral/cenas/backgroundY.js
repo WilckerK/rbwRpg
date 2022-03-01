@@ -849,11 +849,7 @@ ${it4.nome} por ${itv4}.`
                             {label: 'Voltar para a estrada.', value: '0004'}
                         )
 
-                        Str1 = `if(Math.ceil(Math.random() * 100) <= 15){
-                            etapa = 1000;
-                        }else{
-                            texto = 'Voce bate no portão, mas ninguém aparece';
-                        }`;
+                        Str1 = `texto = 'Voce bate no portão, mas ninguém aparece';`;
                         Str2 = `if(ficha[5].LVL >= 25){
                             ficha[7].bg = "CA2"; salvar(interaction, ficha, 7);npc = '';
                         }else{
