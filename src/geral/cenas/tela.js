@@ -39,7 +39,7 @@ async function salvar(interaction, ficha, num){
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database){
     const path = 'src/telas/';
-    img.write(path + nomeDaImagem).then(() => {
+    img.write(path + nomeDaImagem).then(async() => {
         let check = false;
         if (row){
             
