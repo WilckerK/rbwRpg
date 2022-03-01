@@ -225,7 +225,7 @@ const objeto = (local, etapa, ficha) =>{
                         {label: 'Engen, o esperto.', value: '0004'},
                         {label: 'Gargalho, o contente.', value: '0005'}
                     );
-                    StrP = `
+                    StrP = `if(ficha[10].rewbs >= 50){
                     ficha[10].rewbs -= 50;
                     let decis = Math.ceil(Math.random() * 5)
                     switch(decis){
@@ -248,35 +248,35 @@ const objeto = (local, etapa, ficha) =>{
                     }else{
                         salvar(interaction, ficha, 10); 
                         texto = texto + ' Infelizmente você perdeu.';
-                    }`;
+                    }}else{texto = 'Você não tem rewbs o suficiente para fazer uma aposta.'}`;
                     Str2 = StrP + `if(decis === 'Adaga'){
                         ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
                         texto = texto + ' Parabéns você ganhou.';
                     }else{
                         salvar(interaction, ficha, 10); 
                         texto = texto + ' Infelizmente você perdeu.';
-                    }`;
+                    }}else{texto = 'Você não tem rewbs o suficiente para fazer uma aposta.'}`;
                     Str3 = StrP + `if(decis === 'Sonoro'){
                         ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
                         texto = texto + ' Parabéns você ganhou.';
                     }else{
                         salvar(interaction, ficha, 10); 
                         texto = texto + ' Infelizmente você perdeu.';
-                    }`;
+                    }}else{texto = 'Você não tem rewbs o suficiente para fazer uma aposta.'}`;
                     Str4 = StrP + `if(decis === 'Engen'){
                         ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
                         texto = texto + ' Parabéns você ganhou.';
                     }else{
                         salvar(interaction, ficha, 10); 
                         texto = texto + ' Infelizmente você perdeu.';
-                    }`;
+                    }}else{texto = 'Você não tem rewbs o suficiente para fazer uma aposta.'}`;
                     Str5 = StrP + `if(decis === 'Gargalho'){
                         ficha[10].rewbs += 200; salvar(interaction, ficha, 10); 
                         texto = texto + ' Parabéns você ganhou.';
                     }else{
                         salvar(interaction, ficha, 10); 
                         texto = texto + ' Infelizmente você perdeu.';
-                    }`;
+                    }}else{texto = 'Você não tem rewbs o suficiente para fazer uma aposta.'}`;
                 break;
                 case 2000:
                     obj.textoPadrao = 'Quanto você quer colocar na máquina?'
@@ -288,16 +288,21 @@ const objeto = (local, etapa, ficha) =>{
                         {label: '500', value: '0005'}
                     );
                     StrP = `chanceDeGanhar = Math.ceil(Math.random() * 3); zerarEtapa = true;`
-                    Str1 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 10; texto = 'Parabéns, você dobrou o seu dinheiro.'}
-                    else{ficha[10].rewbs -= 5; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);`;
-                    Str2 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 20; texto = 'Parabéns, você dobrou o seu dinheiro.'}
-                    else{ficha[10].rewbs -= 10; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);`;
-                    Str3 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 100; texto = 'Parabéns, você dobrou o seu dinheiro.'}
-                    else{ficha[10].rewbs -= 50; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);`;
-                    Str4 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 200; texto = 'Parabéns, você dobrou o seu dinheiro.'}
-                    else{ficha[10].rewbs -= 100; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);`;
-                    Str5 = StrP + `if(chanceDeGanhar === 3){ficha[10].rewbs += 1000; texto = 'Parabéns, você dobrou o seu dinheiro.'}
-                    else{ficha[10].rewbs -= 500; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);`;
+                    Str1 = StrP + `if(ficha[10].rewbs >= 5){if(chanceDeGanhar === 3){ficha[10].rewbs += 10; texto = 'Parabéns, você dobrou o seu dinheiro.'}
+                    else{ficha[10].rewbs -= 5; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);}
+                    else{texto = 'Você não tem o suficiente para colocar essa quantia na máquina.'}`;
+                    Str2 = StrP + `if(ficha[10].rewbs >= 5){if(chanceDeGanhar === 3){ficha[10].rewbs += 20; texto = 'Parabéns, você dobrou o seu dinheiro.'}
+                    else{ficha[10].rewbs -= 10; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);}
+                    else{texto = 'Você não tem o suficiente para colocar essa quantia na máquina.'}`;
+                    Str3 = StrP + `if(ficha[10].rewbs >= 5){if(chanceDeGanhar === 3){ficha[10].rewbs += 100; texto = 'Parabéns, você dobrou o seu dinheiro.'}
+                    else{ficha[10].rewbs -= 50; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);}
+                    else{texto = 'Você não tem o suficiente para colocar essa quantia na máquina.'}`;
+                    Str4 = StrP + `if(ficha[10].rewbs >= 5){if(chanceDeGanhar === 3){ficha[10].rewbs += 200; texto = 'Parabéns, você dobrou o seu dinheiro.'}
+                    else{ficha[10].rewbs -= 100; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);}
+                    else{texto = 'Você não tem o suficiente para colocar essa quantia na máquina.'}`;
+                    Str5 = StrP + `if(ficha[10].rewbs >= 5){if(chanceDeGanhar === 3){ficha[10].rewbs += 1000; texto = 'Parabéns, você dobrou o seu dinheiro.'}
+                    else{ficha[10].rewbs -= 500; texto = 'Infelizmente, você deu azar e a máquina ficou com o seu dinheiro.'} salvar(interaction, ficha, 10);}
+                    else{texto = 'Você não tem o suficiente para colocar essa quantia na máquina.'}`;
                 break;
                 default:
                 break;
@@ -407,11 +412,11 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Vender Grandes', value: '0003'},
                         {label: "Voltar", value: '0004'}
                     )
-                    Str1 = `if(ficha[10].ouroP > 0){ficha[10].rewbs += (ficha[10].ouroP * 15);texto = 'Voce vendeu ${ficha[10].ouroP} e ganhou ${ficha[10].ouroP * 15} de rewbs.'; ficha[10].ouroP = 0; }
+                    Str1 = `if(ficha[10].ouroP > 0){ficha[10].rewbs += (ficha[10].ouroP * 15);texto = 'Voce vendeu ${ficha[10].ouroP} e ganhou ${ficha[10].ouroP * 15} de rewbs.'; ficha[10].ouroP = 0; salvar(interaction, ficha, 10); }
                     else{texto = 'Você não possui ouros pequenos.'}`;
-                    Str2 = `if(ficha[10].ouroM > 0){ficha[10].rewbs += (ficha[10].ouroM * 33);texto = 'Voce vendeu ${ficha[10].ouroM} e ganhou ${ficha[10].ouroM * 33} de rewbs.'; ficha[10].ouroM = 0; }
+                    Str2 = `if(ficha[10].ouroM > 0){ficha[10].rewbs += (ficha[10].ouroM * 33);texto = 'Voce vendeu ${ficha[10].ouroM} e ganhou ${ficha[10].ouroM * 33} de rewbs.'; ficha[10].ouroM = 0; salvar(interaction, ficha, 10); }
                     else{texto = 'Você não possui ouros médios.'}`;
-                    Str3 = `if(ficha[10].ouroG > 0){ficha[10].rewbs += (ficha[10].ouroG * 50);texto = 'Voce vendeu ${ficha[10].ouroG} e ganhou ${ficha[10].ouroG * 50} de rewbs.'; ficha[10].ouroG = 0; }
+                    Str3 = `if(ficha[10].ouroG > 0){ficha[10].rewbs += (ficha[10].ouroG * 50);texto = 'Voce vendeu ${ficha[10].ouroG} e ganhou ${ficha[10].ouroG * 50} de rewbs.'; ficha[10].ouroG = 0; salvar(interaction, ficha, 10); }
                     else{texto = 'Você não possui ouros grandes.'}`;
                     Str4 = `zerarEtapa = true; salvar(interaction, ficha, 11);`;
                 break;
@@ -674,7 +679,7 @@ ${it4.nome} por ${itv4}.`
                     );
                     Str1 = `ficha[7].bg = "CV2"; salvar(interaction, ficha, 7);npc = ''; `;
                     Str2 = `ficha[7].bg = "E1"; salvar(interaction, ficha, 7);npc = ''; `;
-                    Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
+                    Str3 = `if(Math.ceil(Math.random() * 20) >= 15){
                         let ouro = '';
                         switch(Math.ceil(Math.random() * 6)){
                             case 1: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
@@ -726,7 +731,7 @@ ${it4.nome} por ${itv4}.`
                     }else{
                         texto = 'Você não encontrou nenhum inimigo.';
                     } `;
-                    Str3 = `if(Math.ceil(Math.random() * 20) >= 13){
+                    Str3 = `if(Math.ceil(Math.random() * 20) >= 15){
                         let ouro = '';
                         switch(Math.ceil(Math.random() * 6)){
                             case 1: ficha[10].ouroP ++; ouro = 'pequeno pedaço de ouro';
@@ -775,7 +780,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Tentar subir pelo caminho.', value: '0001'},
                         {label: 'Sair da montanha.', value: '0002'}
                     );
-                    Str1 = `if(Mayh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);npc = '';}
+                    Str1 = `if(Matyh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);npc = '';}
                     else{
                         let ini = Math.ceil(Math.random() * 5);
                         switch(ini){
@@ -825,7 +830,7 @@ ${it4.nome} por ${itv4}.`
                 break;
 
                 case 2000:
-                    obj.textoPadrao = 'Você pega o cachorrinho e leva ele com você.'
+                    obj.textoPadrao = 'Você pega a Katana e leva ele com você.'
                     montagem.push(
                         {label: 'Apreciar a vista.', value: '0001'},
                         {label: 'Voltar para dentro da montanha.', value: '0002'},
