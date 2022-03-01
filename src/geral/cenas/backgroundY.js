@@ -715,19 +715,8 @@ ${it4.nome} por ${itv4}.`
                     );
                     Str1 = `ficha[7].bg = "CV1"; salvar(interaction, ficha, 7);npc = ''; `;
                     Str2 = `if(Math.ceil(Math.random() * 100) > 35){
-                        let ini = Math.ceil(Math.random() * 5);
-                        switch(ini){
-                            case 1: etapa = 100005;
-                            break;
-                            case 2: etapa = 100006;
-                            break; 
-                            case 3: etapa = 100007;
-                            break; 
-                            case 4: etapa = 100009;
-                            break;
-                            case 5: etapa = 100003;
-                            break;
-                        }
+                        const ini = Math.ceil(Math.random() * 13);
+                        npc = (ini + 100)
                     }else{
                         texto = 'Você não encontrou nenhum inimigo.';
                     } `;
@@ -780,9 +769,9 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Tentar subir pelo caminho.', value: '0001'},
                         {label: 'Sair da montanha.', value: '0002'}
                     );
-                    Str1 = `if(Matyh.ceil(Math.random() * 100) >= 75){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7);npc = '';}
+                    Str1 = `if(Math.ceil(Math.random() * 100) >= 95){ficha[7].bg = "MT3"; salvar(interaction, ficha, 7); etapa = 0; npc = '';}
                     else{
-                        let ini = Math.ceil(Math.random() * 5);
+                        const ini = Math.ceil(Math.random() * 5);
                         switch(ini){
                             case 1: npc = 109;
                             break;
@@ -792,9 +781,10 @@ ${it4.nome} por ${itv4}.`
                             break; 
                             case 4: npc = 109;
                             break;
-                            case 5: npc = 103;
+                            case 5: npc = 106;
                             break;
-                        }}`;
+                        }
+                    }`;
                     Str2 = `ficha[7].bg = "MT1"; salvar(interaction, ficha, 7);npc = '';`;
                 break;
                 default:

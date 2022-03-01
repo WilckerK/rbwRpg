@@ -253,9 +253,9 @@ module.exports = class extends comando{
 **Veio de:** \`${Natalidade}\` | **Sexo:** ${Sexo}
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **HP:** ~**${St.HP_S}**~   |   **AC:** \` ${St.AC_S}% \` 
+**ATK:** \` ${St.ATK_S} \`   |   **SPE:** \` ${St.SPE_S} \`
 
-**Item 1:** \` ${It1} \`   |   **Item 2:** \` ${It2} \`
-**ATK:** \` ${St.ATK_S} \`   |   **SPE:** \` ${St.SPE_S} \``)
+**Item 1:** \` ${It1} \`   |   **Item 2:** \` ${It2} \``)
 
                 
                         await interaction.channel.send({ embeds: [ficha] })

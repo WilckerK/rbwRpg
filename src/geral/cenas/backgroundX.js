@@ -1,20 +1,20 @@
 module.exports = [
     // Estrada
-    {reg: 'E1', nome: 'Inicio da Estrada', img: './src/imagens/background/inicioEstrada.jpg', chance: 70, 
+    {reg: 'E1', nome: 'Inicio da Estrada', img: './src/imagens/background/inicioEstrada.jpg', chance: 45, 
      npc: [ 103, 102, 103, 102, 103, 102, 103, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 104, 101, 101, ],
      derrota: 'E2' },
-    {reg: 'E2', nome: 'Meio da Estrada', img: './src/imagens/background/meioEstrada.jpg', chance: 60, 
+    {reg: 'E2', nome: 'Meio da Estrada', img: './src/imagens/background/meioEstrada.jpg', chance: 45, 
      npc: [ 101, 101, 102, 102, 102, 103, 103, 103, 103, 103, 103, 103, 102, 103, 104, 105, 106, 106, 105, 104 ],
      derrota: 'E3' },
 
-    {reg: 'E3', nome: 'Final da Estrada', img: './src/imagens/background/finalEstrada.jpg' , chance: 55, 
+    {reg: 'E3', nome: 'Final da Estrada', img: './src/imagens/background/finalEstrada.jpg' , chance: 45, 
      npc: [ 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 102, 101, 103, 103, 101, 102, 103, 101, 103, 102 ],
      derrota: 'E1' },
 
 
     // Cidade
-    {reg: 'C1', nome: 'Entrada da Cidade', img: './src/imagens/background/entradaCidade.jpg', chance: 50, 
-     npc: [ 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
+    {reg: 'C1', nome: 'Entrada da Cidade', img: './src/imagens/background/entradaCidade.jpg', chance: 20, 
+     npc: [ 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108 ],
      derrota: 'E1' },
 
     {reg: 'C2', nome: 'Praça Geral', img: './src/imagens/background/dentroCidade.jpg', chance: 90, 
@@ -34,15 +34,15 @@ module.exports = [
      derrota: 'E1' },
 
     {reg: 'C6', nome: 'Puteiro', img: './src/imagens/background/tibulo.jpg', chance: 90, 
-     npc: [ 106, 106, 106, 106, 106, 109, 109, 109, 109, 106, 109, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
+     npc: [ 106, 106, 106, 106, 103, 109, 109, 109, 103, 102, 102, 103, 00, 00, 00, 00, 00, 00, 00, 00 ],
      derrota: 'E1' },
 
-    {reg: 'C7', nome: 'Biblioteca', img: './src/imagens/background/biblioteca.jpg', chance: 100, 
+    {reg: 'C7', nome: 'Biblioteca', img: './src/imagens/background/biblioteca.jpg', chance: 00, 
      npc: [ 3, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
      derrota: 'E1' },
 
     {reg: 'C8', nome: 'Prisão', img: './src/imagens/background/prisao.jpg', chance: 95, 
-     npc: [ 111, 111, 111, 111, 111, 111, 111, 111, 106, 106, 106, 106, 102, 102, 102, 00, 00, 00, 00, 00 ],
+     npc: [ 111, 111, 111, 111, 107, 102, 107, 102, 106, 106, 106, 106, 102, 102, 102, 102, 111, 111, 111, 111 ],
      derrota: 'E1' },
 
 
@@ -59,8 +59,8 @@ module.exports = [
      npc: [ 104, 104, 104, 104, 108, 108, 108, 104, 108, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
      derrota: 'E2' },
 
-    {reg: 'F4', nome: 'Floresta', img: './src/imagens/background/floresta4.jpg', chance: 0, 
-     npc: [ 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 00 ],
+    {reg: 'F4', nome: 'Floresta', img: './src/imagens/background/floresta4.jpg', chance: 100, 
+     npc: [ 108, 108, 108, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110, 110 ],
      derrota: 'E2' },
 
     {reg: 'F5', nome: 'Cemitério', img: './src/imagens/background/cemiterio.jpg', chance: 80, 
@@ -80,7 +80,7 @@ module.exports = [
 
     // Montanha
     {reg: 'MT1', nome: 'Entrada da Montanha', img: './src/imagens/background/entradaMontanha.jpg', chance: 60, 
-     npc: [ 107, 107, 107, 106, 109, 109, 108, 108, 108, 108, 107, 106, 107, 00, 00, 00, 00, 00, 00, 00 ],
+     npc: [ 107, 107, 107, 106, 109, 109, 108, 108, 108, 108, 107, 106, 107, 101, 101, 103, 103, 00, 00, 00 ],
      derrota: 'E3' },
 
     {reg: 'MT2', nome: 'Montanha', img: './src/imagens/background/dentroMontanha.jpg', chance: 90, 
@@ -94,7 +94,7 @@ module.exports = [
 
     // Castelo
     {reg: 'CA1', nome: 'Portão do Castelo', img: './src/imagens/background/portaoCastelo.jpg', chance: 65, 
-     npc: [ 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 113, 113, 113, 113, 113, 101, 101 ],
+     npc: [ 101, 101, 101, 101, 101, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113, 113 ],
      derrota: 'E3' },
 
     {reg: 'CA2', nome: 'Master Room', img: './src/imagens/background/salaDoTrono.jpg', chance: 100, 

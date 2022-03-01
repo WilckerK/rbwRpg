@@ -396,12 +396,11 @@ ${actI}`);
     //#region Funções de batalha
 
     function userAtacar(){
-        let delta = 0 ;
         let turno = SPEU;
         do{
 
         if( Math.floor(Math.random() * 100) <= ACCU){
-            let d20U = Math.ceil(Math.random() * 20);
+            const d20U = Math.ceil(Math.random() * 20);
             let calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
             let danoU = ((calcU > 0)?calcU:-5)+ d20U + danoExtraDoUser;
             danoU = (danoU >= 0)? danoU : 0;
@@ -431,7 +430,7 @@ ${actI}`);
         let turno = SPEI;
         do{
         if(Math.ceil(Math.random() * 100) <= ACCI){
-            let d20I = Math.ceil(Math.random() * 20);
+            const d20I = Math.ceil(Math.random() * 20);
             let calcI = Math.ceil(((ATKI / ATKU) * 8) - Math.floor(HPU / 50))
             let danoI = ((calcI > 0)?calcI:-5) + d20I + danoExtraDoInimigo;
             danoI = (danoI >= 0)? danoI : 0;
