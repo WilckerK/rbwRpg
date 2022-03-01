@@ -38,11 +38,10 @@ async function salvar(interaction, ficha, num){
 }
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database){
-    const path = 'src/telas/';
-    img.write(path + nomeDaImagem).then(async() => {
+    
+    async function enviar(){
         let check = false;
-        if (row){
-            
+        if (row){      
         do{
             const file = new MessageAttachment((path + nomeDaImagem)); 
             let msg = new MessageEmbed()
@@ -58,10 +57,9 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
                 }
                 else {msg.delete().catch(() => {});}
             })
-        }while(check === false)   
-
+        }while(check === false)
+        
         }else{
-            
         do{
             const file = new MessageAttachment((path + nomeDaImagem)); 
             let msg = new MessageEmbed()
@@ -73,9 +71,11 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
                 else {msg.delete().catch(() => {});}
             })
             
-        }while(check === false)
-        }
-    })
+        }while(check === false)}
+    }
+
+    const path = 'src/telas/';
+    img.write(path + nomeDaImagem, enviar());
 }
 
 async function coletarRespostas(collector, enviada, ficha, interaction, Database){
