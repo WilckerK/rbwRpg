@@ -553,8 +553,9 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             
     }
 
-    async function finalizarBatalha(){
+    async function finalizarBatalha(i){
         npc = 0
+        setTimeout(() => i.delete().catch(() => {}), 45000 );
         if(derrotaU){
             texto = 'Você misteriosamente acorda na estrada após ficar um tempo desacordado. O inimigo não te matou, mas te nocauteou.';
             etapa = 0;
@@ -568,6 +569,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             salvar(interaction, ficha, 10);
             await upar()
         }
+
 
     }
 
@@ -663,7 +665,7 @@ ${actI}`
         else{
             i.update({embeds: [msg], components: []}); 
             collector.stop();
-            finalizarBatalha();
+            finalizarBatalha(i);
         }
     })
     
