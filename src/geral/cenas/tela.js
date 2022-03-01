@@ -38,13 +38,13 @@ async function salvar(interaction, ficha, num){
 }
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database){
-    
-    img.write(nomeDaImagem);
+    const path = './src/telas/';
+    img.write(path, nomeDaImagem);
     let check = false;
     if (row){
         
     do{
-        let file = new MessageAttachment((nomeDaImagem)); 
+        const file = new MessageAttachment((path + nomeDaImagem)); 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
@@ -63,7 +63,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     }else{
         
     do{
-        let file = new MessageAttachment((nomeDaImagem)); 
+        const file = new MessageAttachment((path + nomeDaImagem)); 
         let msg = new MessageEmbed()
             .setTitle(nomeDoLugar)
             .setColor(cor)
