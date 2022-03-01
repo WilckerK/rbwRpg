@@ -39,42 +39,43 @@ async function salvar(interaction, ficha, num){
 
 async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database){
     const path = 'src/telas/';
-    img.write(path + nomeDaImagem);
-    let check = false;
-    if (row){
-        
-    do{
-        const file = new MessageAttachment((path + nomeDaImagem)); 
-        let msg = new MessageEmbed()
-            .setTitle(nomeDoLugar)
-            .setColor(cor)
-            .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file], components: [row], fetchReply: true}).then((msg) => {
-            if (msg.embeds[0].image){check = true;
-                const filter = (b) => b.user.id === interaction.user.id; 
-                let collector = msg.createMessageComponentCollector({ filter, max: 1, componentType: 'SELECT_MENU', time: (7 * 60000) });
-                
-                coletarRespostas(collector, msg, ficha, interaction, Database);
-            }
-            else {msg.delete().catch(() => {});}
-        })
-    }while(check === false)   
+    img.write(path + nomeDaImagem).then(() => {
+        let check = false;
+        if (row){
+            
+        do{
+            const file = new MessageAttachment((path + nomeDaImagem)); 
+            let msg = new MessageEmbed()
+                .setTitle(nomeDoLugar)
+                .setColor(cor)
+                .setImage('attachment://' + nomeDaImagem);
+            await interaction.channel.send({ embeds: [msg] , files: [file], components: [row], fetchReply: true}).then((msg) => {
+                if (msg.embeds[0].image){check = true;
+                    const filter = (b) => b.user.id === interaction.user.id; 
+                    let collector = msg.createMessageComponentCollector({ filter, max: 1, componentType: 'SELECT_MENU', time: (7 * 60000) });
+                    
+                    coletarRespostas(collector, msg, ficha, interaction, Database);
+                }
+                else {msg.delete().catch(() => {});}
+            })
+        }while(check === false)   
 
-    }else{
-        
-    do{
-        const file = new MessageAttachment((path + nomeDaImagem)); 
-        let msg = new MessageEmbed()
-            .setTitle(nomeDoLugar)
-            .setColor(cor)
-            .setImage('attachment://' + nomeDaImagem);
-        await interaction.channel.send({ embeds: [msg] , files: [file], fetchReply: true}).then((msg) => {
-            if (msg.embeds[0].image){ check = true;}
-            else {msg.delete().catch(() => {});}
-        })
-        
-    }while(check === false)
-    }
+        }else{
+            
+        do{
+            const file = new MessageAttachment((path + nomeDaImagem)); 
+            let msg = new MessageEmbed()
+                .setTitle(nomeDoLugar)
+                .setColor(cor)
+                .setImage('attachment://' + nomeDaImagem);
+            await interaction.channel.send({ embeds: [msg] , files: [file], fetchReply: true}).then((msg) => {
+                if (msg.embeds[0].image){ check = true;}
+                else {msg.delete().catch(() => {});}
+            })
+            
+        }while(check === false)
+        }
+    })
 }
 
 async function coletarRespostas(collector, enviada, ficha, interaction, Database){
