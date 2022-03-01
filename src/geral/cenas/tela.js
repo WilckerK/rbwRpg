@@ -58,7 +58,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
                 else {msg.delete().catch(() => {});}
             })
         }while(check === false)
-        
+
         }else{
         do{
             const file = new MessageAttachment((path + nomeDaImagem)); 
@@ -75,7 +75,7 @@ async function imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, f
     }
 
     const path = 'src/telas/';
-    img.write(path + nomeDaImagem, enviar());
+    img.write(path + nomeDaImagem, enviar);
 }
 
 async function coletarRespostas(collector, enviada, ficha, interaction, Database){
@@ -713,12 +713,12 @@ const tela = async(interaction, Database) => {
         salvar(interaction, ficha, 7)
         
         await jimp.read(inimigosX[(inimigo.id - 101)].sprite).then(async img  => {
-            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
+            await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database).then(async() =>{
+                setTimeout(() => batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database), 250);
+                return;
+            });
         })
 
-        
-        await batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
-        return;
     }
     npc = (typeof npc === 'string' || npc instanceof String)?(Math.ceil(Math.random() * 100) <= backgroundX[indexDoFundo].chance)?backgroundX[indexDoFundo].npc[Math.floor(Math.random() * 20)] : 0 : npc;
     if(derrotaU === true ){
@@ -757,10 +757,10 @@ const tela = async(interaction, Database) => {
             let inimigo = inimigosX[(npc - 101)];
             ficha[11].reset = true; salvar(interaction, ficha, 11);
             await jimp.read(inimigo.sprite).then(async img  => {
-                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database);
+                await imprimir(img, nomeDaImagem, interaction, nomeDoLugar, cor, row, ficha, Database).then(async() => {
+                    setTimeout(() => batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database), 250);
+                });
             })
-
-            await batalha(ficha, inimigo, interaction, backgroundX[indexDoFundo].derrota, Database);
         }
 
     } else {// se não tiver rolado encontro

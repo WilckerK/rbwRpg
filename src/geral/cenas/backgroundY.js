@@ -455,7 +455,7 @@ ${it4.nome} por ${itv4}.`
                         {label: 'Aguardar.', value: '1101'},
                         {label: 'Sair do bar.', value: '0002'}
                     );
-                    Str1 = `if(Math.ceil(Math.random() * 4) === 4){npc = 4;zerarEtapa = true;}
+                    Str1 = `if(Math.ceil(Math.random() * 4) === 4){zerarEtapa = true;}
                     else{calcularEtapa(); texto = 'Ele ainda não saiu...';}`;
                     Str2 = `ficha[7].bg = "C2";zerarEtapa = true; salvar(interaction, ficha, 7);`;
                 break;
@@ -552,7 +552,7 @@ ${it4.nome} por ${itv4}.`
                     }
                     salvar(interaction, ficha, 7);npc = '';`;
                     Str3 = `if(Math.ceil(Math.random() * 100) > 25){
-                        npc = 3;
+                        etapa = 0;
                     }else{texto = 'Ninguém apareceu.';}`;
                 break;
                 default:
@@ -855,7 +855,7 @@ ${it4.nome} por ${itv4}.`
                         )
 
                         Str1 = `if(Math.ceil(Math.random() * 100) <= 15){
-                            npc = 2; etapa = 1000;
+                            etapa = 1000;
                         }else{
                             texto = 'Voce bate no portão, mas ninguém aparece';
                         }`;
