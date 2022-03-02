@@ -586,6 +586,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
 
         actU = '';
         actI = '';
+        danoExtraDoInimigo = 0;
 
         switch(i.customId){
 
