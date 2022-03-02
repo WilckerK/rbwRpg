@@ -567,7 +567,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             salvar(interaction, ficha, 7);
             tela(interaction, Database);
         }else{
-            ficha[10].rewbs += (ficha[5].LVL * 2 + (Math.floor((ficha[5].LVL * 2) * ((Math.random() * 50)/ 100)) + ((((inimigo.reg - 100) - ((inimigo.reg - 100) % 3 )) * 5) )));
+            ficha[10].rewbs += Math.floor(ficha[5].LVL * 2 + (Math.floor((ficha[5].LVL * 2) * ((Math.random() * 50)/ 100)) + ((((inimigo.reg - 100) - ((inimigo.reg - 100) % 3 )) * 5) )) / 3);
             salvar(interaction, ficha, 10);
             await upar()
         }
