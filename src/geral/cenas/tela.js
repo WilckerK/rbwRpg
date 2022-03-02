@@ -408,7 +408,7 @@ ${actI}`);
         if( Math.floor(Math.random() * 100) <= ACCU){
             const d20U = Math.ceil(Math.random() * 20);
             const calcU = Math.ceil(((ATKU / (ATKI / 2)) * 2) - Math.ceil(HPI / 50))
-            let danoU = ((calcU > 0)?calcU:0)+ Math.ceil(d20U /2) + danoExtraDoUser;
+            let danoU = ((calcU > 0)?calcU:0)+ Math.ceil(d20U /2) + danoExtraDoUser + ((inimigo.reg - 101) - ((inimigo.reg - 101) % 3));
             danoU = (danoU >= 0)? danoU : 0;
             if(d20U === 20){
                 danoU += Math.floor(danoU/3);
