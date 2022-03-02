@@ -226,7 +226,8 @@ Deseja trocar algum deles pelo item encontrado?`
                     .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
                     .setDescription(`**Feito!!!**
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-Seus itens foram atualizados.`);
+Seus itens foram atualizados.
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=`);
                 break;
             case 'TI2':
                 ficha[6].i2 = itemGanho.nome; ficha[6].v2 = itemGanho.reg;
@@ -237,7 +238,8 @@ Seus itens foram atualizados.`);
                     .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
                     .setDescription(`**Feito!!! **
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-Seus itens foram atualizados.`);
+Seus itens foram atualizados.
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=`);
                 break;
             case 'MIA':
                 msg = new MessageEmbed()
@@ -245,7 +247,8 @@ Seus itens foram atualizados.`);
                     .setFooter(`Item 1: ${ficha[6].i1} | Item 2: ${ficha[6].i2}`)
                     .setDescription(`**Feito!!!**
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
-Seus itens permaneceram, mas você pode encontrar esse item novamente.`);
+Seus itens permaneceram, mas você pode encontrar esse item novamente.
+=~=~=~=~=~=~=~=~=~=~=~=~=~=~=`);
                 break;
             default:
                 break;
@@ -553,9 +556,9 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
             
     }
 
-    async function finalizarBatalha(i){
-        npc = 0
-        setTimeout(() => i.delete().catch(() => {}), 45000 );
+    async function finalizarBatalha(){
+        npc = 0;
+        setTimeout(() => enviada.delete().catch(() => {}), 45000 );
         if(derrotaU){
             texto = 'Você misteriosamente acorda na estrada após ficar um tempo desacordado. O inimigo não te matou, mas te nocauteou.';
             etapa = 0;
@@ -584,19 +587,19 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
         switch(i.customId){
 
             case 'Ataque':
-            let skillRand = Math.ceil(Math.random() * 3)
-            if(skillRand === 3 && skillUsada === false){
-                eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
-                txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+                let skillRand = Math.ceil(Math.random() * 3)
+                if(skillRand === 3 && skillUsada === false){
+                    eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
+                    txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 **SKILL**
 ${actI}                       
 =~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${ficha[0].value}**: | HP: ${(KuburaEffect === false)?HPU:'???'}
 ${actU}`
-                
-                break;
-            }
+                    
+                    break;
+                }
 
                 let primeiroAIr = (SPEU != SPEI)?(SPEU > SPEI)?'U':'I':(Math.ceil(Math.random() * 2) == 0)?'U':'I';
 
@@ -684,9 +687,9 @@ Caso queira continua-la inicie a seção novamente.`);
             ficha[7].battle = true;
             ficha[8] = {reg: "Inimigo", id: inimigo.reg, HPI: HPI, ATKI: ATKI, SPEI: SPEI, ACCI: ACCI, actI: actI, actU: actU};
             ficha[5].HP = HPU; ficha[5].ATK = ATKU; ficha[5].SPE = SPEU; ficha[5].AC = ACCU;
-            salvar(interaction, ficha, 8);
-            salvar(interaction, ficha, 5);
-            salvar(interaction, ficha, 7);
+            await salvar(interaction, ficha, 8);
+            await salvar(interaction, ficha, 5);
+            await salvar(interaction, ficha, 7);
         }
     })
     
