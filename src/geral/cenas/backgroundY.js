@@ -140,7 +140,7 @@ const objeto = (local, etapa, ficha) =>{
                     else{calcularEtapa();}`;
                 break;
                 case 1000:
-                    obj.textoPadrao ='Você nota um caminho estreito indo em direção a algum lugar, gostaria de segui-lo?.';
+                    obj.textoPadrao ='Você nota um caminho estreito indo em direção a algum lugar, gostaria de segui-lo?';
                     montagem.push(
                         {label: 'Entrar na cidade.', value: '0001'},
                         {label: 'Voltar para a estrada.', value: '0002'},

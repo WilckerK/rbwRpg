@@ -79,12 +79,13 @@ module.exports = [
         AC: 85,
         emblemas: ['Musica', 'Espada'],
         repetitivo: true,
-        SKILL: `let d20U = Math.ceil(Math.random() * 20);
-        let danoU = Math.ceil((((ATKU / ATKI) * 10) - (HPI / 10)) + (d20U - 5) + danoExtraDoUser);
+        SKILL: `const d20U = Math.ceil(Math.random() * 20);
+        const calcU = Math.ceil(((ATKU / (ATKI / 2)) * 2) - Math.ceil(HPI / 50))
+        let danoU = ((calcU > 0)?calcU:0)+ Math.ceil(d20U /2) + danoExtraDoUser;
         danoU = (danoU >= 0)? danoU : 0;
         if(d20U === 20){
-            danoU += danoU/2
-            actI = actI + \'**DANO CRÍTICO** \' + \'\\n\';} 
+            danoU += Math.ceil(danoU/3);
+            actI = actI ;+ \'**DANO CRÍTICO** \' + \'\\n\';} 
         HPU -= danoU
         actI = actI + \'Seu inimigo devolve o dano que seria direcionado a ele.\' + \'\\n\'
         actU = actU + \`Você tentou tirar \${danoU} de dano, mas ele refletiu seu ataque.\` + \'\\n\'`
