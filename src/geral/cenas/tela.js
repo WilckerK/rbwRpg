@@ -342,7 +342,7 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
             eval(itensX[Item.v1].run); eval(itensX[Item.v2].run);
         }
 
-        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 1.5);
+        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 3);
         //#endregion
         switch(inimigo.emblemas[0]){
             case 'Rei': 
@@ -496,19 +496,19 @@ ${actI}`);
             interaction.user.db.ficha.dados[5].LVL = ficha[5].LVL++;
             ficha[5].EXP = 0;
             switch(ficha[1].value){
-                case 'Rei': ficha[5].HP_S += 10; ficha[5].ATK_S += 10; 
+                case 'Rei': ficha[5].HP_S += 6; ficha[5].ATK_S += 6; 
                         if(ficha[5].LVL % 2 === 0){ficha[5].SPE_S += 4; ficha[5].AC_S += 1;}
                     break;
-                case 'Espada': ficha[5].HP_S += 5; ficha[5].ATK_S += 15; 
+                case 'Espada': ficha[5].HP_S += 5; ficha[5].ATK_S += 7; 
                         if(ficha[5].LVL % 2 === 0){ficha[5].SPE_S += 5; ficha[5].AC_S += 0.5;}
                     break;
-                case 'Musica': ficha[5].HP_S += 15; ficha[5].ATK_S += 5; 
+                case 'Musica': ficha[5].HP_S += 7; ficha[5].ATK_S += 5; 
                         if(ficha[5].LVL % 2 === 0){ficha[5].SPE_S += 3; ficha[5].AC_S += 1.5;}
                     break;
-                case 'Engrenagem': ficha[5].HP_S += 5; ficha[5].ATK_S += 15; 
+                case 'Engrenagem': ficha[5].HP_S += 5; ficha[5].ATK_S += 7; 
                         if(ficha[5].LVL % 2 === 0){ficha[5].SPE_S += 3; ficha[5].AC_S += 1.5;}
                     break;
-                case 'Sorriso': ficha[5].HP_S += 15; ficha[5].ATK_S += 5; 
+                case 'Sorriso': ficha[5].HP_S += 7; ficha[5].ATK_S += 5; 
                         if(ficha[5].LVL % 2 === 0){ficha[5].SPE_S += 5; ficha[5].AC_S += 0.5;}
                     break;
                 default:
@@ -558,7 +558,6 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
 
     async function finalizarBatalha(){
         npc = 0;
-        setTimeout(() => enviada.delete().catch(() => {}), 45000 );
         if(derrotaU){
             texto = 'Você misteriosamente acorda na estrada após ficar um tempo desacordado. O inimigo não te matou, mas te nocauteou.';
             etapa = 0;
