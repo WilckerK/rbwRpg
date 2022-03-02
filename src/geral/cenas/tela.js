@@ -590,6 +590,7 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
                 let skillRand = Math.ceil(Math.random() * 3)
                 if(skillRand === 3 && skillUsada === false){
                     eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
+                    if(HPU >= 0){derrotaU = true;}else if(HPI >= 0){derrotaI = true;}
                     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
 **SKILL**
