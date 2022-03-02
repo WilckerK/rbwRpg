@@ -130,7 +130,7 @@ async function coletarRespostas(collector, enviada, ficha, interaction, Database
 Cada interação tem 7 minutos para terminar.
 Caso queira continua-la inicie a seção novamente.`);
 
-            await enviada.edit({embeds: [timeMsg], components: []});
+            await enviada.edit({embeds: [timeMsg]});
 
             salvar(interaction, ficha, 7);
         }
@@ -254,7 +254,7 @@ Seus itens permaneceram, mas você pode encontrar esse item novamente.
                 break;
         }
 
-        i.update({embeds: [msg], components: []}); 
+        i.update({embeds: [msg]}); 
         collector.stop();
         tela(interaction, Database);
         
@@ -271,7 +271,7 @@ Você tem 5 minutos para decidir se iria ficar com o item ou não.
 O item foi perdido, mas pode ser que você encontre ele novamente.
 Caso queira continuar inicie a seção novamente.`);
 
-            await enviada.edit({embeds: [timeMsg], components: []});
+            await enviada.edit({embeds: [timeMsg]});
         }
     })
 }
@@ -337,12 +337,13 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
         let corrida = 0;
         let curaExtra = 0;
         let txt = '';
+        let skillRand = 0;
         
         if (Item.v1 <= 20){
             eval(itensX[Item.v1].run); eval(itensX[Item.v2].run);
         }
 
-        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 3);
+        EXPGanho += Math.floor(((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 4);
         //#endregion
         switch(inimigo.emblemas[0]){
             case 'Rei': 
@@ -460,12 +461,13 @@ ${actI}`);
             let cura = Math.floor(ficha[5].HP_S * (Math.ceil(Math.random() * 12 + curaExtra)/50));
             cura = (HPU + cura > ficha[5].HP_S)?Math.floor(ficha[5].HP_S - HPU) : cura;
             cura = (cura >= 0)?cura:0;
-            HPU += cura; desvLimit++;
+            HPU += cura; desvLimit++; skillRand++;
             actU = actU + ` Você conseguiu desviar do ataque e recuperou ${cura} de HP. 
 `;
             actI = actI + `Seu inimigo errou o ataque.
 `;
-        }else{
+        }else{ 
+            danoExtraDoInimigo += 5;
             actU = actU + `Você não conseguiu desviar do inimigo.
 `;
             inimigoAtacar();
@@ -588,9 +590,10 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
         switch(i.customId){
 
             case 'Ataque':
-                let skillRand = Math.ceil(Math.random() * 3)
-                if(skillRand === 3 && skillUsada === false){
+                skillRand += Math.ceil(Math.random() * 9);
+                if(skillRand >= 7 && skillUsada === false){
                     eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
+                    skillRand = 0;
                     if(HPU <= 0){derrotaU = true;}else if(HPI <= 0){derrotaI = true;}
                     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
 **${inimigo.nome}**: | HP: ${(KuburaEffect === false)?HPI:'???'}
@@ -668,7 +671,7 @@ ${actI}`
 
         if(!derrotaU && !derrotaI){i.update({embeds: [msg]})}
         else{
-            i.update({embeds: [msg], components: []}); 
+            i.update({embeds: [msg]}); 
             collector.stop();
             finalizarBatalha(i);
         }
@@ -684,7 +687,7 @@ ${actI}`
 Cada ação de batalha tem 10 minutos para terminar.
 Caso queira continua-la inicie a seção novamente.`);
 
-            await enviada.edit({embeds: [timeMsg], components: []});
+            await enviada.edit({embeds: [timeMsg]});
 
             ficha[7].battle = true;
             ficha[8] = {reg: "Inimigo", id: inimigo.reg, HPI: HPI, ATKI: ATKI, SPEI: SPEI, ACCI: ACCI, actI: actI, actU: actU};

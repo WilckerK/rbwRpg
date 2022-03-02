@@ -53,7 +53,7 @@ module.exports = [
     run: "corrida += 1000; ACCU += 5; HPU += 30"},
     {reg: 16, nome: 'Colar', 
     emblema: 'Rei',
-    run: "EXPGanho += (Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 6)"},
+    run: "EXPGanho += (Math.floor((ATKI + HPI + SPEI + (ficha[5].LVL * 4)) * ACCI/100) / 8)"},
     {reg: 17, nome: 'Machado', 
     emblema: 'Espada',
     run: "danoExtraDoUser += 30; ACCU -= Math.ceil(ACCU/10); SPEU -= 10;"},
