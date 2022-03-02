@@ -181,7 +181,8 @@ async function encontrarItem(PrimeiroEmblema, SegundoEmblema, interaction, ficha
         }
     }
     }else{ idDoItemGanho = PrimeiroEmblema;}
-    let itemGanho  = itensX[idDoItemGanho];
+    idDoItemGanho = (idDoItemGanho !== 0)?idDoItemGanho:11;
+    const itemGanho  = itensX[idDoItemGanho];
     let txt = '';
     if(ficha[6].v1 > 20){
     txt = `=~=~=~=~=~=~=~=~=~=~=~=~=~=~=
@@ -453,7 +454,8 @@ ${actI}`);
         if((turno - SPEU > SPEU)){ actI = actI + `Seu oponente e tão mais rápido que você, que ataca novamente.
 `}
         turno -= SPEU;  
-        }while(turno > SPEU)
+        }while(turno > SPEU);
+        danoExtraDoInimigo = 0;
     }
 
     function desviar(){
@@ -461,7 +463,7 @@ ${actI}`);
             let cura = Math.floor(ficha[5].HP_S * (Math.ceil(Math.random() * 12 + curaExtra)/50));
             cura = (HPU + cura > ficha[5].HP_S)?Math.floor(ficha[5].HP_S - HPU) : cura;
             cura = (cura >= 0)?cura:0;
-            HPU += cura; desvLimit++; skillRand++;
+            HPU += cura; desvLimit++; skillRand++; ACCI++; ATKI++;
             actU = actU + ` Você conseguiu desviar do ataque e recuperou ${cura} de HP. 
 `;
             actI = actI + `Seu inimigo errou o ataque.
@@ -586,13 +588,12 @@ Falta apenas **${((ficha[5].LVL - 1) * 100 ) + (50 * (0 **(ficha[5].LVL - 1))) -
 
         actU = '';
         actI = '';
-        danoExtraDoInimigo = 0;
 
         switch(i.customId){
 
             case 'Ataque':
                 skillRand += Math.ceil(Math.random() * 9);
-                if(skillRand >= 7 && skillUsada === false){
+                if(skillRand >= 8 && skillUsada === false){
                     eval(inimigo.SKILL); skillUsada = (inimigo.repetitivo === true)?false:true;
                     skillRand = 0;
                     if(HPU <= 0){derrotaU = true;}else if(HPI <= 0){derrotaI = true;}
