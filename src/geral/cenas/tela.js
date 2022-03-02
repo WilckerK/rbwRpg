@@ -404,7 +404,7 @@ ${actI}`);
 
         if( Math.floor(Math.random() * 100) <= ACCU){
             const d20U = Math.ceil(Math.random() * 20);
-            let calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
+            const calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
             let danoU = ((calcU > 0)?calcU:-5)+ d20U + danoExtraDoUser;
             danoU = (danoU >= 0)? danoU : 0;
             if(d20U === 20){
@@ -434,7 +434,7 @@ ${actI}`);
         do{
         if(Math.ceil(Math.random() * 100) <= ACCI){
             const d20I = Math.ceil(Math.random() * 20);
-            let calcI = Math.ceil(((ATKI / ATKU) * 8) - Math.floor(HPU / 50))
+            const calcI = Math.ceil(((ATKI / (ATKU / 2)) * 8) - Math.floor(HPU / 50))
             let danoI = ((calcI > 0)?calcI:-5) + d20I + danoExtraDoInimigo;
             danoI = (danoI >= 0)? danoI : 0;
             if(d20I === 20){

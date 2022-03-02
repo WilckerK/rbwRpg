@@ -17,7 +17,7 @@ module.exports = [
      npc: [ 00, 00, 00, 00, 00, 00, 00, 00, 00, 00, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108 ],
      derrota: 'E1' },
 
-    {reg: 'C2', nome: 'Praça Geral', img: './src/imagens/background/dentroCidade.jpg', chance: 90, 
+    {reg: 'C2', nome: 'Praça Geral', img: './src/imagens/background/dentroCidade.jpg', chance: 40, 
      npc: [ 101, 102, 103, 101, 102, 103, 101, 102, 103, 101, 102, 103, 101, 102, 103, 101, 102, 103, 104, 105 ],
      derrota: 'E1' },
 
