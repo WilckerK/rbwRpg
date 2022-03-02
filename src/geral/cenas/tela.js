@@ -404,8 +404,8 @@ ${actI}`);
 
         if( Math.floor(Math.random() * 100) <= ACCU){
             const d20U = Math.ceil(Math.random() * 20);
-            const calcU = Math.ceil(((ATKU / (ATKI / 2)) * 8) - Math.ceil(HPI / 50))
-            let danoU = ((calcU > 0)?calcU:-5)+ Math.ceil(d20U /2) + danoExtraDoUser;
+            const calcU = Math.ceil(((ATKU / (ATKI / 2)) * 3) - Math.ceil(HPI / 50))
+            let danoU = ((calcU > 0)?calcU:0)+ Math.ceil(d20U /2) + danoExtraDoUser;
             danoU = (danoU >= 0)? danoU : 0;
             if(d20U === 20){
                 danoU += Math.floor(danoU/3);
@@ -434,8 +434,8 @@ ${actI}`);
         do{
         if(Math.ceil(Math.random() * 100) <= ACCI){
             const d20I = Math.ceil(Math.random() * 20);
-            const calcI = Math.ceil(((ATKI / (ATKU / 2)) * 8) - Math.floor(HPU / 50))
-            let danoI = ((calcI > 0)?calcI:-5) + Math.ceil(d20I/2) + danoExtraDoInimigo;
+            const calcI = Math.ceil(((ATKI / (ATKU / 2)) * 3) - Math.floor(HPU / 50))
+            let danoI = ((calcI > 0)?calcI:0) + Math.ceil(d20I/2) + danoExtraDoInimigo;
             danoI = (danoI >= 0)? danoI : 0;
             if(d20I === 20){
                 danoI += Math.ceil(danoI/3);
@@ -456,7 +456,7 @@ ${actI}`);
 
     function desviar(){
         if((Math.ceil(Math.random() * 100) + (SPEU / 4)) + desv >= (60 + (ACCI - 80))){
-            let cura = Math.floor(ficha[5].HP_S * (Math.floor(Math.random() * 12 + curaExtra) / 20)/100);
+            let cura = Math.floor(ficha[5].HP_S * (Math.ceil(Math.random() * 12 + curaExtra)/100));
             cura = (HPU + cura > ficha[5].HP_S)?Math.floor(ficha[5].HP_S - HPU) : cura;
             cura = (cura >= 0)?cura:0;
             HPU += cura;
