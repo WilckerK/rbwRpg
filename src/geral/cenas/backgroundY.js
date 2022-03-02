@@ -481,7 +481,7 @@ ${it4.nome} por ${itv4}.`
         case'C8':
             switch(etapa){
                 case 0:
-                    obj.textoPadrao ='A prisão da cidade, os muros estão com cartazes espalhados com um rosto de palhaço. O porteiro fica atrás de um vidro a prova de balas. O vidro e preto e você não consegue ver nada além dele.';
+                    obj.textoPadrao ='A prisão da cidade, os muros estão com cartazes espalhados com um rosto de palhaço. O porteiro fica atrás de um vidro a prova de balas. O vidro e preto é você não consegue ver nada além dele.';
                     montagem.push(
                         {label: 'Tentar entrar.', value: '0001'},
                         {label: 'Conversar com o guarda.', value: '1002'},
