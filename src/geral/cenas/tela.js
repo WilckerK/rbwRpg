@@ -1,7 +1,7 @@
 const jimp = require('jimp');
 const { MessageEmbed, MessageAttachment, MessageActionRow , MessageButton, MessageSelectMenu} = require('discord.js');
 const backgroundX = require('./backgroundX');const backgroundY = require('./backgroundY'); 
-const personagensX = require('./personagensX'); let menu = true;
+let personagensX = require('./personagensX'); let menu = true;
 const itensX = require('../itensX');const inimigosX = require('./inimigosX'); 
 let obj = null; let texto = null; let npc = ''; let derrotaU = false; let etapa = 00;
 
