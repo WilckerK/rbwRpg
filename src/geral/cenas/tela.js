@@ -408,7 +408,7 @@ ${actI}`);
             let danoU = ((calcU > 0)?calcU:-5)+ d20U + danoExtraDoUser;
             danoU = (danoU >= 0)? danoU : 0;
             if(d20U === 20){
-                danoU += Math.floor(danoU/2);
+                danoU += Math.floor(danoU/3);
                 actU = actU + `**DANO CRÍTICO**
 `;}
             HPI -= danoU;
@@ -438,7 +438,7 @@ ${actI}`);
             let danoI = ((calcI > 0)?calcI:-5) + d20I + danoExtraDoInimigo;
             danoI = (danoI >= 0)? danoI : 0;
             if(d20I === 20){
-                danoI += Math.ceil(danoI/2);
+                danoI += Math.ceil(danoI/3);
                 actI = actI + `**DANO CRÍTICO**
 `;}
             HPU -= danoI;
