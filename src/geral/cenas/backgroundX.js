@@ -71,11 +71,11 @@ module.exports = [
     // Caverna
     {reg: 'CV1', nome: 'Entrada da Caverna', img: './src/imagens/background/entradaCaverna.jpg', chance: 75, 
      npc: [ 103, 107, 107, 107, 105, 105, 105, 105, 105, 105, 105, 105, 105, 105, 105, 00, 00, 00, 00, 00 ],
-     derrota: 'E2' },
+     derrota: 'E1' },
 
     {reg: 'CV2', nome: 'Caverna', img: './src/imagens/background/dentroCaverna.jpg', chance: 85, 
      npc: [ 105, 105, 106, 106, 106, 106, 106, 105, 105, 107, 107, 107, 105, 105, 105, 106, 107, 107, 109, 109 ],
-     derrota: 'E2' },
+     derrota: 'E1' },
 
 
     // Montanha
