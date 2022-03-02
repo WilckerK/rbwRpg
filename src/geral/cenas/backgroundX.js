@@ -4,7 +4,7 @@ module.exports = [
      npc: [ 103, 102, 103, 102, 103, 102, 103, 101, 101, 101, 101, 101, 101, 101, 101, 101, 101, 104, 101, 101, ],
      derrota: 'E2' },
     {reg: 'E2', nome: 'Meio da Estrada', img: './src/imagens/background/meioEstrada.jpg', chance: 45, 
-     npc: [ 101, 101, 102, 102, 102, 103, 103, 103, 103, 103, 103, 103, 102, 103, 104, 105, 106, 106, 105, 104 ],
+     npc: [ 101, 101, 102, 102, 102, 103, 103, 103, 103, 103, 103, 103, 102, 103, 104, 108, 106, 106, 108, 104 ],
      derrota: 'E3' },
 
     {reg: 'E3', nome: 'Final da Estrada', img: './src/imagens/background/finalEstrada.jpg' , chance: 45, 
@@ -70,7 +70,7 @@ module.exports = [
 
     // Caverna
     {reg: 'CV1', nome: 'Entrada da Caverna', img: './src/imagens/background/entradaCaverna.jpg', chance: 75, 
-     npc: [ 103, 107, 107, 107, 105, 105, 105, 105, 105, 105, 105, 105, 105, 105, 105, 00, 00, 00, 00, 00 ],
+     npc: [ 103, 107, 107, 107, 107, 103, 101, 102, 106, 105, 105, 105, 105, 105, 105, 00, 00, 00, 00, 00 ],
      derrota: 'E1' },
 
     {reg: 'CV2', nome: 'Caverna', img: './src/imagens/background/dentroCaverna.jpg', chance: 85, 

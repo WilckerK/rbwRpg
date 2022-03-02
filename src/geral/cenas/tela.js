@@ -466,7 +466,6 @@ ${actI}`);
             actI = actI + `Seu inimigo errou o ataque.
 `;
         }else{
-            desvLimit--;
             actU = actU + `Você não conseguiu desviar do inimigo.
 `;
             inimigoAtacar();
