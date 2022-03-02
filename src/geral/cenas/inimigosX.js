@@ -64,7 +64,7 @@ module.exports = [
         sprite: 'src/imagens/cubicos/Kubura.jpg',
         HP: 70,
         ATK: 100,
-        SPE: 30,
+        SPE: 50,
         AC: 70,
         emblemas: ['Espada', 'Rei'],
         repetitivo: false,
@@ -140,7 +140,7 @@ module.exports = [
         AC: 100,
         emblemas: ['Espada', 'Sorriso'],
         repetitivo: true,
-        SKILL: `SPEU -= 10; 
+        SKILL: `SPEU -= 10; desv -= 10;
         actI = actI + \'Seu oponente te congela e ataca.\' + \'\\n\'
         actU = actU + \'Você consegue sair do gelo, mas se sente mais lento.\' + \'\\n\'
         inimigoAtacar();`

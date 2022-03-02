@@ -294,7 +294,6 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
             new MessageButton().setStyle('SECONDARY').setLabel('Correr').setCustomId('Correr')
         ]);
     }
-
         let actU = 'Escoha a sua ação...';
         let actI = 'Avança em sua direção prestes a te atacar.';
         let EXPGanho = 0
@@ -332,6 +331,7 @@ async function batalha(ficha, inimigo, interaction, derrota, Database){
         
         //#region dados gerais
         let desv = 0;
+        let desvLimit = 0;
         let danoExtraDoUser = 0;
         let danoExtraDoInimigo = 0;
         let corrida = 0;
@@ -399,6 +399,7 @@ ${actI}`);
     //#region Funções de batalha
 
     function userAtacar(){
+        desvLimit = 0;
         let turno = SPEU;
         do{
 
@@ -455,16 +456,17 @@ ${actI}`);
     }
 
     function desviar(){
-        if((Math.ceil(Math.random() * 100) + (SPEU / 4)) + desv >= (60 + (ACCI - 80))){
+        if(((Math.ceil(Math.random() * 100) + (SPEU / 4)) + desv >= (60 + (ACCI - 80))) && (desvLimit < 3)){
             let cura = Math.floor(ficha[5].HP_S * (Math.ceil(Math.random() * 12 + curaExtra)/50));
             cura = (HPU + cura > ficha[5].HP_S)?Math.floor(ficha[5].HP_S - HPU) : cura;
             cura = (cura >= 0)?cura:0;
-            HPU += cura;
+            HPU += cura; desvLimit++;
             actU = actU + ` Você conseguiu desviar do ataque e recuperou ${cura} de HP. 
 `;
             actI = actI + `Seu inimigo errou o ataque.
 `;
         }else{
+            desvLimit--;
             actU = actU + `Você não conseguiu desviar do inimigo.
 `;
             inimigoAtacar();
