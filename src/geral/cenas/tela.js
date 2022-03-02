@@ -456,7 +456,7 @@ ${actI}`);
 
     function desviar(){
         if((Math.ceil(Math.random() * 100) + (SPEU / 4)) + desv >= (60 + (ACCI - 80))){
-            let cura = Math.floor(ficha[5].HP_S * (Math.floor(Math.random() * 12 + curaExtra) / 50));
+            let cura = Math.floor(ficha[5].HP_S * (Math.floor(Math.random() * 12 + curaExtra) / 20)/100);
             cura = (HPU + cura > ficha[5].HP_S)?Math.floor(ficha[5].HP_S - HPU) : cura;
             cura = (cura >= 0)?cura:0;
             HPU += cura;
