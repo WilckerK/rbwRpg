@@ -586,9 +586,7 @@ ${it4.nome} por ${itv4}.`
                         ficha[7].bg = "F4";
                     }
                     salvar(interaction, ficha, 7);npc = '';`;
-                    Str3 = `if(Math.ceil(Math.random() * 100) > 25){
-                        npc = 3;
-                    }else{texto = 'Ninguém apareceu.';}`;
+                    Str3 = `texto = 'Ninguém apareceu.';`;
                 break;
                 default:
                 break;
